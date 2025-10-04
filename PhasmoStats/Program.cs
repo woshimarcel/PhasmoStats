@@ -60,6 +60,8 @@ public class Program
 		File.WriteAllText(OUTPUT_FILENAME_RAW, rawData, Encoding.UTF8);
 		string cleanedData = CleanData(rawData);
 
+		WriteMostCommonGhosts(cleanedData);
+
 		JsonSerializerOptions options = new()
 		{
 			PropertyNameCaseInsensitive = true
@@ -74,13 +76,36 @@ public class Program
 		return data;
 	}
 
-	static string LoadFileData()
+	private static void WriteMostCommonGhosts(string cleanedData)
+	{
+		var data = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(cleanedData, new JsonSerializerOptions
+		{
+			PropertyNameCaseInsensitive = true
+		});
+
+		var commonGhosts = data["mostCommonGhosts"];
+		string text = commonGhosts.ToString();
+		const string VALUE = "\"value\" : ";
+		int index = text.IndexOf(VALUE);
+		text = text[(index + VALUE.Length)..];
+
+		var dict = text.Split([','], StringSplitOptions.RemoveEmptyEntries)
+	       .Select(part => part.Split(':'))
+	       .ToDictionary(split => split[0].Replace("\"", "").Replace("{", ""), split => split[1].Replace("}", ""));
+
+		foreach (var kv in dict)
+		{
+			Console.WriteLine($"  {kv.Key,-16} sightings: {kv.Value}");
+		}
+	}
+
+	private static string LoadFileData()
 	{
 		byte[] data = File.ReadAllBytes(_saveFilePath);
 		return DecryptFileData(data);
 	}
 
-	static string DecryptFileData(byte[] data)
+	private static string DecryptFileData(byte[] data)
 	{
 		byte[] key = Encoding.ASCII.GetBytes("t36gref9u84y7f43g");
 		byte[] salt = data.Take(16).ToArray(); // AES block size = 16
