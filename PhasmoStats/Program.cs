@@ -1,33 +1,28 @@
 ﻿namespace PhasmoStats;
 
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.Text.RegularExpressions;
 
 public class Program
 {
-	private readonly static string _saveFilePath = Path.Combine(
-	    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-	    @"..\LocalLow\Kinetic Games\Phasmophobia\SaveFile.txt");
-	private const string OUTPUT_FILENAME_RAW = "raw.json";
-	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
-
 	private static void Main(string[] args)
 	{
-		if (!File.Exists(_saveFilePath))
+		Dictionary<string, object> data;
+
+		try
 		{
-			PrintDivider();
-			Console.WriteLine("File not found. Path:");
-			Console.WriteLine(_saveFilePath);
+			data = FileDeserializer.LoadAndDecryptFile();
+		}
+		catch (FileNotFoundException ex)
+		{
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine("Could not find save file. Please make sure the following file exists:");
+			Console.WriteLine(ex.FileName);
 			return;
 		}
-
-		var data = LoadAndDecryptFile();
 
 		PrintDivider();
 		PrintGhosts(data);
@@ -54,111 +49,11 @@ public class Program
 		Console.WriteLine();
 	}
 
-	private static Dictionary<string, object> LoadAndDecryptFile()
-	{
-		string rawData = LoadFileData();
-		File.WriteAllText(OUTPUT_FILENAME_RAW, rawData, Encoding.UTF8);
-		string cleanedData = CleanData(rawData);
-
-		WriteMostCommonGhosts(cleanedData);
-
-		JsonSerializerOptions options = new()
-		{
-			PropertyNameCaseInsensitive = true
-		};
-
-		Dictionary<string, object>? data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, options);
-		data = CleanJsonData(data);
-
-		string content = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-		File.WriteAllText(OUTPUT_FILENAME_CLEANED, content, Encoding.UTF8);
-
-		return data;
-	}
-
-	private static void WriteMostCommonGhosts(string cleanedData)
-	{
-		var data = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(cleanedData, new JsonSerializerOptions
-		{
-			PropertyNameCaseInsensitive = true
-		});
-
-		var commonGhosts = data["mostCommonGhosts"];
-		string text = commonGhosts.ToString();
-		const string VALUE = "\"value\" : ";
-		int index = text.IndexOf(VALUE);
-		text = text[(index + VALUE.Length)..];
-
-		var dict = text.Split([','], StringSplitOptions.RemoveEmptyEntries)
-	       .Select(part => part.Split(':'))
-	       .ToDictionary(split => split[0].Replace("\"", "").Replace("{", ""), split => split[1].Replace("}", ""));
-
-		foreach (var kv in dict)
-		{
-			Console.WriteLine($"  {kv.Key,-16} sightings: {kv.Value}");
-		}
-	}
-
-	private static string LoadFileData()
-	{
-		byte[] data = File.ReadAllBytes(_saveFilePath);
-		return DecryptFileData(data);
-	}
-
-	private static string DecryptFileData(byte[] data)
-	{
-		byte[] key = Encoding.ASCII.GetBytes("t36gref9u84y7f43g");
-		byte[] salt = data.Take(16).ToArray(); // AES block size = 16
-		byte[] encrypted = data.Skip(16).ToArray();
-
-		using Rfc2898DeriveBytes derive = new(key, salt, iterations: 100, HashAlgorithmName.SHA1);
-		byte[] aesKey = derive.GetBytes(16);
-
-		using Aes aes = Aes.Create();
-		aes.Mode = CipherMode.CBC;
-		aes.Padding = PaddingMode.PKCS7;
-		aes.Key = aesKey;
-		aes.IV = salt;
-
-		using ICryptoTransform decryptor = aes.CreateDecryptor();
-		byte[] plain = decryptor.TransformFinalBlock(encrypted, 0, encrypted.Length);
-
-		return Encoding.UTF8.GetString(plain);
-	}
-
-	private static string CleanData(string data)
-	{
-		return Regex.Replace(data, @"(\d+)(\:\d+)(?!.*"")", "\"$1\"$2");
-	}
-
-	private static Dictionary<string, object> CleanJsonData(Dictionary<string, object> data)
-	{
-		Dictionary<string, object> cleaned = new();
-		foreach (var kv in data)
-		{
-			if (kv.Value is JsonElement element)
-			{
-				bool isJsonObject = element.ValueKind == JsonValueKind.Object;
-				bool gotProperty = element.TryGetProperty("value", out JsonElement val);
-
-				if (isJsonObject && gotProperty)
-					cleaned[kv.Key] = val;
-				else
-					cleaned[kv.Key] = kv.Value;
-			}
-			else
-			{
-				cleaned[kv.Key] = kv.Value;
-			}
-		}
-		return cleaned;
-	}
-
 	private static void PrintGhosts(Dictionary<string, object> data)
 	{
-		string[] ghostTypes = GetGhostTypes();
-		Dictionary<string, int> ghostsSeen = GetData(data, "mostCommonGhosts");
-		Dictionary<string, int> ghostDeaths = GetData(data, "ghostKills");
+		string[] ghostTypes = Dictionaries.GetGhostTypes();
+		Dictionary<string, int> ghostsSeen = DataGetter.GetData(data, SaveKeys.MOST_COMMON_GHOSTS);
+		Dictionary<string, int> ghostDeaths = DataGetter.GetData(data, SaveKeys.GHOST_KILLS);
 
 		int totalSeen = ghostsSeen.Values.Sum();
 		int totalDeaths = ghostDeaths.Values.Sum();
@@ -183,8 +78,8 @@ public class Program
 
 	private static void PrintMaps(Dictionary<string, object> data)
 	{
-		Dictionary<string, string> mapNames = GetMapNames();
-		Dictionary<string, int> maps = GetData(data, "playedMaps");
+		Dictionary<string, string> mapNames = Dictionaries.GetMapNames();
+		Dictionary<string, int> maps = DataGetter.GetData(data, SaveKeys.PLAYED_MAPS);
 		int total = maps.Values.Sum();
 
 		Console.WriteLine("Maps played:\n");
@@ -198,11 +93,11 @@ public class Program
 
 	private static void PrintCursed(Dictionary<string, object> data)
 	{
-		Dictionary<string, string> cursedNames = GetCursedObjectNames();
+		Dictionary<string, string> cursedNames = Dictionaries.GetCursedObjectNames();
 		Dictionary<string, int> cursed = new();
 
 		foreach (var kv in cursedNames)
-			cursed[kv.Value] = GetInt(data, kv.Key);
+			cursed[kv.Value] = DataGetter.GetInt(data, kv.Key);
 
 		int total = cursed.Values.Sum();
 
@@ -210,17 +105,17 @@ public class Program
 		foreach (var kv in cursed.OrderByDescending(c => c.Value).ThenBy(c => c.Key))
 			Console.WriteLine($"  {kv.Key + ":",-23} {kv.Value} ({(double)kv.Value / total:P2})");
 
-		int mapsPlayed = GetData(data, "playedMaps").Values.Sum();
+		int mapsPlayed = DataGetter.GetData(data, "playedMaps").Values.Sum();
 		Console.WriteLine($"  Total: {"",-16} {total} ({(double)total / mapsPlayed:P2} of maps played)");
 	}
 
 	private static void PrintTarots(Dictionary<string, object> data)
 	{
-		Dictionary<string, string> cardNames = GetTarotCardNames();
+		Dictionary<string, string> cardNames = Dictionaries.GetTarotCardNames();
 		Dictionary<string, int> tarots = new();
 
 		foreach (var kv in cardNames)
-			tarots[kv.Value] = GetInt(data, "Tarot" + kv.Key);
+			tarots[kv.Value] = DataGetter.GetInt(data, "Tarot" + kv.Key);
 
 		int total = tarots.Values.Sum();
 
@@ -233,11 +128,11 @@ public class Program
 
 	private static void PrintBones(Dictionary<string, object> data)
 	{
-		Dictionary<string, string> boneNames = GetBoneNames();
+		Dictionary<string, string> boneNames = Dictionaries.GetBoneNames();
 		Dictionary<string, int> bones = new();
 
 		foreach (var kv in boneNames)
-			bones[kv.Value] = GetInt(data, "Bone" + kv.Key);
+			bones[kv.Value] = DataGetter.GetInt(data, "Bone" + kv.Key);
 
 		int total = bones.Values.Sum();
 
@@ -245,135 +140,7 @@ public class Program
 		foreach (var kv in bones.OrderByDescending(b => b.Value))
 			Console.WriteLine($"  {kv.Key + ":",-14} {kv.Value} ({(double)kv.Value / total:P2})");
 
-		int mapsPlayed = GetData(data, "playedMaps").Values.Sum();
+		int mapsPlayed = DataGetter.GetData(data, "playedMaps").Values.Sum();
 		Console.WriteLine($"  Total: {"",-7} {total} bones found ({(double)total / mapsPlayed:P2} of maps played)");
-	}
-
-	private static Dictionary<string, int> GetData(Dictionary<string, object> data, string key)
-	{
-		if (!data.TryGetValue(key, out object? value))
-			return new Dictionary<string, int>();
-
-		Dictionary<string, int> dict = new();
-		if (value is JsonElement el && el.ValueKind == JsonValueKind.Object)
-		{
-			foreach (var prop in el.EnumerateObject())
-				dict[prop.Name] = prop.Value.GetInt32();
-		}
-		return dict;
-	}
-
-	private static int GetInt(Dictionary<string, object> data, string key)
-	{
-		if (!data.TryGetValue(key, out object? value))
-			return 0;
-
-		if (value is JsonElement el && el.ValueKind == JsonValueKind.Number)
-			return el.GetInt32();
-
-		return 0;
-	}
-
-	private static string[] GetGhostTypes()
-	{
-		return
-		[
-			"Banshee",
-			"Demon",
-			"Deogen",
-			"Goryo",
-			"Hantu",
-			"Jinn",
-			"Mare",
-			"Mimic",
-			"Moroi",
-			"Myling",
-			"Obake",
-			"Oni",
-			"Onryo",
-			"Phantom",
-			"Poltergeist",
-			"Raiju",
-			"Revenant",
-			"Shade",
-			"Spirit",
-			"Thaye",
-			"TheTwins",
-			"Wraith",
-			"Yokai",
-			"Yurei",
-		];
-	}
-
-	private static Dictionary<string, string> GetTarotCardNames()
-	{
-		return new Dictionary<string, string>
-		{
-			{ "Tower", "Tower" },
-			{ "Wheel","Wheel of Fortune" },
-			{ "Fool", "Fool" },
-			{ "Devil", "Devil" },
-			{ "Death", "Death" },
-			{ "Hermit", "Hermit" },
-			{ "Sun", "Sun" },
-			{ "Moon", "Moon" },
-			{ "Priestess", "High Priestess" },
-			{ "HangedMan", "Hanged Man" },
-		};
-	}
-
-	private static Dictionary<string, string> GetBoneNames()
-	{
-		return new Dictionary<string, string>
-		{
-			{ "0", "Femur" },
-			{ "1", "Foot" },
-			{ "2", "Fibula" },
-			{ "3", "Hand" },
-			{ "4", "Humerus" },
-			{ "5", "Jaw" },
-			{ "6", "Pelvis" },
-			{ "7", "Radius" },
-			{ "8", "Ribcage" },
-			{ "9", "Scapula" },
-			{ "10", "Skull" },
-			{ "11", "Spine" },
-			{ "12", "Ulna" },
-		};
-	}
-
-	private static Dictionary<string, string> GetCursedObjectNames()
-	{
-		return new Dictionary<string, string>
-		{
-			{ "MirrorsFound", "Mirrors" },
-			{ "MonkeyPawFound", "Monkey Paws" },
-			{ "MusicBoxesFound", "Music Boxes" },
-			{ "OuijasFound", "Ouija Boards" },
-			{ "VoodoosFound", "Voodoo Dolls" },
-			{ "SummoningCirclesUsed", "Summoning Circles" },
-		};
-	}
-
-	private static Dictionary<string, string> GetMapNames()
-	{
-		return new Dictionary<string, string>
-		{
-			{ "0", "Sunny Meadows Restricted" },
-			{ "1", "Sunny Meadows" },
-			{ "2", "Bleasdale Farmhouse" },
-			{ "3", "Camp Woodwind" },
-			{ "4", "Maple Lodge Campsite" },
-			{ "5", "42 Edgefield Road" },
-			{ "6", "Grafton Farmhouse" },
-			{ "7", "Prison" },
-			{ "8", "???" },
-			{ "9", "10 Ridgeview court" },
-			{ "10","Brownstone High School" },
-			{ "11","6 Tanglewood Drive" },
-			{ "12","13 Willow Street" },
-			{ "13", "???" },
-			{ "14" , "Point Hope" }
-		};
 	}
 }
