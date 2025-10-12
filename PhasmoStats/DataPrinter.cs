@@ -1,4 +1,5 @@
 ﻿using Logic;
+using Serilog;
 using static PhasmoStats.Program;
 
 namespace PhasmoStats;
@@ -10,6 +11,7 @@ internal static class DataPrinter
 
 	internal static void PrintGhosts(Dictionary<string, object> data, Sortings sorting)
 	{
+		Log.Debug("Printing Ghosts. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
 		string[] ghostTypes = Dictionaries.GetGhostTypes();
@@ -52,6 +54,7 @@ internal static class DataPrinter
 
 	internal static void PrintMaps(Dictionary<string, object> data, Sortings sorting)
 	{
+		Log.Debug("Printing Maps. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> mapNames = Dictionaries.GetMapNames();
@@ -88,6 +91,7 @@ internal static class DataPrinter
 
 	internal static void PrintCursedObjects(Dictionary<string, object> data, Sortings sorting)
 	{
+		Log.Debug("Printing Cursed Objects. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> cursedNames = Dictionaries.GetCursedObjectNames();
@@ -120,6 +124,7 @@ internal static class DataPrinter
 
 	internal static void PrintTarots(Dictionary<string, object> data, Sortings sorting)
 	{
+		Log.Debug("Printing Tarots. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> cardNames = Dictionaries.GetTarotCardNames();
@@ -152,6 +157,7 @@ internal static class DataPrinter
 
 	internal static void PrintBones(Dictionary<string, object> data, Sortings sorting)
 	{
+		Log.Debug("Printing Bones. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> boneNames = Dictionaries.GetBoneNames();

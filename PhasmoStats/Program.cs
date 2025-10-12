@@ -1,6 +1,7 @@
 ﻿namespace PhasmoStats;
 
 using Logic;
+using Serilog;
 using System;
 using System.Collections.Generic;
 
@@ -20,15 +21,40 @@ public class Program
 
 	private static void Main(string[] args)
 	{
+		SetupLogger();
 		CheckData();
 		string path = Directory.GetCurrentDirectory();
-		File.AppendAllText(path + "/Log.txt", $"[{DateTime.Now}] Starte Applikation\n");
 		Console.Title = "PhasmoStats";
 		InterfacePrinter.PrintInputPrompt();
 		Task.Run(CheckFileUpdates);
 		Task.Run(ReadInput);
 
 		while (true) { }
+	}
+
+	private static void SetupLogger()
+	{
+		Log.Logger = new LoggerConfiguration()
+			.MinimumLevel.Debug()
+			.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+			.CreateLogger();
+
+		LogDivider();
+		Log.Information("Application starting...");
+
+		AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+		{
+			Log.Information("Exiting Application...");
+			LogDivider();
+			Log.CloseAndFlush();
+		};
+	}
+
+	private static void LogDivider()
+	{
+		Log.Information("");
+		Log.Information("=================================");
+		Log.Information("");
 	}
 
 	private static async Task CheckFileUpdates()
@@ -48,6 +74,7 @@ public class Program
 				PrintData(FileDeserializer.Data, Category, Sorting);
 				InterfacePrinter.PrintInputPrompt();
 				Console.Write(_input);
+				Log.Debug("Data updated. Last Change: {lastChange}", lastChange);
 			}
 
 			await Task.Delay(millisecondsDelay: 2000);
@@ -70,21 +97,25 @@ public class Program
 				else if (keyInfo.Key == ConsoleKey.Enter)
 				{
 					string input = _input;
+					Log.Debug($"Input - {input}");
 					_input = string.Empty;
 
 					if (input == "refresh")
 					{
+						Log.Debug("Refreshing manually.");
 						FileDeserializer.UpdateData();
 					}
 					else if (input.StartsWith("sort "))
 					{
 						Sorting = GetSorting(input, Sorting);
+						Log.Debug("Sorting changed to {sorting}", Sorting);
 					}
 					else
 					{
 						Categories category = Category;
 						TryGetCategory(input, ref category);
 						Category = category;
+						Log.Debug("Category changed to {category}", Category);
 					}
 
 					Console.Clear();
@@ -112,8 +143,9 @@ public class Program
 	{
 		if (FileDeserializer.Data == new Dictionary<string, object>())
 		{
+			Log.Error("Data empty. File not found.");
 			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("File not found.");
+			Console.WriteLine("Data empty. File not found.");
 			Console.WriteLine("Path -> " + FileDeserializer.GetSaveFilePath());
 			Console.WriteLine("Only Windows is supported currently.");
 			Environment.Exit(exitCode: 0);
