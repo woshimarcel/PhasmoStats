@@ -2,7 +2,9 @@
 
 public enum Categories
 {
+	NOT_FOUND,
 	None,
+	All,
 	Ghosts,
 	Maps,
 	Bones,

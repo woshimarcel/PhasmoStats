@@ -8,9 +8,57 @@ using System.Linq;
 
 public class Program
 {
+	private const ConsoleColor FIRST_COLOR = ConsoleColor.White;
+	private const ConsoleColor SECOND_COLOR = ConsoleColor.DarkGray;
+
+	private enum Sortings
+	{
+		Alphabetically,
+		Sightings,
+		Deaths,
+		Percentage
+	}
+
 	private static void Main(string[] args)
 	{
-		Dictionary<string, object> data;
+		if (!TryGetData(out var data))
+			return;
+
+		Categories category = Categories.None;
+		Sortings sorting = Sortings.Percentage;
+		while (true)
+		{
+			Console.ForegroundColor = ConsoleColor.White;
+			PrintDivider();
+			Console.WriteLine("Please select a category.\n");
+			int top = Console.CursorTop;
+			PrintCategories(top);
+			PrintSortings(top);
+			Console.SetCursorPosition(left: 0, top);
+			Console.Write(" > ");
+			string input = Console.ReadLine().ToLower();
+
+			if (input == "refresh")
+			{
+				if (!TryGetData(out data))
+					return;
+			}
+			else if (input.StartsWith("sort "))
+				sorting = GetSorting(input, sorting);
+			else
+				TryGetCategory(input, ref category);
+
+			Console.Clear();
+			if (category == Categories.None)
+				continue;
+
+			PrintData(data, category, sorting);
+		}
+	}
+
+	private static bool TryGetData(out Dictionary<string, object> data)
+	{
+		data = new();
 
 		try
 		{
@@ -21,72 +69,107 @@ public class Program
 			Console.ForegroundColor = ConsoleColor.Red;
 			Console.WriteLine("Could not find save file. Please make sure the following file exists:");
 			Console.WriteLine(ex.FileName);
-			return;
+			return false;
 		}
 
-		Categories category = Categories.None;
-		while (true)
+		return true;
+	}
+
+	private static void PrintData(Dictionary<string, object> data, Categories category, Sortings sorting)
+	{
+		if (CompareCategory(category, Categories.Ghosts))
+			PrintGhosts(data, sorting);
+
+		if (CompareCategory(category, Categories.Maps))
+			PrintMaps(data, sorting);
+
+		if (CompareCategory(category, Categories.Bones))
+			PrintBones(data, sorting);
+
+		if (CompareCategory(category, Categories.CursedObjects))
 		{
-			if (category == Categories.None)
-			{
-				Console.Clear();
-				Console.CursorVisible = true;
-				PrintDivider();
-				Console.WriteLine("Please select a category.\n");
-				int top = Console.CursorTop;
-				PrintCategories();
-				Console.SetCursorPosition(left: 0, top);
-				Console.Write(" > ");
-				string input = Console.ReadLine();
-				category = GetCategory(input);
-			}
-
-			if (category == Categories.None)
-				continue;
-
-			PrintDivider();
-
-			if (category == Categories.Ghosts)
-				PrintGhosts(data);
-			else if (category == Categories.Maps)
-				PrintMaps(data);
-			else if (category == Categories.Bones)
-				PrintBones(data);
-			else if (category == Categories.CursedObjects)
-			{
-				PrintCursedObjects(data);
-				PrintDivider();
-				PrintTarots(data);
-			}
-
-			Console.CursorVisible = false;
-			Console.ReadKey(intercept: true);
-			category = Categories.None;
+			PrintCursedObjects(data, sorting);
+			PrintTarots(data, sorting);
 		}
 	}
 
-	private static void PrintCategories()
+	private static Sortings GetSorting(string input, Sortings currentSorting)
+	{
+		int sortLength = "sort ".Length;
+		if (input.Length < sortLength)
+			return currentSorting;
+
+		input = input[sortLength..].ToLower();
+		return input switch
+		{
+			"alphabetically" or "alph" or "a" => Sortings.Alphabetically,
+			"deaths" or "death" or "d" => Sortings.Deaths,
+			"sightings" or "sights" or "s" or "used" or "u" => Sortings.Sightings,
+			"percentage" or "p" => Sortings.Percentage,
+			_ => currentSorting,
+		};
+	}
+
+	private static void PrintCategories(int top)
 	{
 		const int LEFT = 30;
-		Console.SetCursorPosition(LEFT, top: 4);
-		Console.Write("Categories:");
-		Console.SetCursorPosition(LEFT, top: 5);
-		Console.Write("Ghosts | Maps | Bones");
-		Console.SetCursorPosition(LEFT, top: 6);
-		Console.Write("Cursed Objects");
+		top -= 5;
+		if (top < 0)
+			top = Console.CursorTop;
+
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("Categories:");
+		top = Console.CursorTop;
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("All | Ghosts | Maps");
+		top = Console.CursorTop;
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("Bones | Cursed Objects");
 	}
 
-	private static Categories GetCategory(string name)
+	private static void PrintSortings(int top)
 	{
-		name = name.ToLower();
-		return name switch
+		const int LEFT = 60;
+		top -= 5;
+		if (top < 0)
+			top = Console.CursorTop;
+
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("Sortings:");
+		top = Console.CursorTop;
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("Alphabetically | Deaths");
+		top = Console.CursorTop;
+		Console.SetCursorPosition(LEFT, top);
+		Console.WriteLine("Sightings/Used | Percentage");
+	}
+
+	private static bool TryGetCategory(string input, ref Categories category)
+	{
+		input = input.ToLower();
+		Categories temp = category;
+		category = input switch
 		{
+			"all" or "a" => Categories.All,
 			"ghosts" or "g" => Categories.Ghosts,
 			"maps" or "m" => Categories.Maps,
 			"cursed objects" or "co" => Categories.CursedObjects,
 			"bones" or "b" => Categories.Bones,
-			_ => Categories.None,
+			"none" or "n" => Categories.None,
+			_ => Categories.NOT_FOUND,
 		};
+
+		if (category == Categories.NOT_FOUND)
+		{
+			if (temp == Categories.NOT_FOUND)
+				category = Categories.None;
+			else
+				category = temp;
+
+			return false;
+		}
+
+		return true;
 	}
 
 	private static void PrintDivider()
@@ -99,8 +182,15 @@ public class Program
 		Console.WriteLine();
 	}
 
-	private static void PrintGhosts(Dictionary<string, object> data)
+	private static bool CompareCategory(Categories selected, Categories category)
 	{
+		return selected == Categories.All || selected == category;
+	}
+
+	private static void PrintGhosts(Dictionary<string, object> data, Sortings sorting)
+	{
+		PrintDivider();
+
 		string[] ghostTypes = Dictionaries.GetGhostTypes();
 		Dictionary<string, int> ghostsSeen = DataGetter.GetData(data, SaveKeys.MOST_COMMON_GHOSTS);
 		Dictionary<string, int> ghostDeaths = DataGetter.GetData(data, SaveKeys.GHOST_KILLS);
@@ -116,33 +206,69 @@ public class Program
 			stats[ghostType] = (seen, died, seen > 0 ? (double)died / seen : 0);
 		}
 
-		Console.WriteLine("Ghosts (deadliest first):\n");
-		var sortedStats = stats.OrderByDescending(s => s.Value.ratio).ThenBy(s => s.Key);
-		foreach (var pair in sortedStats)
+		stats = sorting switch
 		{
+			Sortings.Alphabetically => stats.OrderBy(x => x.Key).ToDictionary(),
+			Sortings.Sightings => stats.OrderByDescending(x => x.Value.seen).ToDictionary(),
+			Sortings.Deaths => stats.OrderByDescending(x => x.Value.died).ToDictionary(),
+			Sortings.Percentage => stats.OrderByDescending(x => x.Value.ratio).ToDictionary(),
+			_ => stats
+		};
+
+		Console.WriteLine("Ghosts (deadliest first):\n");
+		bool color = false;
+		foreach (var pair in stats)
+		{
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
 			string ratio = pair.Value.ratio.ToString("P2");
-			Console.WriteLine($"  {pair.Key + ":",-18} {pair.Value.seen} sightings   {pair.Value.died} deaths ({ratio})");
+			Console.WriteLine($"  {pair.Key + ":",-18} {pair.Value.seen} sightings      {pair.Value.died} deaths ({ratio})");
+			color = !color;
 		}
-		Console.WriteLine($"  Total: {"",-11} {totalSeen} sightings, {totalDeaths} deaths ({(double)totalDeaths / totalSeen:P2})");
+
+		Console.ForegroundColor = ConsoleColor.White;
+		Console.WriteLine($"  Total: {"",-11} {totalSeen} sightings     {totalDeaths} deaths ({(double)totalDeaths / totalSeen:P2})");
 	}
 
-	private static void PrintMaps(Dictionary<string, object> data)
+	private static void PrintMaps(Dictionary<string, object> data, Sortings sorting)
 	{
+		PrintDivider();
+
 		Dictionary<string, string> mapNames = Dictionaries.GetMapNames();
-		Dictionary<string, int> maps = DataGetter.GetData(data, SaveKeys.PLAYED_MAPS);
+		Dictionary<string, int> tempMaps = DataGetter.GetData(data, SaveKeys.PLAYED_MAPS);
+		Dictionary<string, int> maps = new();
+		foreach (var kv in tempMaps)
+		{
+			if (!mapNames.TryGetValue(kv.Key, out string name))
+				name = kv.Key;
+
+			maps.Add(name, kv.Value);
+		}
+
 		int total = maps.Values.Sum();
+		maps = sorting switch
+		{
+			Sortings.Alphabetically => maps.OrderBy(x => x.Key).ToDictionary(),
+			Sortings.Sightings => maps.OrderByDescending(x => x.Value).ToDictionary(),
+			_ => maps.OrderByDescending(x => (double)x.Value / total).ToDictionary(),
+		};
 
 		Console.WriteLine("Maps played:\n");
-		foreach (var kv in maps.OrderByDescending(m => m.Value).ThenBy(m => mapNames.ContainsKey(m.Key) ? mapNames[m.Key] : m.Key))
+		bool color = false;
+		foreach (var kv in maps)
 		{
-			string name = mapNames.TryGetValue(kv.Key, out string? value) ? value : $"Unknown map #{kv.Key}";
-			Console.WriteLine($"  {name + ":",-30}{kv.Value} ({(double)kv.Value / total:P2})");
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
+			Console.WriteLine($"  {kv.Key + ":",-30}{kv.Value} ({(double)kv.Value / total:P2})");
+			color = !color;
 		}
+
+		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine($"  Total: {"",-22} {total}");
 	}
 
-	private static void PrintCursedObjects(Dictionary<string, object> data)
+	private static void PrintCursedObjects(Dictionary<string, object> data, Sortings sorting)
 	{
+		PrintDivider();
+
 		Dictionary<string, string> cursedNames = Dictionaries.GetCursedObjectNames();
 		Dictionary<string, int> cursed = new();
 
@@ -150,17 +276,31 @@ public class Program
 			cursed[kv.Value] = DataGetter.GetInt(data, kv.Key);
 
 		int total = cursed.Values.Sum();
+		cursed = sorting switch
+		{
+			Sortings.Alphabetically => cursed.OrderBy(x => x.Key).ToDictionary(),
+			Sortings.Sightings => cursed.OrderByDescending(x => x.Value).ToDictionary(),
+			_ => cursed.OrderByDescending(x => (double)x.Value / total).ToDictionary(),
+		};
 
 		Console.WriteLine("Cursed Possessions used (excluding Tarot Decks):\n");
-		foreach (var kv in cursed.OrderByDescending(c => c.Value).ThenBy(c => c.Key))
+		bool color = false;
+		foreach (var kv in cursed)
+		{
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
 			Console.WriteLine($"  {kv.Key + ":",-23} {kv.Value} ({(double)kv.Value / total:P2})");
+			color = !color;
+		}
 
+		Console.ForegroundColor = ConsoleColor.White;
 		int mapsPlayed = DataGetter.GetData(data, "playedMaps").Values.Sum();
 		Console.WriteLine($"  Total: {"",-16} {total} ({(double)total / mapsPlayed:P2} of maps played)");
 	}
 
-	private static void PrintTarots(Dictionary<string, object> data)
+	private static void PrintTarots(Dictionary<string, object> data, Sortings sorting)
 	{
+		PrintDivider();
+
 		Dictionary<string, string> cardNames = Dictionaries.GetTarotCardNames();
 		Dictionary<string, int> tarots = new();
 
@@ -169,15 +309,30 @@ public class Program
 
 		int total = tarots.Values.Sum();
 
-		Console.WriteLine("Tarot Cards pulled:\n");
-		foreach (var kv in tarots.OrderByDescending(t => t.Value).ThenBy(t => t.Key))
-			Console.WriteLine($"  {kv.Key + ":",-23} {kv.Value} ({(double)kv.Value / total:P2})");
+		tarots = sorting switch
+		{
+			Sortings.Alphabetically => tarots.OrderBy(x => x.Key).ToDictionary(),
+			Sortings.Sightings => tarots.OrderByDescending(x => x.Value).ToDictionary(),
+			_ => tarots.OrderByDescending(x => (double)x.Value / total).ToDictionary(),
+		};
 
+		Console.WriteLine("Tarot Cards pulled:\n");
+		bool color = false;
+		foreach (var kv in tarots)
+		{
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
+			Console.WriteLine($"  {kv.Key + ":",-23} {kv.Value} ({(double)kv.Value / total:P2})");
+			color = !color;
+		}
+
+		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine($"  Total: {"",-16} {total}");
 	}
 
-	private static void PrintBones(Dictionary<string, object> data)
+	private static void PrintBones(Dictionary<string, object> data, Sortings sorting)
 	{
+		PrintDivider();
+
 		Dictionary<string, string> boneNames = Dictionaries.GetBoneNames();
 		Dictionary<string, int> bones = new();
 
@@ -185,11 +340,23 @@ public class Program
 			bones[kv.Value] = DataGetter.GetInt(data, "Bone" + kv.Key);
 
 		int total = bones.Values.Sum();
+		bones = sorting switch
+		{
+			Sortings.Alphabetically => bones.OrderBy(x => x.Key).ToDictionary(),
+			Sortings.Sightings => bones.OrderByDescending(x => x.Value).ToDictionary(),
+			_ => bones.OrderByDescending(x => (double)x.Value / total).ToDictionary(),
+		};
 
 		Console.WriteLine("Bones found:\n");
-		foreach (var kv in bones.OrderByDescending(b => b.Value))
+		bool color = false;
+		foreach (var kv in bones)
+		{
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
 			Console.WriteLine($"  {kv.Key + ":",-14} {kv.Value} ({(double)kv.Value / total:P2})");
+			color = !color;
+		}
 
+		Console.ForegroundColor = ConsoleColor.White;
 		int mapsPlayed = DataGetter.GetData(data, "playedMaps").Values.Sum();
 		Console.WriteLine($"  Total: {"",-7} {total} bones found ({(double)total / mapsPlayed:P2} of maps played)");
 	}

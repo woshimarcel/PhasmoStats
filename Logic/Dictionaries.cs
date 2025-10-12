@@ -94,7 +94,7 @@ public static class Dictionaries
 			{ "5", "42 Edgefield Road" },
 			{ "6", "Grafton Farmhouse" },
 			{ "7", "Prison" },
-			{ "8", "???" },
+			{ "8", "??? (Old Asylum?)" },
 			{ "9", "10 Ridgeview court" },
 			{ "10","Brownstone High School" },
 			{ "11","6 Tanglewood Drive" },
