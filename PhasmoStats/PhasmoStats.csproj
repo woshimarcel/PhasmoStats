@@ -7,7 +7,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
+	<PropertyGroup>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<ApplicationIcon>pfp.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="pfp.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj" />
   </ItemGroup>
 

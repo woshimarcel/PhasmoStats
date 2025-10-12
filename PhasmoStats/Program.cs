@@ -24,6 +24,8 @@ public class Program
 		if (!TryGetData(out var data))
 			return;
 
+		Console.Title = "PhasmoStats";
+
 		Categories category = Categories.None;
 		Sortings sorting = Sortings.Percentage;
 		while (true)
@@ -215,7 +217,7 @@ public class Program
 			_ => stats
 		};
 
-		Console.WriteLine("Ghosts (deadliest first):\n");
+		Console.WriteLine("Ghosts:\n");
 		bool color = false;
 		foreach (var pair in stats)
 		{
