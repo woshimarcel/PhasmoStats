@@ -24,19 +24,69 @@ public class Program
 			return;
 		}
 
-		PrintDivider();
-		PrintGhosts(data);
-		PrintDivider();
-		PrintMaps(data);
-		PrintDivider();
-		PrintCursed(data);
-		PrintDivider();
-		PrintTarots(data);
-		PrintDivider();
-		PrintBones(data);
+		Categories category = Categories.None;
+		while (true)
+		{
+			if (category == Categories.None)
+			{
+				Console.Clear();
+				Console.CursorVisible = true;
+				PrintDivider();
+				Console.WriteLine("Please select a category.\n");
+				int top = Console.CursorTop;
+				PrintCategories();
+				Console.SetCursorPosition(left: 0, top);
+				Console.Write(" > ");
+				string input = Console.ReadLine();
+				category = GetCategory(input);
+			}
 
-		Console.CursorVisible = false;
-		Console.ReadKey(intercept: true);
+			if (category == Categories.None)
+				continue;
+
+			PrintDivider();
+
+			if (category == Categories.Ghosts)
+				PrintGhosts(data);
+			else if (category == Categories.Maps)
+				PrintMaps(data);
+			else if (category == Categories.Bones)
+				PrintBones(data);
+			else if (category == Categories.CursedObjects)
+			{
+				PrintCursedObjects(data);
+				PrintDivider();
+				PrintTarots(data);
+			}
+
+			Console.CursorVisible = false;
+			Console.ReadKey(intercept: true);
+			category = Categories.None;
+		}
+	}
+
+	private static void PrintCategories()
+	{
+		const int LEFT = 30;
+		Console.SetCursorPosition(LEFT, top: 4);
+		Console.Write("Categories:");
+		Console.SetCursorPosition(LEFT, top: 5);
+		Console.Write("Ghosts | Maps | Bones");
+		Console.SetCursorPosition(LEFT, top: 6);
+		Console.Write("Cursed Objects");
+	}
+
+	private static Categories GetCategory(string name)
+	{
+		name = name.ToLower();
+		return name switch
+		{
+			"ghosts" or "g" => Categories.Ghosts,
+			"maps" or "m" => Categories.Maps,
+			"cursed objects" or "co" => Categories.CursedObjects,
+			"bones" or "b" => Categories.Bones,
+			_ => Categories.None,
+		};
 	}
 
 	private static void PrintDivider()
@@ -91,7 +141,7 @@ public class Program
 		Console.WriteLine($"  Total: {"",-22} {total}");
 	}
 
-	private static void PrintCursed(Dictionary<string, object> data)
+	private static void PrintCursedObjects(Dictionary<string, object> data)
 	{
 		Dictionary<string, string> cursedNames = Dictionaries.GetCursedObjectNames();
 		Dictionary<string, int> cursed = new();
