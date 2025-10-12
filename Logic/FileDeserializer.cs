@@ -7,14 +7,22 @@ namespace Logic;
 
 public static class FileDeserializer
 {
-	private readonly static string _saveFilePath = Path.Combine(
+	private static readonly string _saveFilePath = Path.Combine(
 		Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 		@"..\LocalLow\Kinetic Games\Phasmophobia\SaveFile.txt");
 	private const string OUTPUT_FILENAME_RAW = "raw.json";
 	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
+	public static Dictionary<string, object> Data { get; private set; } = LoadAndDecryptFile();
+
+	public static string GetSaveFilePath() => _saveFilePath;
+
+	public static void UpdateData() => Data = LoadAndDecryptFile();
 
 	public static Dictionary<string, object> LoadAndDecryptFile()
 	{
+		if (!File.Exists(_saveFilePath))
+			return new();
+
 		string rawData = LoadFileData();
 		File.WriteAllText(OUTPUT_FILENAME_RAW, rawData, Encoding.UTF8);
 		string cleanedData = CleanData(rawData);

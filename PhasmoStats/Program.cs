@@ -3,15 +3,17 @@
 using Logic;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 public class Program
 {
 	private const ConsoleColor FIRST_COLOR = ConsoleColor.White;
 	private const ConsoleColor SECOND_COLOR = ConsoleColor.DarkGray;
+	public static Categories Category { get; private set; } = Categories.None;
+	public static Sortings Sorting { get; private set; } = Sortings.Percentage;
+	private static string _input = string.Empty;
 
-	private enum Sortings
+	public enum Sortings
 	{
 		Alphabetically,
 		Sightings,
@@ -21,60 +23,116 @@ public class Program
 
 	private static void Main(string[] args)
 	{
-		if (!TryGetData(out var data))
-			return;
-
+		CheckData();
+		string path = Directory.GetCurrentDirectory();
+		File.AppendAllText(path + "/Log.txt", $"[{DateTime.Now}] Starte Applikation\n");
 		Console.Title = "PhasmoStats";
+		PrintInputPrompt();
+		Task.Run(CheckFileUpdates);
+		Task.Run(ReadInput);
 
-		Categories category = Categories.None;
-		Sortings sorting = Sortings.Percentage;
+		while (true) { }
+	}
+
+	private static async Task CheckFileUpdates()
+	{
+		DateTime lastChange = File.GetLastWriteTime(FileDeserializer.GetSaveFilePath());
 		while (true)
 		{
-			Console.ForegroundColor = ConsoleColor.White;
-			PrintDivider();
-			Console.WriteLine("Please select a category.\n");
-			int top = Console.CursorTop;
-			PrintCategories(top);
-			PrintSortings(top);
-			Console.SetCursorPosition(left: 0, top);
-			Console.Write(" > ");
-			string input = Console.ReadLine().ToLower();
-
-			if (input == "refresh")
+			if (lastChange < File.GetLastWriteTime(FileDeserializer.GetSaveFilePath()))
 			{
-				if (!TryGetData(out data))
-					return;
+				lastChange = File.GetLastWriteTime(FileDeserializer.GetSaveFilePath());
+				File.AppendAllText(Directory.GetCurrentDirectory() + "/Log.txt", $"[{DateTime.Now}] Erfolgreich geupdatet\n");
+				FileDeserializer.UpdateData();
+				CheckData();
+
+				Console.Clear();
+				Console.SetCursorPosition(0, 0);
+				PrintData(FileDeserializer.Data, Category, Sorting);
+				PrintInputPrompt();
+				Console.Write(_input);
 			}
-			else if (input.StartsWith("sort "))
-				sorting = GetSorting(input, sorting);
-			else
-				TryGetCategory(input, ref category);
 
-			Console.Clear();
-			if (category == Categories.None)
-				continue;
-
-			PrintData(data, category, sorting);
+			await Task.Delay(millisecondsDelay: 2000);
 		}
 	}
 
-	private static bool TryGetData(out Dictionary<string, object> data)
+	private static async Task ReadInput()
 	{
-		data = new();
-
-		try
+		while (true)
 		{
-			data = FileDeserializer.LoadAndDecryptFile();
+			if (Console.KeyAvailable)
+			{
+				ConsoleKeyInfo keyInfo = Console.ReadKey(intercept: true);
+
+				if (keyInfo.Key == ConsoleKey.Backspace && _input.Length > 0)
+				{
+					Console.Write("\b \b");
+					_input = _input[..^1];
+				}
+				else if (keyInfo.Key == ConsoleKey.Enter)
+				{
+					string input = _input;
+					_input = string.Empty;
+
+					if (input == "refresh")
+					{
+						FileDeserializer.UpdateData();
+					}
+					else if (input.StartsWith("sort "))
+					{
+						Sorting = GetSorting(input, Sorting);
+					}
+					else
+					{
+						Categories category = Category;
+						TryGetCategory(input, ref category);
+						Category = category;
+					}
+
+					Console.Clear();
+					if (Category == Categories.None)
+					{
+						PrintInputPrompt();
+						continue;
+					}
+
+					PrintData(FileDeserializer.Data, Category, Sorting);
+					PrintInputPrompt();
+				}
+				else if (char.IsLetter(keyInfo.KeyChar) || keyInfo.KeyChar == ' ')
+				{
+					Console.Write(keyInfo.KeyChar);
+					_input += keyInfo.KeyChar;
+				}
+			}
+
+			await Task.Delay(millisecondsDelay: 10);
 		}
-		catch (FileNotFoundException ex)
+	}
+
+	private static void CheckData()
+	{
+		if (FileDeserializer.Data == new Dictionary<string, object>())
 		{
 			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("Could not find save file. Please make sure the following file exists:");
-			Console.WriteLine(ex.FileName);
-			return false;
+			Console.WriteLine("File not found.");
+			Console.WriteLine("Path -> " + FileDeserializer.GetSaveFilePath());
+			Console.WriteLine("Only Windows is supported currently.");
+			Environment.Exit(exitCode: 0);
 		}
+	}
 
-		return true;
+	private static void PrintInputPrompt()
+	{
+		Console.ForegroundColor = ConsoleColor.White;
+		PrintDivider();
+		Console.WriteLine("Please select a category.\n");
+		int top = Console.CursorTop;
+		PrintCategories(top);
+		PrintSortings(top);
+		Console.SetCursorPosition(left: 0, top);
+		Console.Write(" > ");
 	}
 
 	private static void PrintData(Dictionary<string, object> data, Categories category, Sortings sorting)
