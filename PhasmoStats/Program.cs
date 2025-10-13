@@ -10,6 +10,7 @@ public class Program
 	public static Categories Category { get; private set; } = Categories.None;
 	public static Sortings Sorting { get; private set; } = Sortings.Percentage;
 	private static string _input = string.Empty;
+	private static bool _autoRefresh = true;
 
 	public enum Sortings
 	{
@@ -62,7 +63,7 @@ public class Program
 		DateTime lastChange = File.GetLastWriteTime(FileDeserializer.GetSaveFilePath());
 		while (true)
 		{
-			if (lastChange < File.GetLastWriteTime(FileDeserializer.GetSaveFilePath()))
+			if (_autoRefresh && lastChange < File.GetLastWriteTime(FileDeserializer.GetSaveFilePath()))
 			{
 				lastChange = File.GetLastWriteTime(FileDeserializer.GetSaveFilePath());
 				File.AppendAllText(Directory.GetCurrentDirectory() + "/Log.txt", $"[{DateTime.Now}] Erfolgreich geupdatet\n");
@@ -104,6 +105,21 @@ public class Program
 					{
 						Log.Debug("Refreshing manually.");
 						FileDeserializer.UpdateData();
+					}
+					else if (input == "help")
+					{
+						Category = Categories.None;
+						InterfacePrinter.PrintHelp();
+						InterfacePrinter.PrintInputPrompt();
+						continue;
+					}
+					else if (input == "toggle ar" || input == "toggle auto-refresh")
+					{
+						_autoRefresh = !_autoRefresh;
+						string state = _autoRefresh ? "enabled" : "disabled";
+						Console.WriteLine($"\n   Auto-Refresh is now {state}.");
+						Console.WriteLine($"   Press any key to continue.");
+						Console.ReadKey(intercept: true);
 					}
 					else if (input.StartsWith("sort "))
 					{
