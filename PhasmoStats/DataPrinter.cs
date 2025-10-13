@@ -50,6 +50,8 @@ internal static class DataPrinter
 
 		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine($"  Total: {"",-11} {totalSeen} sightings     {totalDeaths} deaths ({(double)totalDeaths / totalSeen:P2})");
+		int timesRevived = DataGetter.GetInt(data, SaveKeys.TIMES_REVIVIED);
+		Console.WriteLine($"{"",-38} {timesRevived} Revives ({(double)timesRevived / totalDeaths:P2})");
 	}
 
 	internal static void PrintMaps(Dictionary<string, object> data, Sortings sorting)
@@ -186,5 +188,43 @@ internal static class DataPrinter
 		Console.ForegroundColor = ConsoleColor.White;
 		int mapsPlayed = DataGetter.GetData(data, "playedMaps").Values.Sum();
 		Console.WriteLine($"  Total: {"",-7} {total} bones found ({(double)total / mapsPlayed:P2} of maps played)");
+	}
+
+	internal static void PrintCaseData(Dictionary<string, object> data)
+	{
+		Log.Debug("Printing Case Data.");
+		InterfacePrinter.PrintDivider();
+
+		int identified = DataGetter.GetInt(data, SaveKeys.IDENTIFIED);
+		int misidentified = DataGetter.GetInt(data, SaveKeys.MISIDENTIFIED);
+		int totalCases = identified + misidentified;
+		double time = DataGetter.GetDouble(data, SaveKeys.TIME_INVESTIGATED);
+		TimeSpan timeInvestigated = TimeSpan.FromSeconds(time);
+		TimeSpan timePerCase = TimeSpan.FromSeconds(time / totalCases);
+		int photosTaken = DataGetter.GetInt(data, SaveKeys.PHOTOS_TAKEN);
+		int videosTaken = DataGetter.GetInt(data, SaveKeys.VIDEOS_TAKEN);
+		int soundsTaken = DataGetter.GetInt(data, SaveKeys.SOUNDS_TAKEN);
+
+		const int LEFT = -28;
+		List<string> caseData =
+		[
+			$"  {"Cases:",LEFT} {totalCases}\n",
+			$"  {"Ghosts identified:",LEFT} {identified} ({(double)identified / totalCases:P2})",
+			$"  {"Ghosts misidentified:",LEFT} {misidentified} ({(double)misidentified / totalCases:P2})\n",
+			$"  {"Time investigated:",LEFT} {timeInvestigated.Hours + timeInvestigated.Days * 24}h {timeInvestigated.Minutes}m {timeInvestigated.Seconds}s",
+			$"  {"Average time per case:",LEFT} {timePerCase.Hours}h {timePerCase.Minutes}m {timePerCase.Seconds}s\n",
+			$"  {"Photos taken:",LEFT} {photosTaken} ({(double)photosTaken / totalCases:F2} per case)",
+			$"  {"Videos taken:",LEFT} {videosTaken} ({(double)videosTaken / totalCases:F2} per case)",
+			$"  {"Sounds taken:",LEFT} {soundsTaken} ({(double)soundsTaken / totalCases:F2} per case)",
+		];
+
+		Console.WriteLine("Case related data (no sorting because I'm lazy):\n");
+		bool color = false;
+		for (int i = 0; i < caseData.Count; i++)
+		{
+			Console.ForegroundColor = color ? SECOND_COLOR : FIRST_COLOR;
+			Console.WriteLine(caseData[i]);
+			color = !color;
+		}
 	}
 }

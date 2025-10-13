@@ -9,4 +9,5 @@ public enum Categories
 	Maps,
 	Bones,
 	CursedObjects,
+	Case,
 }

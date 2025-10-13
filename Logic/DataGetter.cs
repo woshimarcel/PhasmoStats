@@ -20,11 +20,16 @@ public static class DataGetter
 
 	public static int GetInt(Dictionary<string, object> data, string key)
 	{
+		return (int)GetDouble(data, key);
+	}
+
+	public static double GetDouble(Dictionary<string, object> data, string key)
+	{
 		if (!data.TryGetValue(key, out object? value))
 			return 0;
 
 		if (value is JsonElement el && el.ValueKind == JsonValueKind.Number)
-			return el.GetInt32();
+			return el.GetDouble();
 
 		return 0;
 	}

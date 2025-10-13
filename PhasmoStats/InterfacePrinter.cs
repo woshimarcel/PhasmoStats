@@ -23,15 +23,15 @@ internal static class InterfacePrinter
 		Console.WriteLine("Categories:");
 		top = Console.CursorTop;
 		Console.SetCursorPosition(LEFT, top);
-		Console.WriteLine("All | Ghosts | Maps");
+		Console.WriteLine("All | Ghosts | Maps | Bones");
 		top = Console.CursorTop;
 		Console.SetCursorPosition(LEFT, top);
-		Console.WriteLine("Bones | Cursed Objects");
+		Console.WriteLine("Cursed Objects | Case");
 	}
 
 	private static void PrintSortings(int top)
 	{
-		const int LEFT = 60;
+		const int LEFT = 70;
 		top -= 5;
 		if (top < 0)
 			top = Console.CursorTop;

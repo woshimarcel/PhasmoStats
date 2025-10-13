@@ -168,6 +168,9 @@ public class Program
 			DataPrinter.PrintCursedObjects(data, sorting);
 			DataPrinter.PrintTarots(data, sorting);
 		}
+
+		if (CompareCategory(category, Categories.Case))
+			DataPrinter.PrintCaseData(data);
 	}
 
 	private static Sortings GetSorting(string input, Sortings currentSorting)
@@ -199,6 +202,7 @@ public class Program
 			"cursed objects" or "co" => Categories.CursedObjects,
 			"bones" or "b" => Categories.Bones,
 			"none" or "n" => Categories.None,
+			"case" or "c" => Categories.Case,
 			_ => Categories.NOT_FOUND,
 		};
 
