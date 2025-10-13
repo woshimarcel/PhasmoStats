@@ -1,6 +1,5 @@
 ﻿using Logic;
 using Serilog;
-using static PhasmoStats.Program;
 
 namespace PhasmoStats;
 
@@ -8,6 +7,32 @@ internal static class DataPrinter
 {
 	private const ConsoleColor FIRST_COLOR = ConsoleColor.White;
 	private const ConsoleColor SECOND_COLOR = ConsoleColor.DarkGray;
+
+	internal static void PrintData(Dictionary<string, object> data, Categories category, Sortings sorting)
+	{
+		if (CompareCategory(category, Categories.Ghosts))
+			PrintGhosts(data, sorting);
+
+		if (CompareCategory(category, Categories.Maps))
+			PrintMaps(data, sorting);
+
+		if (CompareCategory(category, Categories.Bones))
+			PrintBones(data, sorting);
+
+		if (CompareCategory(category, Categories.CursedObjects))
+		{
+			PrintCursedObjects(data, sorting);
+			PrintTarots(data, sorting);
+		}
+
+		if (CompareCategory(category, Categories.Case))
+			PrintCaseData(data);
+	}
+
+	private static bool CompareCategory(Categories selected, Categories category)
+	{
+		return selected == Categories.All || selected == category;
+	}
 
 	internal static void PrintGhosts(Dictionary<string, object> data, Sortings sorting)
 	{
@@ -24,8 +49,10 @@ internal static class DataPrinter
 
 		foreach (string ghostType in ghostTypes)
 		{
-			int seen = ghostsSeen.ContainsKey(ghostType) ? ghostsSeen[ghostType] : 0;
-			int died = ghostDeaths.ContainsKey(ghostType) ? ghostDeaths[ghostType] : 0;
+			int seen;
+			int died;
+			seen = ghostsSeen.TryGetValue(ghostType, out seen) ? seen : 0;
+			died = ghostDeaths.TryGetValue(ghostType, out died) ? died : 0;
 			stats[ghostType] = (seen, died, seen > 0 ? (double)died / seen : 0);
 		}
 
@@ -61,7 +88,7 @@ internal static class DataPrinter
 
 		Dictionary<string, string> mapNames = Dictionaries.GetMapNames();
 		Dictionary<string, int> tempMaps = DataGetter.GetData(data, SaveKeys.PLAYED_MAPS);
-		Dictionary<string, int> maps = new();
+		Dictionary<string, int> maps = [];
 		foreach (var kv in tempMaps)
 		{
 			if (!mapNames.TryGetValue(kv.Key, out string name))
@@ -97,7 +124,7 @@ internal static class DataPrinter
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> cursedNames = Dictionaries.GetCursedObjectNames();
-		Dictionary<string, int> cursed = new();
+		Dictionary<string, int> cursed = [];
 
 		foreach (var kv in cursedNames)
 			cursed[kv.Value] = DataGetter.GetInt(data, kv.Key);
@@ -130,7 +157,7 @@ internal static class DataPrinter
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> cardNames = Dictionaries.GetTarotCardNames();
-		Dictionary<string, int> tarots = new();
+		Dictionary<string, int> tarots = [];
 
 		foreach (var kv in cardNames)
 			tarots[kv.Value] = DataGetter.GetInt(data, "Tarot" + kv.Key);
@@ -163,7 +190,7 @@ internal static class DataPrinter
 		InterfacePrinter.PrintDivider();
 
 		Dictionary<string, string> boneNames = Dictionaries.GetBoneNames();
-		Dictionary<string, int> bones = new();
+		Dictionary<string, int> bones = [];
 
 		foreach (var kv in boneNames)
 			bones[kv.Value] = DataGetter.GetInt(data, "Bone" + kv.Key);

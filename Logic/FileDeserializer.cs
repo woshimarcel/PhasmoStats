@@ -13,6 +13,8 @@ public static class FileDeserializer
 	private const string OUTPUT_FILENAME_RAW = "raw.json";
 	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
 	public static Dictionary<string, object> Data { get; private set; } = LoadAndDecryptFile();
+	private readonly static JsonSerializerOptions _casInsensitiveOption = new() { PropertyNameCaseInsensitive = true };
+	private readonly static JsonSerializerOptions _indentOption = new() { WriteIndented = true };
 
 	public static string GetSaveFilePath() => _saveFilePath;
 
@@ -21,21 +23,16 @@ public static class FileDeserializer
 	public static Dictionary<string, object> LoadAndDecryptFile()
 	{
 		if (!File.Exists(_saveFilePath))
-			return new();
+			return [];
 
 		string rawData = LoadFileData();
 		File.WriteAllText(OUTPUT_FILENAME_RAW, rawData, Encoding.UTF8);
 		string cleanedData = CleanData(rawData);
 
-		JsonSerializerOptions options = new()
-		{
-			PropertyNameCaseInsensitive = true
-		};
-
-		var data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, options);
+		var data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, _casInsensitiveOption);
 		data = CleanJsonData(data);
 
-		string content = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+		string content = JsonSerializer.Serialize(data, _indentOption);
 		File.WriteAllText(OUTPUT_FILENAME_CLEANED, content, Encoding.UTF8);
 
 		return data;
@@ -50,8 +47,8 @@ public static class FileDeserializer
 	private static string DecryptFileData(byte[] data)
 	{
 		byte[] key = Encoding.ASCII.GetBytes("t36gref9u84y7f43g");
-		byte[] salt = data.Take(16).ToArray(); // AES block size = 16
-		byte[] encrypted = data.Skip(16).ToArray();
+		byte[] salt = [.. data.Take(16)]; // AES block size = 16
+		byte[] encrypted = [.. data.Skip(16)];
 
 		using Rfc2898DeriveBytes derive = new(key, salt, iterations: 100, HashAlgorithmName.SHA1);
 		byte[] aesKey = derive.GetBytes(16);
@@ -75,7 +72,7 @@ public static class FileDeserializer
 
 	private static Dictionary<string, object> CleanJsonData(Dictionary<string, object> data)
 	{
-		Dictionary<string, object> cleaned = new();
+		Dictionary<string, object> cleaned = [];
 		foreach (var kv in data)
 		{
 			if (kv.Value is JsonElement element)
