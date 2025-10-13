@@ -9,9 +9,9 @@ internal static class InputProcessor
 	{
 		Log.Debug($"Input - {input}");
 
-		if (input == "help")
+		if (input.StartsWith("help"))
 		{
-			Help();
+			HelpPrinter.Help(input);
 			return;
 		}
 
@@ -39,12 +39,5 @@ internal static class InputProcessor
 	{
 		Log.Debug("Refreshing manually.");
 		FileDeserializer.UpdateData();
-	}
-
-	private static void Help()
-	{
-		CategoryChanger.Category = Categories.None;
-		InterfacePrinter.PrintHelp();
-		InterfacePrinter.PrintInputPrompt();
 	}
 }

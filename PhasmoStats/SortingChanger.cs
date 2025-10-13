@@ -7,9 +7,15 @@ internal class SortingChanger
 	internal static Sortings Sorting { get; set; } = Sortings.Percentage;
 	private static readonly string[] _writingOptions =
 	[
+		"sorting ",
 		"sort ",
 		"s ",
 	];
+
+	internal static string[] GetWritingOptions()
+	{
+		return _writingOptions;
+	}
 
 	internal static bool IsWritingOption(ref string input)
 	{

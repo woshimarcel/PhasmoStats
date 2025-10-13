@@ -16,6 +16,11 @@ internal class FileUpdater
 		"toggle refresh",
 	];
 
+	internal static string[] GetWritingOptions()
+	{
+		return _writingOptions;
+	}
+
 	internal static bool IsWritingOption(string input)
 	{
 		foreach (string option in _writingOptions)

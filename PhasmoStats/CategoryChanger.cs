@@ -13,6 +13,11 @@ internal class CategoryChanger
 		"c ",
 	];
 
+	internal static string[] GetWritingOptions()
+	{
+		return _writingOptions;
+	}
+
 	internal static bool IsWritingOption(ref string input)
 	{
 		foreach (string option in _writingOptions)
