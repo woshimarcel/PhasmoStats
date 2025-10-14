@@ -15,7 +15,7 @@ public static class FileDeserializer
 	private const string OUTPUT_FILENAME_RAW = "raw.json";
 	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
 	public static Dictionary<string, object> Data { get; private set; } = LoadAndDecryptFile();
-	private readonly static JsonSerializerOptions _casInsensitiveOption = new() { PropertyNameCaseInsensitive = true };
+	private readonly static JsonSerializerOptions _caseInsensitiveOption = new() { PropertyNameCaseInsensitive = true };
 	private readonly static JsonSerializerOptions _indentOption = new() { WriteIndented = true };
 
 	public static string GetSaveFilePath() => _saveFilePath;
@@ -33,7 +33,7 @@ public static class FileDeserializer
 		File.WriteAllText(Path.Combine(_directoryPath, OUTPUT_FILENAME_RAW), rawData, Encoding.UTF8);
 		string cleanedData = CleanData(rawData);
 
-		var data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, _casInsensitiveOption);
+		var data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, _caseInsensitiveOption);
 		data = CleanJsonData(data);
 
 		string content = JsonSerializer.Serialize(data, _indentOption);

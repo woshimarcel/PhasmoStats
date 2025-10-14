@@ -1,0 +1,77 @@
+﻿@page "/ghost"
+
+<h1 class="header-text">Ghosts</h1>
+
+<p></p>
+
+<style>
+
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th @onclick='() => SortBy("ghost")'>Ghost</th>
+            <th @onclick='() => SortBy("seen")'>Sightings</th>
+            <th @onclick='() => SortBy("died")'>Deaths</th>
+            <th @onclick='() => SortBy("ratio")'>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kv in ghosts)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.seen</td>
+                <td>@kv.Value.died</td>
+                <td>@kv.Value.ratio.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private Dictionary<string, (int seen, int died, double ratio)>? ghosts;
+    private string sortColumn = "ghost";
+    private bool ascending = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ghosts = Logic.DataGetter.GetGhosts(Logic.FileDeserializer.Data);
+    }
+
+    private void SortBy(string column)
+    {
+        if (sortColumn == column)
+        {
+            ascending = !ascending;
+        }
+        else
+        {
+            sortColumn = column;
+            ascending = true;
+        }
+
+        SortGhosts();
+    }
+
+    private void SortGhosts()
+    {
+        ghosts = sortColumn switch
+        {
+            "ghost" => ascending
+                ? ghosts.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
+                : ghosts.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
+            "seen" => ascending
+                ? ghosts.OrderBy(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value)
+                : ghosts.OrderByDescending(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value),
+            "died" => ascending
+                ? ghosts.OrderBy(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value)
+                : ghosts.OrderByDescending(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value),
+            "ratio" => ascending
+                ? ghosts.OrderBy(x => x.Value.ratio).ToDictionary(k => k.Key, v => v.Value)
+                : ghosts.OrderByDescending(x => x.Value.ratio).ToDictionary(k => k.Key, v => v.Value),
+            _ => ghosts
+        };
+    }
+}

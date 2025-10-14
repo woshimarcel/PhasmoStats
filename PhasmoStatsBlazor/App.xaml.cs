@@ -9,7 +9,7 @@
 
 		protected override Window CreateWindow(IActivationState? activationState)
 		{
-			return new Window(new MainPage()) { Title = "PhasmoStatsBlazor" };
+			return new Window(new MainPage()) { Title = "PhasmoStats" };
 		}
 	}
 }
