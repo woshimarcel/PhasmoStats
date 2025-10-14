@@ -10,6 +10,8 @@ public static class FileDeserializer
 	private static readonly string _saveFilePath = Path.Combine(
 		Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
 		@"..\LocalLow\Kinetic Games\Phasmophobia\SaveFile.txt");
+	private static readonly string _directoryPath = Path.Combine(
+		Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PhasmoStats");
 	private const string OUTPUT_FILENAME_RAW = "raw.json";
 	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
 	public static Dictionary<string, object> Data { get; private set; } = LoadAndDecryptFile();
@@ -25,15 +27,17 @@ public static class FileDeserializer
 		if (!File.Exists(_saveFilePath))
 			return [];
 
+		Directory.CreateDirectory(_directoryPath);
+
 		string rawData = LoadFileData();
-		File.WriteAllText(OUTPUT_FILENAME_RAW, rawData, Encoding.UTF8);
+		File.WriteAllText(Path.Combine(_directoryPath, OUTPUT_FILENAME_RAW), rawData, Encoding.UTF8);
 		string cleanedData = CleanData(rawData);
 
 		var data = JsonSerializer.Deserialize<Dictionary<string, object>>(cleanedData, _casInsensitiveOption);
 		data = CleanJsonData(data);
 
 		string content = JsonSerializer.Serialize(data, _indentOption);
-		File.WriteAllText(OUTPUT_FILENAME_CLEANED, content, Encoding.UTF8);
+		File.WriteAllText(Path.Combine(_directoryPath, OUTPUT_FILENAME_CLEANED), content, Encoding.UTF8);
 
 		return data;
 	}

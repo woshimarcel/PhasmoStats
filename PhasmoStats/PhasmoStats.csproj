@@ -12,11 +12,11 @@
 		<SelfContained>true</SelfContained>
 		<RuntimeIdentifier>win-x86</RuntimeIdentifier>
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
-		<ApplicationIcon>pfp.ico</ApplicationIcon>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Content Include="pfp.ico" />
+	  <Content Include="Icon.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
