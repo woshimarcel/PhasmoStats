@@ -1,4 +1,6 @@
-﻿namespace PhasmoStatsBlazor
+﻿using Logic;
+
+namespace PhasmoStatsBlazor
 {
 	public partial class App : Application
 	{
@@ -9,7 +11,10 @@
 
 		protected override Window CreateWindow(IActivationState? activationState)
 		{
-			return new Window(new MainPage()) { Title = "PhasmoStats" };
+			Logger.SetupLogger();
+			Task.Run(async () => await GitHubUpdater.CheckForUpdateAsync());
+			Window window = new Window(new MainPage()) { Title = "PhasmoStats" };
+			return window;
 		}
 	}
 }
