@@ -21,6 +21,10 @@ This project was inspired by <a href="https://gist.github.com/Levtastic/9d9c86b0
     <th>Download</th>
   </tr>
   <tr>
+    <td>2.0.0</td>
+    <td><a href="https://github.com/woshimarcel/PhasmoStats/releases/tag/v2.0.0">Download</a></td>
+  </tr>
+  <tr>
     <td>1.1.2</td>
     <td><a href="https://github.com/woshimarcel/PhasmoStats/releases/tag/v1.1.2">Download</a></td>
   </tr>
