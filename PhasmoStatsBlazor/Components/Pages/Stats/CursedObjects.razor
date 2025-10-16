@@ -12,6 +12,11 @@
         </tr>
     </thead>
     <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@_cursedObjects.Values.Sum(g => g.uses)</td>
+            <td>100%</td>
+        </tr>
         @foreach (var kv in _cursedObjects)
         {
             <tr>
@@ -31,6 +36,11 @@
         </tr>
     </thead>
     <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@_tarots.Values.Sum(g => g.draws)</td>
+            <td>100%</td>
+        </tr>
         @foreach (var kv in _tarots)
         {
             <tr>

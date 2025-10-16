@@ -42,3 +42,9 @@ tr:nth-child(even) {
 	justify-content: center;
 	align-items: center;
 }
+
+table {
+	text-align: center; 
+	vertical-align: middle;
+	table-layout: fixed;
+}

@@ -169,4 +169,11 @@ public static class DataGetter
 	{
 		return totalCases > 0 && amount > 0 ? (double)amount / totalCases : 0;
 	}
+
+	public static int GetTotalCases()
+	{
+		int identified = GetInt(FileDeserializer.Data, SaveKeys.IDENTIFIED);
+		int misidentified = GetInt(FileDeserializer.Data, SaveKeys.MISIDENTIFIED);
+		return identified + misidentified;
+	}
 }

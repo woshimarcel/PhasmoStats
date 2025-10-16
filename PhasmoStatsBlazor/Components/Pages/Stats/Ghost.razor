@@ -14,6 +14,19 @@
         </tr>
     </thead>
     <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@{ int seen = _ghosts.Values.Sum(g => g.seen); } @seen</td>
+            <td>100%</td>
+            <td>
+                @{
+                    int died = _ghosts.Values.Sum(g => g.died);
+                    double ratio = seen > 0 && died > 0 ? (double)died / seen : 0;
+                }
+                @died
+            </td>
+            <td>@ratio.ToString("P2")</td>
+        </tr>
         @foreach (var kv in _ghosts)
         {
             <tr>

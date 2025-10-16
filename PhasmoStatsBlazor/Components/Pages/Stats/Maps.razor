@@ -12,6 +12,11 @@
         </tr>
     </thead>
     <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@_maps.Values.Sum(g => g.visits)</td>
+            <td>100%</td>
+        </tr>
         @foreach (var kv in _maps)
         {
             <tr>

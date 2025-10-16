@@ -12,6 +12,20 @@
         </tr>
     </thead>
     <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>
+                @{ int total = _bones.Values.Sum(g => g.collected); }
+                @total
+            </td>
+            <td>
+                @{
+                    int cases = DataGetter.GetTotalCases();
+                    double ratio = cases > 0 && total > 0 ? (double)total / cases : 0;
+                }
+                @ratio.ToString("P2") of maps played
+            </td>
+        </tr>
         @foreach (var kv in _bones)
         {
             <tr>
@@ -27,7 +41,7 @@
 {
     private Dictionary<string, (int collected, double percentage)> _bones = [];
     private string _sortColumn = "collected";
-    private bool _ascending = true;
+    private bool _ascending = false;
 
     protected override void OnInitialized()
     {
@@ -47,6 +61,7 @@
     protected override async Task OnInitializedAsync()
     {
         _bones = DataGetter.GetBones(FileDeserializer.Data);
+        Sort();
     }
 
     private void SortBy(string column)
