@@ -1,0 +1,130 @@
+﻿@page "/statsCursedObjects"
+@using Logic
+
+<h1 class="header-text">Cursed Objects</h1>
+
+<table class="table" style="width: 49%; float: left">
+    <thead>
+        <tr>
+            <th @onclick='() => SortByCursedObjects("name")'>Cursed Object</th>
+            <th @onclick='() => SortByCursedObjects("uses")'>Uses</th>
+            <th @onclick='() => SortByCursedObjects("percentage")'>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@_cursedObjects.Values.Sum(g => g.uses)</td>
+            <td>100%</td>
+        </tr>
+        @foreach (var kv in _cursedObjects)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.uses</td>
+                <td>@kv.Value.percentage.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table class="table" style="width: 49%; float: right">
+    <thead>
+        <tr>
+            <th @onclick='() => SortByTarots("name")'>Card</th>
+            <th @onclick='() => SortByTarots("draws")'>Draws</th>
+            <th @onclick='() => SortByTarots("percentage")'>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="font-weight: bold">
+            <td>Total</td>
+            <td>@_tarots.Values.Sum(g => g.draws)</td>
+            <td>100%</td>
+        </tr>
+        @foreach (var kv in _tarots)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.draws</td>
+                <td>@kv.Value.percentage.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    private Dictionary<string, (int uses, double percentage)> _cursedObjects = [];
+    private Dictionary<string, (int draws, double percentage)> _tarots = [];
+    private string _sortColumnCursedObjects = "uses";
+    private bool _ascendingCursedObjects = false;
+    private string _sortColumnTarots = "draws";
+    private bool _ascendingTarots = false;
+
+    protected override void OnInitialized()
+    {
+        DataRefresher.OnDataUpdated += Refresh;
+    }
+
+    private void Refresh()
+    {
+        _cursedObjects = DataGetter.GetCursedObjects(FileDeserializer.Data);
+        _tarots = DataGetter.GetTarots(FileDeserializer.Data);
+    }
+
+    public void Dispose()
+    {
+        DataRefresher.OnDataUpdated -= Refresh;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _cursedObjects = DataGetter.GetCursedObjects(FileDeserializer.Data);
+        _tarots = DataGetter.GetTarots(FileDeserializer.Data);
+        Sort(_sortColumnCursedObjects, ref _ascendingCursedObjects, ref _cursedObjects);
+        Sort(_sortColumnTarots, ref _ascendingTarots, ref _tarots);
+    }
+
+    private void SortByCursedObjects(string column)
+    {
+        if (_sortColumnCursedObjects == column)
+        {
+            _ascendingCursedObjects = !_ascendingCursedObjects;
+        }
+        else
+        {
+            _sortColumnCursedObjects = column;
+            _ascendingCursedObjects = true;
+        }
+
+        Sort(_sortColumnCursedObjects, ref _ascendingCursedObjects, ref _cursedObjects);
+    }
+
+    private void SortByTarots(string column)
+    {
+        if (_sortColumnTarots == column)
+        {
+            _ascendingTarots = !_ascendingTarots;
+        }
+        else
+        {
+            _sortColumnTarots = column;
+            _ascendingTarots = true;
+        }
+
+        Sort(_sortColumnTarots, ref _ascendingTarots, ref _tarots);
+    }
+
+    private void Sort(string column, ref bool ascending, ref Dictionary<string, (int, double)> data)
+    {
+        data = column switch
+        {
+            "name" => ascending
+                ? data.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
+                : data.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
+            _ => ascending
+                ? data.OrderBy(x => x.Value.Item1).ToDictionary(k => k.Key, v => v.Value)
+                : data.OrderByDescending(x => x.Value.Item1).ToDictionary(k => k.Key, v => v.Value),
+        };
+    }
+}

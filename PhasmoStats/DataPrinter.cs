@@ -39,23 +39,7 @@ internal static class DataPrinter
 		Log.Debug("Printing Ghosts. Sorting: {sorting}", sorting);
 		InterfacePrinter.PrintDivider();
 
-		string[] ghostTypes = Dictionaries.GetGhostTypes();
-		Dictionary<string, int> ghostsSeen = DataGetter.GetData(data, SaveKeys.MOST_COMMON_GHOSTS);
-		Dictionary<string, int> ghostDeaths = DataGetter.GetData(data, SaveKeys.GHOST_KILLS);
-
-		int totalSeen = ghostsSeen.Values.Sum();
-		int totalDeaths = ghostDeaths.Values.Sum();
-		var stats = new Dictionary<string, (int seen, int died, double ratio)>();
-
-		foreach (string ghostType in ghostTypes)
-		{
-			int seen;
-			int died;
-			seen = ghostsSeen.TryGetValue(ghostType, out seen) ? seen : 0;
-			died = ghostDeaths.TryGetValue(ghostType, out died) ? died : 0;
-			stats[ghostType] = (seen, died, seen > 0 ? (double)died / seen : 0);
-		}
-
+		var stats = DataGetter.GetGhosts(data);
 		stats = sorting switch
 		{
 			Sortings.Alphabetically => stats.OrderBy(x => x.Key).ToDictionary(),
@@ -75,6 +59,8 @@ internal static class DataPrinter
 			color = !color;
 		}
 
+		int totalSeen = stats.Values.Sum(g => g.seen);
+		int totalDeaths = stats.Values.Sum(g => g.died);
 		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine($"  Total: {"",-11} {totalSeen} sightings     {totalDeaths} deaths ({(double)totalDeaths / totalSeen:P2})");
 		int timesRevived = DataGetter.GetInt(data, SaveKeys.TIMES_REVIVIED);
