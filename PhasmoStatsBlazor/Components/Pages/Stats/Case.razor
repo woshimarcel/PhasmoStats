@@ -1,0 +1,47 @@
+﻿@page "/statsCase"
+@using Logic
+
+<h1 class="header-text">Case</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kv in _data)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    private Dictionary<string, string>? _data;
+
+    protected override void OnInitialized()
+    {
+        DataRefresher.OnDataUpdated += Refresh;
+    }
+
+    private void Refresh()
+    {
+        _data = DataGetter.GetCaseData(FileDeserializer.Data);
+    }
+
+    public void Dispose()
+    {
+        DataRefresher.OnDataUpdated -= Refresh;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _data = DataGetter.GetCaseData(FileDeserializer.Data);
+    }
+}

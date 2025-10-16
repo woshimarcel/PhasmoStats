@@ -1,0 +1,80 @@
+﻿@page "/statsMaps"
+@using Logic
+
+<h1 class="header-text">Maps</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th @onclick='() => SortBy("name")'>Map</th>
+            <th @onclick='() => SortBy("visits")'>Visits</th>
+            <th @onclick='() => SortBy("percentage")'>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kv in _maps)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.visits</td>
+                <td>@kv.Value.percentage.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    private Dictionary<string, (int visits, double percentage)> _maps = [];
+    private string _sortColumn = "visits";
+    private bool _ascending = false;
+
+    protected override void OnInitialized()
+    {
+        DataRefresher.OnDataUpdated += Refresh;
+    }
+
+    private void Refresh()
+    {
+        _maps = DataGetter.GetMaps(FileDeserializer.Data);
+    }
+
+    public void Dispose()
+    {
+        DataRefresher.OnDataUpdated -= Refresh;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _maps = DataGetter.GetMaps(FileDeserializer.Data);
+        Sort();
+    }
+
+    private void SortBy(string column)
+    {
+        if (_sortColumn == column)
+        {
+            _ascending = !_ascending;
+        }
+        else
+        {
+            _sortColumn = column;
+            _ascending = true;
+        }
+
+        Sort();
+    }
+
+    private void Sort()
+    {
+        _maps = _sortColumn switch
+        {
+            "name" => _ascending
+                ? _maps.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
+                : _maps.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
+            _ => _ascending
+                ? _maps.OrderBy(x => x.Value.visits).ToDictionary(k => k.Key, v => v.Value)
+                : _maps.OrderByDescending(x => x.Value.visits).ToDictionary(k => k.Key, v => v.Value),
+        };
+    }
+}

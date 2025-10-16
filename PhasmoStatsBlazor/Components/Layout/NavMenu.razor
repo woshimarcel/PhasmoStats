@@ -14,14 +14,27 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleStats">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Stats
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="ghost">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Ghosts
-            </NavLink>
+
+            @if (showStats)
+            {
+                <div class="ms-4 mt-1">
+                    <NavLink class="nav-link" href="statsGhosts">Ghosts</NavLink>
+                    <NavLink class="nav-link" href="statsMaps">Maps</NavLink>
+                    <NavLink class="nav-link" href="statsBones">Bones</NavLink>
+                    <NavLink class="nav-link" href="statsCursedObjects">Cursed Objects</NavLink>
+                    <NavLink class="nav-link" href="statsCase">Case</NavLink>
+                </div>
+            }
         </div>
     </nav>
 </div>
+
+@code 
+{
+    private bool showStats;
+
+    private void ToggleStats() => showStats = !showStats;
+}

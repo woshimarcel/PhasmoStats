@@ -1,0 +1,90 @@
+﻿@page "/statsGhosts"
+@using Logic
+
+<h1 class="header-text">Ghosts</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th @onclick='() => SortBy("ghost")'>Ghost</th>
+            <th @onclick='() => SortBy("seen")'>Sightings</th>
+            <th @onclick='() => SortBy("percentage")'>Percentage</th>
+            <th @onclick='() => SortBy("died")'>Deaths</th>
+            <th @onclick='() => SortBy("ratio")'>Sighting/Death Ratio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kv in _ghosts)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.seen</td>
+                <td>@kv.Value.percentage.ToString("P2")</td>
+                <td>@kv.Value.died</td>
+                <td>@kv.Value.ratio.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    private Dictionary<string, (int seen, int died, double ratio, double percentage)> _ghosts = [];
+    private string _sortColumn = "ratio";
+    private bool _ascending = false;
+
+    protected override void OnInitialized()
+    {
+        DataRefresher.OnDataUpdated += Refresh;
+    }
+
+    private void Refresh()
+    {
+        _ghosts = DataGetter.GetGhosts(FileDeserializer.Data);
+    }
+
+    public void Dispose()
+    {
+        DataRefresher.OnDataUpdated -= Refresh;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _ghosts = DataGetter.GetGhosts(FileDeserializer.Data);
+        SortGhosts();
+    }
+
+    private void SortBy(string column)
+    {
+        if (_sortColumn == column)
+        {
+            _ascending = !_ascending;
+        }
+        else
+        {
+            _sortColumn = column;
+            _ascending = true;
+        }
+
+        SortGhosts();
+    }
+
+    private void SortGhosts()
+    {
+        _ghosts = _sortColumn switch
+        {
+            "ghost" => _ascending
+                ? _ghosts.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
+                : _ghosts.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
+            "seen" or "percentage" => _ascending
+                ? _ghosts.OrderBy(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value)
+                : _ghosts.OrderByDescending(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value),
+            "died" => _ascending
+                ? _ghosts.OrderBy(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value)
+                : _ghosts.OrderByDescending(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value),
+            _ => _ascending
+                ? _ghosts.OrderBy(x => x.Value.ratio).ToDictionary(k => k.Key, v => v.Value)
+                : _ghosts.OrderByDescending(x => x.Value.ratio).ToDictionary(k => k.Key, v => v.Value),
+        };
+    }
+}

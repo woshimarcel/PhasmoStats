@@ -1,0 +1,79 @@
+﻿@page "/statsBones"
+@using Logic
+
+<h1 class="header-text">Bones</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th @onclick='() => SortBy("name")'>Bone</th>
+            <th @onclick='() => SortBy("collected")'>Collected</th>
+            <th @onclick='() => SortBy("percentage")'>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var kv in _bones)
+        {
+            <tr>
+                <td>@kv.Key</td>
+                <td>@kv.Value.collected</td>
+                <td>@kv.Value.percentage.ToString("P2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    private Dictionary<string, (int collected, double percentage)> _bones = [];
+    private string _sortColumn = "collected";
+    private bool _ascending = true;
+
+    protected override void OnInitialized()
+    {
+        DataRefresher.OnDataUpdated += Refresh;
+    }
+
+    private void Refresh()
+    {
+        _bones = DataGetter.GetBones(FileDeserializer.Data);
+    }
+
+    public void Dispose()
+    {
+        DataRefresher.OnDataUpdated -= Refresh;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _bones = DataGetter.GetBones(FileDeserializer.Data);
+    }
+
+    private void SortBy(string column)
+    {
+        if (_sortColumn == column)
+        {
+            _ascending = !_ascending;
+        }
+        else
+        {
+            _sortColumn = column;
+            _ascending = true;
+        }
+
+        Sort();
+    }
+
+    private void Sort()
+    {
+        _bones = _sortColumn switch
+        {
+            "name" => _ascending
+                ? _bones.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
+                : _bones.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
+            _ => _ascending
+                ? _bones.OrderBy(x => x.Value.collected).ToDictionary(k => k.Key, v => v.Value)
+                : _bones.OrderByDescending(x => x.Value.collected).ToDictionary(k => k.Key, v => v.Value),
+        };
+    }
+}

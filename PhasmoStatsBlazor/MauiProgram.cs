@@ -12,6 +12,7 @@ namespace PhasmoStatsBlazor
 				.ConfigureFonts(fonts =>
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+					fonts.AddFont("October Crow.ttf", "October Crow");
 				});
 
 			builder.Services.AddMauiBlazorWebView();
@@ -21,6 +22,7 @@ namespace PhasmoStatsBlazor
 			builder.Logging.AddDebug();
 #endif
 
+			Task.Run(FileUpdater.UpdateFile);
 			return builder.Build();
 		}
 	}
