@@ -53,7 +53,15 @@ public static class DataGetter
 			bool hasSeen = seen > 0;
 			double ratio = hasSeen ? (double)died / seen : 0;
 			double percentage = total > 0 && hasSeen ? (double)seen / total : 0;
-			stats[ghostType] = (seen, died, ratio, percentage);
+
+			string name = ghostType switch
+			{
+				"Mimic" => "The Mimic",
+				"TheTwins" => "The Twins",
+				_ => ghostType,
+			};
+
+			stats[name] = (seen, died, ratio, percentage);
 		}
 
 		return stats;

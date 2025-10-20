@@ -9,6 +9,10 @@
 	color: black;
 }
 
+.wiki-header {
+	padding-left: 10%;
+}
+
 .stats-navigation {
 	font-family: 'October Crow';
 	font-weight: bold;
@@ -47,4 +51,21 @@ table {
 	text-align: center; 
 	vertical-align: middle;
 	table-layout: fixed;
+}
+
+.wiki-container {
+	display: flex;
+	align-items: flex-start;
+	gap: 2em;
+	justify-content: center
+}
+
+.wiki-text {
+	flex: 1;
+	padding-top: 3em;
+}
+
+.wiki-info {
+	padding-left: 5%;
+	padding-right: 10%;
 }
