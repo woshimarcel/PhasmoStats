@@ -70,8 +70,11 @@ public static class GitHubUpdater
 			Log.Information("Installing update...");
 			Process.Start(new ProcessStartInfo
 			{
-				FileName = "cmd",
-				Arguments = $"/c timeout 1 & copy /y \"{newExe}\" \"{currentExe}\" & start \"\" \"{currentExe}\"",
+				FileName = "powershell",
+				Arguments =
+					$"-Command \"Start-Sleep 2; " +
+					$"Copy-Item -Path '{newExe}' -Destination '{currentExe}' -Force; " +
+					$"Start-Process '{currentExe}'\"",
 				CreateNoWindow = true,
 				UseShellExecute = false,
 				WindowStyle = ProcessWindowStyle.Hidden
