@@ -3,13 +3,14 @@
 </div>
 
 <h2><br>What is PhasmoStats?</h2>
-PhasmoStats is an application that displays hidden statistics not visible in the game. 
+PhasmoStats is an application for Phasmophobia nerds, professionals, casuals, newbies and everything inbetween.
+<br>Originally it was only supposed to display some interesting statistics not visible in the game.
+<br>Now it's not only a small statistics-tab, but also a wikipedia for fast information access.
 
 <h2><br>Clarification</h2>
-The original save file is read, decrypted, and saved into a new file to prevent issues and avoid decrypting every time.
-This program doe <b>not</b> modify the original save file (doing so is a bannable offense).
-<br>
-You will <b>not</b> be banned while using this program, as it only reads the file.
+The original save file is read, decrypted, and saved into a <b>new</b> file to prevent issues and avoid decrypting every time.
+This program does <b>NOT</b> modify the original save file (doing so is a bannable offense).
+<br>You will <b>NOT</b> be banned while using this program, as it only reads the file.
 
 <h2><br>Credits</h2>
 This project was inspired by <a href="https://gist.github.com/Levtastic/9d9c86b09c8a7d9296252773e040328b">phasmo_stats.py</a>.
