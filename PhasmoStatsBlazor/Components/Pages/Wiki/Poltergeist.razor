@@ -1,20 +1,53 @@
 ﻿@page "/wiki/poltergeist"
 
 <div class="wiki-container">
-	<img src="/Images/GhostIcons/poltergeist.webp"/>
+	<img src="/Images/GhostIcons/poltergeist.webp" />
 	<div class="wiki-text">
 		<h1 class="header-text wiki-header">
 			Poltergeist
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 50%</li>
-				<li>During a hunt, it throws an item 100% of the time every 0.5 seconds</li>
-				<li>Can throw items with much more force outside and during a hunt</li>
-				<li>Can throw multiple items at once, reducing each nearby player's sanity by 2% per item
-					<br />if they are in line-of-sight of the ability's spawn location</li>
-			</ul>
+		<div class="text-section hunting-threshold-split">
+			<span class="section-header">Hunting Threshold:</span>
+			<div class="sanity-container">
+				<img src="/Images/SanityIcons/MediumSanity.png" />
+				<div class="threshold-text">50%</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/uv-t1.webp" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<div class="evidence-text book-text">Book</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				Poltergeists can throw items with much more force outside and during a hunt.
+				<br /><br />
+				The Poltergeist can throw multiple items at once (= polter boom or polter explosion), reducing each nearby player's sanity by 2% per item.
+				To lose that sanity, the player must be in line-of-sight with the ability's spawn location.
+				<br />Thrown items will emit an EMF level 3 and the ability an EMF level 2.
+			</div>
+			<br />
+			<div class="section-header">Hunt</div>
+			<div class="wiki-info">
+				During a hunt, the Poltergeist will always throw an item every 0.5 seconds.
+				<br />The items can be thrown with much more force than usual.
+			</div>
 		</div>
 	</div>
 </div>
