@@ -77,7 +77,8 @@ table {
 	display: flex;
 	align-items: flex-start;
 	gap: 2em;
-	justify-content: center
+	justify-content: center;
+	padding-bottom: 7em;
 }
 
 .wiki-text {
@@ -86,8 +87,9 @@ table {
 }
 
 .wiki-info {
-	padding-left: 5%;
-	padding-right: 10%;
+	font-size: 1.3em;
+	margin: 0 4%;
+	display: block;
 }
 
 .page {
@@ -106,9 +108,61 @@ hr {
 	height: 4px !important;
 	background-color: #222 !important;
 	opacity: 1;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.wiki-container hr {
+	margin-left: -2em;
 }
 
 .home-text {
 	font-size: 1.5em;
+	text-align: center;
+}
+
+.sanity-container {
+	position: relative;
+	display: inline-block;
+	margin-left: 2em;
+}
+	.sanity-container img {
+		width: 150px;
+		height: auto;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	}
+
+.threshold-text {
+	position: absolute;
+	top: 44%;
+	left: 48%;
+	transform: rotate(18deg) translate(-50%, -50%);
+	color: white;
+	font-size: 2.6em;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.section-header {
+	font-size: 3em;
+	font-weight: bold;
+	font-family: 'October Crow';
+	margin-left: 3%;
+}
+
+.text-section {
+	background-color: rgba(255, 255, 255, 0.1);
+	margin-right: 4%;
+	border-radius: 20px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.hunting-threshold-split {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 1em;
 	text-align: center;
 }
