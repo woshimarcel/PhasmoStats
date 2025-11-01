@@ -1,4 +1,12 @@
-﻿.header-text {
+﻿body {
+	font-size: 1.3em;
+}
+
+.nav-link {
+	font-size: 1.2em;
+}
+
+.header-text {
 	font-family: 'October Crow';
 	font-weight: bold;
 	font-size: 6.5em;
@@ -30,9 +38,10 @@ a:active {
 th {
 	font-size: 1.3em;
 	color: black;
-	background: #BDA873 !important;
-	border-bottom: 4px solid black !important;
+	background: linear-gradient(#BDA873 92%, #000 92%) !important;
 	user-select: none;
+	position: sticky;
+	top: 0;
 }
 
 tr {
@@ -55,12 +64,13 @@ tr:nth-child(even) {
 }
 
 table {
-	text-align: center; 
+	text-align: center;
 	vertical-align: middle;
 	table-layout: fixed;
 	width: 94% !important;
 	margin: 0 auto;
 	margin-bottom: 7em !important;
+	border-collapse: collapse;
 }
 
 .wiki-container {
@@ -81,14 +91,19 @@ table {
 }
 
 .page {
-	background: radial-gradient(circle at 40% top, #5A5A5A 0%, #5A5A5A 10%, transparent 70%), /* Normal Flashlight */
-	radial-gradient(circle at 80% bottom, #9e00ff 0%, transparent 27%) !important; /* UV Flashlight */
+	background: radial-gradient(circle at 40% top, #5A5A5A 0%, #5A5A5A 15%, transparent 75%), /* Normal Flashlight */
+	radial-gradient(circle at 80% bottom, #9e00ff 0%, transparent 22%) !important; /* UV Flashlight */
 	background-color: #0F0F0F !important;
 	color: black !important;
-	font-size: 1.3em;
 }
 
 .stats-header {
 	padding-left: 10% !important;
 	margin-bottom: 0.2em;
+}
+
+hr {
+	height: 4px !important;
+	background-color: #222 !important;
+	opacity: 1;
 }
