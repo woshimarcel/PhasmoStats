@@ -166,3 +166,8 @@ hr {
 	gap: 1em;
 	text-align: center;
 }
+
+.wiki-table {
+	font-size: 0.85em;
+	margin-bottom: 0 !important;
+}
