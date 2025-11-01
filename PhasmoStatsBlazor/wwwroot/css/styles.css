@@ -223,3 +223,11 @@ hr {
 	100% { background-position: -200% 0; }
 }
 
+.crown {
+	position: absolute;
+	top: -27px;
+	left: 90px;
+	width: 120px;
+	height: auto;
+	transform: rotate(20deg);
+}
