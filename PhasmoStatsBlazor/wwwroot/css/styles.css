@@ -171,3 +171,55 @@ hr {
 	font-size: 0.85em;
 	margin-bottom: 0 !important;
 }
+
+.evidence-text {
+	font-size: 1.8em;
+}
+
+.dots-text {
+	font-family: 'Codystar';
+	font-weight: bold;
+	color: #00FF00;
+	text-shadow: 0 0 6px #00FF00;
+}
+
+.uv-text {
+	color: #9900ff;
+	text-shadow: 0 0 6px #9900ff;
+}
+
+.emf-text {
+	background: linear-gradient(90deg, #00CB00 20%, #FFD800 50%, #AC0000 80%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.freezing-text {
+	color: #a8e0ff;
+	text-shadow: 0 0 6px #d0faff;
+}
+
+.orb-text {
+	color: #fff4b2;
+	text-shadow: 0 0 10px #ffea80;
+}
+
+.book-text {
+	font-family: 'Rock Salt';
+}
+
+.box-text {
+	font-size: 2em;
+	font-weight: bold;
+	background: linear-gradient(90deg, #D6846B 29%, #000 30%, #D6846B 31%, #D6846B 79%, #000 80%, #D6846B 81%);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: scan 26s linear infinite;
+}
+
+@keyframes scan {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+

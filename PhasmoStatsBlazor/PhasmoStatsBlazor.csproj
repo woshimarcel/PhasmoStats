@@ -71,6 +71,11 @@
     <ItemGroup>
       <ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\Images\Items\Tier3\" />
+      <Folder Include="wwwroot\Images\Items\Tier2\" />
+    </ItemGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-windows10.0.19041.0</TargetFrameworks>
 		<PackageVersion>2.1</PackageVersion>
