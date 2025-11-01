@@ -1,12 +1,7 @@
-﻿table tbody tr:nth-child(even) {
-	background-color: #f2f2f2;
-}
-
-.header-text {
+﻿.header-text {
 	font-family: 'October Crow';
 	font-weight: bold;
-	font-size: 4em;
-	color: black;
+	font-size: 6.5em;
 }
 
 .wiki-header {
@@ -32,13 +27,25 @@ a:active {
 	color: #666666;
 }
 
+th {
+	font-size: 1.3em;
+	color: black;
+	background: #BDA873 !important;
+	border-bottom: 4px solid black !important;
+	user-select: none;
+}
+
 tr {
-	border-bottom: 1px solid transparent;
+	border-bottom: 1px solid;
+	background-color: #C9C19B;
+}
+
+table tr:hover td {
+	background-color: rgba(240, 240, 240, 0.7);
 }
 
 tr:nth-child(even) {
-	background: linear-gradient(90deg, #092464, #3A0647);
-	color: white;
+	background: #AFA889;
 }
 
 .center-flex {
@@ -51,6 +58,9 @@ table {
 	text-align: center; 
 	vertical-align: middle;
 	table-layout: fixed;
+	width: 94% !important;
+	margin: 0 auto;
+	margin-bottom: 7em !important;
 }
 
 .wiki-container {
@@ -68,4 +78,17 @@ table {
 .wiki-info {
 	padding-left: 5%;
 	padding-right: 10%;
+}
+
+.page {
+	background: radial-gradient(circle at 40% top, #5A5A5A 0%, #5A5A5A 10%, transparent 70%), /* Normal Flashlight */
+	radial-gradient(circle at 80% bottom, #9e00ff 0%, transparent 27%) !important; /* UV Flashlight */
+	background-color: #0F0F0F !important;
+	color: black !important;
+	font-size: 1.3em;
+}
+
+.stats-header {
+	padding-left: 10% !important;
+	margin-bottom: 0.2em;
 }
