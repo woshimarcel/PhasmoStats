@@ -28,11 +28,11 @@ a:link {
 }
 
 a:hover {
-	color: #333333;
+	color: #9e0077;
 }
 
 a:active {
-	color: #666666;
+	color: #cf00cc;
 }
 
 th {
@@ -106,4 +106,9 @@ hr {
 	height: 4px !important;
 	background-color: #222 !important;
 	opacity: 1;
+}
+
+.home-text {
+	font-size: 1.5em;
+	text-align: center;
 }
