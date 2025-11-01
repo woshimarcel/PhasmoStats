@@ -1,19 +1,64 @@
 ﻿@page "/wiki/demon"
 
 <div class="wiki-container">
-	<img src="/Images/GhostIcons/demon.webp"/>
+	<img src="/Images/GhostIcons/demon.webp" />
 	<div class="wiki-text">
 		<h1 class="header-text wiki-header">
 			Demon
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 70% or 100% (with ability)</li>
-				<li>Can hunt at any sanity when using its ability. There are no conditions for that to happen</li>
-				<li>Crucifixes have a 50% larger range</li>
-				<li>Cannot hunt for 60 seconds after being smudged</li>
-			</ul>
+		<div class="text-section">
+			<div class="hunting-threshold-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">70%</div>
+				</div>
+				<div class="wiki-info">Normal threshold</div>
+			</div>
+			<br />
+			<div class="hunting-threshold-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">100%</div>
+				</div>
+				<div class="wiki-info">When using its ability</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/thermometer-t1.webp" />
+					<div class="evidence-text freezing-text">Freezing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/uv-t1.webp" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<div class="evidence-text book-text">Writing</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Behaviour</div>
+			<div class="wiki-info">
+				After smudging a Demon, it is unable to hunt for 60 seconds instead of 90 seconds.
+				<br /><br />
+				Crucifixes have a 50% larger radius for Demons.
+				<br /><br />
+				After ending a hunt or being stopped from hunting by a crucifix, the Demon can initiate another hunt after 20 seconds instead of 25 seconds.
+			</div>
+			<br />
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				The demon can hunt at any sanity when using its ability. There are no conditions for that to happen.
+			</div>
 		</div>
 	</div>
 </div>
