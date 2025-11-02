@@ -72,7 +72,6 @@ public static class GitHubUpdater
 			{
 				FileName = "powershell",
 				Arguments =
-					$"-Command \"Start-Sleep 2; " +
 					$"Copy-Item -Path '{newExe}' -Destination '{currentExe}' -Force; " +
 					$"Start-Process '{currentExe}'\"",
 				CreateNoWindow = true,
