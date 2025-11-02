@@ -1,4 +1,4 @@
-﻿	@page "/wiki/onryo"
+﻿@page "/wiki/onryo"
 
 <div class="wiki-container">
 	<img src="/Images/GhostIcons/onryo.webp" />
@@ -7,17 +7,110 @@
 			Onryo
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold:
-					<ul>
-						<li>Default: 60%</li>
-						<li>Near a flame: 40%</li>
-						<li>After blowing out the third flame: 100%</li>
-					</ul>
-				</li>
-				<li>Flames will prevent an Onryo from hunting, just like a crucifix (flames take priority over crucifixes)</li>
-			</ul>
+		<div class="text-section">
+			<div class="hunting-threshold-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">60%</div>
+				</div>
+				<div class="wiki-info">Normal Threshold</div>
+			</div>
+			<div class="hunting-threshold-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/LowSanity.png" />
+					<div class="threshold-text">40%</div>
+				</div>
+				<div class="wiki-info">Near a flame</div>
+			</div>
+			<div class="hunting-threshold-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">100%</div>
+				</div>
+				<div class="wiki-info">After blowing out the third flame</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/video-t1.webp" />
+					<div class="evidence-text orb-text">Orb</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/thermometer-t1.webp" />
+					<div class="evidence-text freezing-text">Freezing</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Behaviour<br /></div>
+			<div class="wiki-info">
+				The Onryo's flame blowing frequency increases the more dead players there are:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Number of dead Players</th>
+							<th>Chance of blowing out the flame</th>
+							<th>Chance of blowing out the tier II firelight</th>
+							<th>Cooldown before flame can be blown out after lighting</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0</td>
+							<td>67%</td>
+							<td>96.3%</td>
+							<td>20 - 80 seconds</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>75%</td>
+							<td>98.4%</td>
+							<td>20 - 60 seconds</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>80%</td>
+							<td>99.2%</td>
+							<td>20 - 40 seconds</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>83%</td>
+							<td>99.5%</td>
+							<td>20 seconds</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
+			<div class="section-header">Ability<br /></div>
+			<div class="wiki-info">
+				Flames can both prevent and cause a hunt.
+				<br /><br />If the Onryo attempts a hunt within 4 meters of any type of flame, it will blow out the flame instead and the hunt will fail.
+				This does not restart the hunt cooldown timer. Flames take priority over crucifixes.
+				<br /><br />
+				Every third flame that the Onryo blows out will cause it to attempt to initiate a hunt, regardless of current average sanity.
+				This hunt can be blocked by crucifixes, an active incense effect or another flame.
+				<br />
+				There can be a delay of up to 6 seconds before the hunt actually initiates.
+			</div>
+			<br />
+			<div class="section-header">Inabilities<br /></div>
+			<div class="wiki-info">
+				The Onryo cannot light any fire sources naturally, but can be forced into doing so with a Voodoo Doll.
+			</div>
 		</div>
 	</div>
 </div>
+
