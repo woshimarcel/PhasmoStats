@@ -7,14 +7,76 @@
 			Deogen
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 40%</li>
-				<li>Always knows where every player is during a hunt</li>
-				<li>Is faster when further away from a player, slower when closer</li>
-				<li>Has a 33% chance to produce a heavy breathing response in the spirit box when standing within 1 metre of the ghost</li>
-				<li>Cannot speed up in line-of-sight</li>
-			</ul>
+		<div class="text-section hunting-threshold-split">
+			<span class="section-header">Hunting Threshold:</span>
+			<div class="sanity-container">
+				<img src="/Images/SanityIcons/LowSanity.png" />
+				<div class="threshold-text">40%</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<div class="evidence-text book-text">Writing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/dots-t1.webp" />
+					<div class="evidence-text dots-text">D.O.T.S.</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				If the player asks any question through the Spirit Box while standing within 1 meter of the Deogen,
+				it has a 33% chance to produce a unique response of constant heavy bull-like breathing.
+			</div>
+			<br />
+			<div class="section-header">Hunt<br /></div>
+			<div class="wiki-info">
+				The Deogen always has line-of-sight with all players on the map.
+				In the beginning of a hunt, the Deogen will pick the nearest player (by straight-line distance) to move towards.
+				The Deogen will check and repick the nearest target every 5-10 seconds.
+				<br /><br />
+				The speed is based on its pathfinding distance to the target player and has three thresholds:
+				<ul>
+					<li>> 6 meters: 3m/s</li>
+					<li>2.5 - 6 meters: 0.4m/s - 3m/s</li>
+					<li>&lt; 2.5 meters: 0.4m/s</li>
+				</ul>
+				<br />
+				During a hunt, the Deogen's flickering is a bit different, making it more visible overall:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Ghost</th>
+							<th>Visibility length (s)</th>
+							<th>Invisibility length (s)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Deogen</td>
+							<td>0.20 - 0.30</td>
+							<td>0.01 - 0.40</td>
+						</tr>
+						<tr>
+							<td>Standard Ghost</td>
+							<td>0.08 - 0.30</td>
+							<td>0.10 - 0.92</td>
+						</tr>
+					</tbody>
+				</table>
+				*Values for Deogen may not be accurate.
+			</div>
 		</div>
 	</div>
 </div>
