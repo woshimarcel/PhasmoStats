@@ -38,7 +38,7 @@ a:active {
 th {
 	font-size: 1.3em;
 	color: black;
-	background: linear-gradient(#BDA873 92%, #000 92%) !important;
+	background: linear-gradient(#BDA873 92%, #000 92%);
 	user-select: none;
 	position: sticky;
 	top: 0;
@@ -230,4 +230,16 @@ hr {
 	width: 120px;
 	height: auto;
 	transform: rotate(20deg);
+}
+
+.wiki-info th {
+	background: #82775E;
+}
+
+.wiki-info tr {
+	background: #686255;
+}
+
+.wiki-info tr:nth-child(even) {
+	background: #595348;
 }
