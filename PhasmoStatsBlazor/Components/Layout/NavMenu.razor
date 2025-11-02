@@ -4,8 +4,6 @@
     </div>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
@@ -21,11 +19,11 @@
             @if (_showStats)
             {
                 <div class="ms-4 mt-1">
-                    <NavLink class="nav-link" href="stats/ghosts">Ghosts</NavLink>
-                    <NavLink class="nav-link" href="stats/maps">Maps</NavLink>
-                    <NavLink class="nav-link" href="stats/bones">Bones</NavLink>
-                    <NavLink class="nav-link" href="stats/cursed-objects">Cursed Objects</NavLink>
-                    <NavLink class="nav-link" href="stats/case">Case</NavLink>
+                    <NavLink class="nav-link" href="stats/ghosts"><span class="bi" style="background-image: url(/Images/NavigationIcons/ghost.png);"></span>Ghosts</NavLink>
+                    <NavLink class="nav-link" href="stats/maps"><span class="bi" style="background-image: url(/Images/NavigationIcons/house.png);"></span>Maps</NavLink>
+                    <NavLink class="nav-link" href="stats/bones"><span class="bi" style="background-image: url(/Images/NavigationIcons/bone.png);"></span>Bones</NavLink>
+                    <NavLink class="nav-link" href="stats/cursed-objects"><span class="bi" style="background-image: url(/Images/NavigationIcons/ouija-board.png);"></span>Cursed Objects</NavLink>
+                    <NavLink class="nav-link" href="stats/case"><span class="bi" style="background-image: url(/Images/NavigationIcons/case.png);"></span>Case</NavLink>
                 </div>
             }
         </div>
@@ -37,30 +35,30 @@
             @if (_showWiki)
             {
                 <div class="ms-4 mt-1">
-                    <NavLink class="nav-link" href="wiki/spirit"><span class="bi" style="background-image:url(/Images/GhostIcons/spirit.webp);"></span>Spirit</NavLink>
-                    <NavLink class="nav-link" href="wiki/wraith"><span class="bi" style="background-image:url(/Images/GhostIcons/wraith.webp);"></span>Wraith</NavLink>
-                    <NavLink class="nav-link" href="wiki/phantom"><span class="bi" style="background-image:url(/Images/GhostIcons/phantom.webp);"></span>Phantom</NavLink>
-                    <NavLink class="nav-link" href="wiki/poltergeist"><span class="bi" style="background-image:url(/Images/GhostIcons/poltergeist.webp);"></span>Poltergeist</NavLink>
-                    <NavLink class="nav-link" href="wiki/banshee"><span class="bi" style="background-image:url(/Images/GhostIcons/banshee.webp);"></span>Banshee</NavLink>
-                    <NavLink class="nav-link" href="wiki/jinn"><span class="bi" style="background-image:url(/Images/GhostIcons/jinn.webp);"></span>Jinn</NavLink>
-                    <NavLink class="nav-link" href="wiki/mare"><span class="bi" style="background-image:url(/Images/GhostIcons/mare.webp);"></span>Mare</NavLink>
-                    <NavLink class="nav-link" href="wiki/revenant"><span class="bi" style="background-image:url(/Images/GhostIcons/revenant.webp);"></span>Revenant</NavLink>
-                    <NavLink class="nav-link" href="wiki/shade"><span class="bi" style="background-image:url(/Images/GhostIcons/shade.webp);"></span>Shade</NavLink>
-                    <NavLink class="nav-link" href="wiki/demon"><span class="bi" style="background-image:url(/Images/GhostIcons/demon.webp);"></span>Demon</NavLink>
-                    <NavLink class="nav-link" href="wiki/yurei"><span class="bi" style="background-image:url(/Images/GhostIcons/yurei.webp);"></span>Yurei</NavLink>
-                    <NavLink class="nav-link" href="wiki/oni"><span class="bi" style="background-image:url(/Images/GhostIcons/oni.webp);"></span>Oni</NavLink>
-                    <NavLink class="nav-link" href="wiki/yokai"><span class="bi" style="background-image:url(/Images/GhostIcons/yokai.webp);"></span>Yokai</NavLink>
-                    <NavLink class="nav-link" href="wiki/hantu"><span class="bi" style="background-image:url(/Images/GhostIcons/hantu.webp);"></span>Hantu</NavLink>
-                    <NavLink class="nav-link" href="wiki/goryo"><span class="bi" style="background-image:url(/Images/GhostIcons/goryo.webp);"></span>Goryo</NavLink>
-                    <NavLink class="nav-link" href="wiki/myling"><span class="bi" style="background-image:url(/Images/GhostIcons/myling.webp);"></span>Myling</NavLink>
-                    <NavLink class="nav-link" href="wiki/onryo"><span class="bi" style="background-image:url(/Images/GhostIcons/onryo.webp);"></span>Onryo</NavLink>
-                    <NavLink class="nav-link" href="wiki/twins"><span class="bi" style="background-image:url(/Images/GhostIcons/twins.webp);"></span>The Twins</NavLink>
-                    <NavLink class="nav-link" href="wiki/raiju"><span class="bi" style="background-image:url(/Images/GhostIcons/raiju.webp);"></span>Raiju</NavLink>
-                    <NavLink class="nav-link" href="wiki/obake"><span class="bi" style="background-image:url(/Images/GhostIcons/obake.webp);"></span>Obake</NavLink>
-                    <NavLink class="nav-link" href="wiki/mimic"><span class="bi" style="background-image:url(/Images/GhostIcons/mimic.webp);"></span>The Mimic</NavLink>
-                    <NavLink class="nav-link" href="wiki/moroi"><span class="bi" style="background-image:url(/Images/GhostIcons/moroi.webp);"></span>Moroi</NavLink>
-                    <NavLink class="nav-link" href="wiki/deogen"><span class="bi" style="background-image:url(/Images/GhostIcons/deogen.webp);"></span>Deogen</NavLink>
-                    <NavLink class="nav-link" href="wiki/thaye"><span class="bi" style="background-image:url(/Images/GhostIcons/thaye.webp);"></span>Thaye</NavLink>
+                    <NavLink class="nav-link" href="wiki/spirit"><span class="bi" style="background-image: url(/Images/GhostIcons/spirit.webp);"></span>Spirit</NavLink>
+                    <NavLink class="nav-link" href="wiki/wraith"><span class="bi" style="background-image: url(/Images/GhostIcons/wraith.webp);"></span>Wraith</NavLink>
+                    <NavLink class="nav-link" href="wiki/phantom"><span class="bi" style="background-image: url(/Images/GhostIcons/phantom.webp);"></span>Phantom</NavLink>
+                    <NavLink class="nav-link" href="wiki/poltergeist"><span class="bi" style="background-image: url(/Images/GhostIcons/poltergeist.webp);"></span>Poltergeist</NavLink>
+                    <NavLink class="nav-link" href="wiki/banshee"><span class="bi" style="background-image: url(/Images/GhostIcons/banshee.webp);"></span>Banshee</NavLink>
+                    <NavLink class="nav-link" href="wiki/jinn"><span class="bi" style="background-image: url(/Images/GhostIcons/jinn.webp);"></span>Jinn</NavLink>
+                    <NavLink class="nav-link" href="wiki/mare"><span class="bi" style="background-image: url(/Images/GhostIcons/mare.webp);"></span>Mare</NavLink>
+                    <NavLink class="nav-link" href="wiki/revenant"><span class="bi" style="background-image: url(/Images/GhostIcons/revenant.webp);"></span>Revenant</NavLink>
+                    <NavLink class="nav-link" href="wiki/shade"><span class="bi" style="background-image: url(/Images/GhostIcons/shade.webp);"></span>Shade</NavLink>
+                    <NavLink class="nav-link" href="wiki/demon"><span class="bi" style="background-image: url(/Images/GhostIcons/demon.webp);"></span>Demon</NavLink>
+                    <NavLink class="nav-link" href="wiki/yurei"><span class="bi" style="background-image: url(/Images/GhostIcons/yurei.webp);"></span>Yurei</NavLink>
+                    <NavLink class="nav-link" href="wiki/oni"><span class="bi" style="background-image: url(/Images/GhostIcons/oni.webp);"></span>Oni</NavLink>
+                    <NavLink class="nav-link" href="wiki/yokai"><span class="bi" style="background-image: url(/Images/GhostIcons/yokai.webp);"></span>Yokai</NavLink>
+                    <NavLink class="nav-link" href="wiki/hantu"><span class="bi" style="background-image: url(/Images/GhostIcons/hantu.webp);"></span>Hantu</NavLink>
+                    <NavLink class="nav-link" href="wiki/goryo"><span class="bi" style="background-image: url(/Images/GhostIcons/goryo.webp);"></span>Goryo</NavLink>
+                    <NavLink class="nav-link" href="wiki/myling"><span class="bi" style="background-image: url(/Images/GhostIcons/myling.webp);"></span>Myling</NavLink>
+                    <NavLink class="nav-link" href="wiki/onryo"><span class="bi" style="background-image: url(/Images/GhostIcons/onryo.webp);"></span>Onryo</NavLink>
+                    <NavLink class="nav-link" href="wiki/twins"><span class="bi" style="background-image: url(/Images/GhostIcons/twins.webp);"></span>The Twins</NavLink>
+                    <NavLink class="nav-link" href="wiki/raiju"><span class="bi" style="background-image: url(/Images/GhostIcons/raiju.webp);"></span>Raiju</NavLink>
+                    <NavLink class="nav-link" href="wiki/obake"><span class="bi" style="background-image: url(/Images/GhostIcons/obake.webp);"></span>Obake</NavLink>
+                    <NavLink class="nav-link" href="wiki/mimic"><span class="bi" style="background-image: url(/Images/GhostIcons/mimic.webp);"></span>The Mimic</NavLink>
+                    <NavLink class="nav-link" href="wiki/moroi"><span class="bi" style="background-image: url(/Images/GhostIcons/moroi.webp);"></span>Moroi</NavLink>
+                    <NavLink class="nav-link" href="wiki/deogen"><span class="bi" style="background-image: url(/Images/GhostIcons/deogen.webp);"></span>Deogen</NavLink>
+                    <NavLink class="nav-link" href="wiki/thaye"><span class="bi" style="background-image: url(/Images/GhostIcons/thaye.webp);"></span>Thaye</NavLink>
                 </div>
             }
         </div>

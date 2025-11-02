@@ -1,7 +1,7 @@
 ﻿@page "/stats/ghosts"
 @using Logic
 
-<h1 class="header-text">Ghosts</h1>
+<h1 class="header-text stats-header">Ghosts</h1>
 
 <table class="table">
     <thead>
@@ -10,7 +10,7 @@
             <th @onclick='() => SortBy("seen")'>Sightings</th>
             <th @onclick='() => SortBy("percentage")'>Percentage</th>
             <th @onclick='() => SortBy("died")'>Deaths</th>
-            <th @onclick='() => SortBy("ratio")'>Sighting/Death Ratio</th>
+            <th @onclick='() => SortBy("ratio")'>S/D Ratio</th>
         </tr>
     </thead>
     <tbody>

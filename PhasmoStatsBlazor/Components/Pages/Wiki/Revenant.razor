@@ -1,19 +1,51 @@
 ﻿@page "/wiki/revenant"
 
 <div class="wiki-container">
-	<img src="/Images/GhostIcons/revenant.webp" />
+	<div style="position: relative; display: inline-block;">
+		<img src="/Images/GhostIcons/revenant.webp" />
+		<img src="/Images/Other/crown.png" class="crown" />
+	</div>
 	<div class="wiki-text">
 		<h1 class="header-text wiki-header">
-			Revenant
+			Revenant <span style="font-size: 0.7em">❤️</span>
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 50%</li>
-				<li>Has fixed speeds of 1m/s and 3m/s. The Revenant only speeds up to 3m/s, when detecting a player
-					<ul><li>Speed will slowly decrease over ~2.7 seconds to its initial 1m/s after losing all players</li></ul>
-				</li>
-			</ul>
+		<div class="text-section">
+			<div class="hunting-threshold-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/MediumSanity.png" />
+					<div class="threshold-text">50%</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/video-t1.webp" />
+					<div class="evidence-text orb-text">Ghost Orb</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/thermometer-t1.webp" />
+					<div class="evidence-text freezing-text">Freezing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<div class="evidence-text book-text">Writing</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Hunt</div>
+			<div class="wiki-info">
+				The Revenant has fixed speeds of 1m/s and 3m/s. It only speeds up to 3m/s when it has detected a player.
+				<br />The speed will slowly decrease over ~2.7 seconds to its initial 1m/s after losing all players
+				and reaching the location of the last detection.
+			</div>
+			<br />
 		</div>
 	</div>
 </div>

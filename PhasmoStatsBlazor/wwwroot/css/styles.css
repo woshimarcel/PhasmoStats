@@ -1,12 +1,15 @@
-﻿table tbody tr:nth-child(even) {
-	background-color: #f2f2f2;
+﻿body {
+	font-size: 1.3em;
+}
+
+.nav-link {
+	font-size: 1.2em;
 }
 
 .header-text {
 	font-family: 'October Crow';
 	font-weight: bold;
-	font-size: 4em;
-	color: black;
+	font-size: 6.5em;
 }
 
 .wiki-header {
@@ -25,20 +28,33 @@ a:link {
 }
 
 a:hover {
-	color: #333333;
+	color: #9e0077;
 }
 
 a:active {
-	color: #666666;
+	color: #cf00cc;
+}
+
+th {
+	font-size: 1.3em;
+	color: black;
+	background: linear-gradient(#BDA873 92%, #000 92%);
+	user-select: none;
+	position: sticky;
+	top: 0;
 }
 
 tr {
-	border-bottom: 1px solid transparent;
+	border-bottom: 1px solid;
+	background-color: #C9C19B;
+}
+
+table tr:hover td {
+	background-color: rgba(240, 240, 240, 0.7);
 }
 
 tr:nth-child(even) {
-	background: linear-gradient(90deg, #092464, #3A0647);
-	color: white;
+	background: #AFA889;
 }
 
 .center-flex {
@@ -48,16 +64,21 @@ tr:nth-child(even) {
 }
 
 table {
-	text-align: center; 
+	text-align: center;
 	vertical-align: middle;
 	table-layout: fixed;
+	width: 94% !important;
+	margin: 0 auto;
+	margin-bottom: 7em !important;
+	border-collapse: collapse;
 }
 
 .wiki-container {
 	display: flex;
 	align-items: flex-start;
 	gap: 2em;
-	justify-content: center
+	justify-content: center;
+	padding-bottom: 7em;
 }
 
 .wiki-text {
@@ -66,6 +87,159 @@ table {
 }
 
 .wiki-info {
-	padding-left: 5%;
-	padding-right: 10%;
+	font-size: 1.3em;
+	margin: 0 4%;
+	display: block;
+}
+
+.page {
+	background: radial-gradient(circle at 40% top, #5A5A5A 0%, #5A5A5A 15%, transparent 75%), /* Normal Flashlight */
+	radial-gradient(circle at 80% bottom, #9e00ff 0%, transparent 22%) !important; /* UV Flashlight */
+	background-color: #0F0F0F !important;
+	color: black !important;
+}
+
+.stats-header {
+	padding-left: 10% !important;
+	margin-bottom: 0.2em;
+}
+
+hr {
+	height: 4px !important;
+	background-color: #222 !important;
+	opacity: 1;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.wiki-container hr {
+	margin-left: -2em;
+}
+
+.home-text {
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.sanity-container {
+	position: relative;
+	display: inline-block;
+	margin-left: 2em;
+}
+	.sanity-container img {
+		width: 150px;
+		height: auto;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	}
+
+.threshold-text {
+	position: absolute;
+	top: 44%;
+	left: 48%;
+	transform: rotate(18deg) translate(-50%, -50%);
+	color: white;
+	font-size: 2.6em;
+	font-weight: bold;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.section-header {
+	font-size: 3em;
+	font-weight: bold;
+	font-family: 'October Crow';
+	margin-left: 3%;
+}
+
+.text-section {
+	background-color: rgba(255, 255, 255, 0.16);
+	margin-right: 4%;
+	border-radius: 20px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.hunting-threshold-split {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	gap: 1em;
+	text-align: center;
+}
+
+.wiki-table {
+	font-size: 0.85em;
+	margin-bottom: 0 !important;
+}
+
+.evidence-text {
+	font-size: 1.8em;
+}
+
+.dots-text {
+	font-family: 'Codystar';
+	font-weight: bold;
+	color: #00FF00;
+	text-shadow: 0 0 6px #00FF00;
+}
+
+.uv-text {
+	color: #9900ff;
+	text-shadow: 0 0 6px #9900ff;
+}
+
+.emf-text {
+	background: linear-gradient(90deg, #00CB00 35%, #FFD800 50%, #AC0000 60%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.freezing-text {
+	color: #a8e0ff;
+	text-shadow: 0 0 6px #d0faff;
+}
+
+.orb-text {
+	color: #fff4b2;
+	text-shadow: 0 0 10px #ffea80;
+}
+
+.book-text {
+	font-family: 'Rock Salt';
+}
+
+.box-text {
+	font-size: 2em;
+	font-weight: bold;
+	background: linear-gradient(90deg, #D6846B 29%, #000 30%, #D6846B 31%, #D6846B 79%, #000 80%, #D6846B 81%);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: scan 26s linear infinite;
+}
+
+@keyframes scan {
+	0% { background-position: 200% 0; }
+	100% { background-position: -200% 0; }
+}
+
+.crown {
+	position: absolute;
+	top: -27px;
+	left: 90px;
+	width: 120px;
+	height: auto;
+	transform: rotate(20deg);
+}
+
+.wiki-info th {
+	background: #82775E;
+}
+
+.wiki-info tr {
+	background: #686255;
+}
+
+.wiki-info tr:nth-child(even) {
+	background: #595348;
 }

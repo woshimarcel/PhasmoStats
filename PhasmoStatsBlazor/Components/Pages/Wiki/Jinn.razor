@@ -1,20 +1,59 @@
 ﻿@page "/wiki/jinn"
 
 <div class="wiki-container">
-	<img src="/Images/GhostIcons/jinn.webp"/>
+	<img src="/Images/GhostIcons/jinn.webp" />
 	<div class="wiki-text">
 		<h1 class="header-text wiki-header">
 			Jinn
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 50%</li>
-				<li>Cannot turn the breaker off</li>
-				<li>Instantly speeds up to a fixed 2.5m/s when further away than 3 metres from a player and in line-of-sight
-				</li>
-				<li>Can drain 25% of one player inside the same room or within 3 metres, leaving EMF 2 / 5 at the breaker</li>
-			</ul>
+		<div class="text-section hunting-threshold-split">
+			<span class="section-header">Hunting Threshold:</span>
+			<div class="sanity-container">
+				<img src="/Images/SanityIcons/MediumSanity.png" />
+				<div class="threshold-text">50%</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/emf-t1.webp" />
+					<div class="evidence-text emf-text">EMF 5</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/thermometer-t1.webp" />
+					<div class="evidence-text freezing-text">Freezing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/uv-t1.webp" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				The Jinn can drain 25% sanity of one player in the same room or otherwise within 3 meters of it if the fuse box is turned on.
+				This will leave EMF level 2 or 5 at the fuse box.
+			</div>
+			<br />
+			<div class="section-header">Inabilities</div>
+			<div class="wiki-info">
+				The Jinn cannot turn off the fuse box, as doing so would weaken the ghost.
+			</div>
+			<br />
+			<div class="section-header">Hunt</div>
+			<div class="wiki-info">
+				The Jinn will instantly speed up to a fixed 2.5m/s if the following criteria are met:
+				<ul>
+					<li>The fuse box is turned on</li>
+					<li>The Jinn has line-of-sight with the player it is targeting</li>
+					<li>The Jinn is further than 3 meters away from that player</li>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

@@ -1,23 +1,76 @@
 ﻿@page "/wiki/phantom"
 
 <div class="wiki-container">
-	<img src="/Images/GhostIcons/phantom.webp"/>
+	<img src="/Images/GhostIcons/phantom.webp" />
 	<div class="wiki-text">
 		<h1 class="header-text wiki-header">
 			Phantom
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 50%</li>
-				<li>Never visible on a photo</li>
-				<li>Dissappers instantly after taking a photo / event during an event</li>
-				<li>During a hunt, it's invisible much longer</li>
-				<li>Can sometimes wander to a random player</li>
-				<li>Being within 10 metres of a Phantom while in pseudo line-of-sight (where heartbeats play) reduces the player's sanity by an additional 0.5%/s.
-					This does not apply during ghost events if the Phantom was made invisible
-				</li>
-			</ul>
+		<div class="text-section hunting-threshold-split">
+			<span class="section-header">Hunting Threshold:</span>
+			<div class="sanity-container">
+				<img src="/Images/SanityIcons/MediumSanity.png" />
+				<div class="threshold-text">50%</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/uv-t1.webp" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/dots-t1.webp" />
+					<div class="evidence-text dots-text">D.O.T.S.</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				Phantoms become invisible instantly after taking a photo or video of the ghost during a ghost event.
+				A Phantom's ghost photo does not contain the ghost model and there will be no interference pattern.
+				<br /><br />
+				Being within 10 meters of the ghost while in pseudo line-of-sight (where heartbeats play) reduces the player's sanity by an additional 0.5%/s.
+				This does not apply during ghost events if the Phantom was made invisible.
+				<br /><br />
+				The Phantom can travel to a randomly chosen player. The ghost physically walks to that location, leaving an EMF level 2 where the roam ended.
+			</div>
+			<br />
+			<div class="section-header">Hunt<br /></div>
+			<div class="wiki-info">
+				During a hunt, the ghost is invisible for a much longer time:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Ghost</th>
+							<th>Visibility length (s)</th>
+							<th>Invisibility length (s)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Phantom</td>
+							<td>0.08 - 0.30</td>
+							<td>0.70 - 1.92</td>
+						</tr>
+						<tr>
+							<td>Standard Ghost</td>
+							<td>0.08 - 0.30</td>
+							<td>0.10 - 0.92</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
 		</div>
 	</div>
 </div>

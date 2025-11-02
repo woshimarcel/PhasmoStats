@@ -1,9 +1,8 @@
 ﻿@page "/stats/cursed-objects"
 @using Logic
 
-<h1 class="header-text">Cursed Objects</h1>
-
-<table class="table" style="width: 49%; float: left">
+<h1 class="header-text stats-header">Cursed Objects</h1>
+<table class="table">
     <thead>
         <tr>
             <th @onclick='() => SortByCursedObjects("name")'>Cursed Object</th>
@@ -27,7 +26,9 @@
         }
     </tbody>
 </table>
-<table class="table" style="width: 49%; float: right">
+
+<h1 class="header-text stats-header" style="margin-top: -0.6em">Tarot Cards</h1>
+<table class="table">
     <thead>
         <tr>
             <th @onclick='() => SortByTarots("name")'>Card</th>
