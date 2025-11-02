@@ -189,7 +189,7 @@ hr {
 }
 
 .emf-text {
-	background: linear-gradient(90deg, #00CB00 20%, #FFD800 50%, #AC0000 80%);
+	background: linear-gradient(90deg, #00CB00 35%, #FFD800 50%, #AC0000 60%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
