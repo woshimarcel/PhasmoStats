@@ -41,7 +41,10 @@ public static class GitHubUpdater
 			string latestVersion = release.TagName.TrimStart('v');
 
 			if (!IsNewerVersion(latestVersion, currentVersion))
+			{
+				RemoveOldVersions();
 				return;
+			}
 
 			string downloadUrl = release.Assets.FirstOrDefault()?.BrowserDownloadUrl ?? "";
 			if (string.IsNullOrEmpty(downloadUrl))
@@ -92,5 +95,29 @@ public static class GitHubUpdater
 		if (Version.TryParse(latest, out var latestVersion) && Version.TryParse(current, out var currentVersion))
 			return latestVersion > currentVersion;
 		return false;
+	}
+
+	private static void RemoveOldVersions()
+	{
+		string baseDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhasmoStats");
+		if (!Directory.Exists(baseDir))
+			return;
+
+		string currentFolder = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
+		foreach (var dir in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhasmoStats*"))
+		{
+			if (dir.Equals(currentFolder, StringComparison.OrdinalIgnoreCase))
+				continue;
+
+			try
+			{
+				Directory.Delete(dir, true);
+				Console.WriteLine($"Deleted old version: {dir}");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Failed to delete {dir}: {ex.Message}");
+			}
+		}
 	}
 }

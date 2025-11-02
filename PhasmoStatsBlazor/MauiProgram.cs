@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace PhasmoStatsBlazor
+﻿namespace PhasmoStatsBlazor
 {
 	public static class MauiProgram
 	{
@@ -13,6 +11,8 @@ namespace PhasmoStatsBlazor
 				{
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("October Crow.ttf", "October Crow");
+					fonts.AddFont("Codystar-Regular.ttf", "Codystar");
+					fonts.AddFont("RockSalt.ttf", "Rock Salt");
 				});
 
 			builder.Services.AddMauiBlazorWebView();
