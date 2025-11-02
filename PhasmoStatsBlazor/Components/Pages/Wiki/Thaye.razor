@@ -7,16 +7,164 @@
 			Thaye
 		</h1>
 		<hr />
-		<div class="wiki-info">
-			<ul>
-				<li>Hunting Threshold: 75% to 15% depending on age</li>
-				<li>Activity, hunting threshold and speed depend on age (older = lower)</li>
-				<li>Ages every 1-2 minutes if a player is within the same room or 3 meters
-					<ul><li>Attempts after 30 seconds if it didn't age</li></ul>
-				</li>
-				<li>Aging increases the age on the oujia board</li>
-				<li>Cannot speed up in line-of-sight</li>
-			</ul>
+		<div class="text-section">
+			<div class="hunting-threshold-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">75%</div>
+				</div>
+				<div class="wiki-info">Youngest age (0)</div>
+			</div>
+			<br />
+			<div class="hunting-threshold-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/LowSanity.png" />
+					<div class="threshold-text">15%</div>
+				</div>
+				<div class="wiki-info">Oldest age (10+)</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="hunting-threshold-split">
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/video-t1.webp" />
+					<div class="evidence-text orb-text">Orb</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<div class="evidence-text book-text">Writing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="/Images/Items/Tier1/dots-t1.webp" />
+					<div class="evidence-text dots-text">D.O.T.S.</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				The Thaye has an internal "age" parameter that affects its general activity. 
+				The Thaye will atempt to age every 1-2 minutes and succeeds if a player is in the same room as the ghost or within 3 meters of it.
+				If it did not succeed, the THaye will attempt to age after 30 seconds.
+				<br />This also works during a hunt, but will only be effective after the hunt ends.
+				<br />The following shows the parameters that are affected by age:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Behaviour</th>
+							<th>Age 0</th>
+							<th>Per age added</th>
+							<th>Age 10+</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Hunt Threshold</th>
+							<td>75%</td>
+							<td>-6%</td>
+							<td>15%</td>
+						</tr>
+						<tr>
+							<th>Hunt speed</th>
+							<td>2.75m/s</td>
+							<td>-0.175m/s</td>
+							<td>1m/s</td>
+						</tr>
+						<tr>
+							<th>Relative Activity Rate</th>
+							<td>200%</td>
+							<td>-15%</td>
+							<td>50%</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+				Detailed behaviour per age:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Age</th>
+							<th>Hunt Threshold</th>
+							<th>Relative Activity Rate</th>
+							<th>Hunt Speed</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0</td>
+							<td>75%</td>
+							<td>200%</td>
+							<td>2.75m/s</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>69%</td>
+							<td>185%</td>
+							<td>2.575m/s</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>63%</td>
+							<td>170%</td>
+							<td>2.4m/s</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>57%</td>
+							<td>155%</td>
+							<td>2.225m/s</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>51%</td>
+							<td>140%</td>
+							<td>2.05m/s</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>45%</td>
+							<td>125%</td>
+							<td>1.875m/s</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>39%</td>
+							<td>110%</td>
+							<td>1.7m/s</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>33%</td>
+							<td>95%</td>
+							<td>1.525m/s</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>27%</td>
+							<td>80%</td>
+							<td>1.35m/s</td>
+						</tr>
+						<tr>
+							<td>9</td>
+							<td>21%</td>
+							<td>65%</td>
+							<td>1.175m/s</td>
+						</tr>
+						<tr>
+							<td>10+</td>
+							<td>15%</td>
+							<td>50%</td>
+							<td>1m/s</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+			</div>
 		</div>
 	</div>
 </div>
