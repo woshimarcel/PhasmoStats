@@ -8,12 +8,17 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                <span class="bi" style="background-image: url(/Images/NavigationIcons/home.png);" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="settings" Match="NavLinkMatch.All">
+                <span class="bi" style="background-image: url(/Images/NavigationIcons/settings.png);" aria-hidden="true"></span> Settings
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleStats">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Stats
+                <span class="bi" style="background-image: url(/Images/NavigationIcons/stats.png);" aria-hidden="true"></span> Stats
             </NavLink>
 
             @if (_showStats)
@@ -29,7 +34,7 @@
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleWiki">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Wiki
+                <span class="bi" style="background-image: url(/Images/NavigationIcons/wiki.png);" aria-hidden="true"></span> Wiki
             </NavLink>
 
             @if (_showWiki)

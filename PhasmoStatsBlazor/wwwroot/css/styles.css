@@ -243,3 +243,7 @@ hr {
 .wiki-info tr:nth-child(even) {
 	background: #595348;
 }
+
+.nav-scrollable .nav-settings {
+
+}
