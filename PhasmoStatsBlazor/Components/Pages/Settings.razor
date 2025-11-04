@@ -5,8 +5,48 @@
 </h1>
 <hr />
 
-<div class="text-section" style="margin-left: 4%">
-	<p class="home-text">
-		LOL doesnt exist yet loser
-	</p>
+<div class="text-section">
+	<div class="hunting-threshold-split">
+		<div>
+			<div class="section-header">Brightness</div>
+			<div class="slidecontainer">
+				<div style="display: flex; margin-left: 5%; margin-right: 5%; align-items: center">
+					Dark
+					<input type="range" min="0" max="101" class="slider" @bind="Brightness" @bind:event="oninput">
+					Light
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+@inject IJSRuntime JS
+@code
+{
+	private static int _brightness = 20;
+
+	public int Brightness
+	{
+		get => _brightness;
+		set
+		{
+			if (_brightness == value) 
+				return;
+			_brightness = value;
+			_ = UpdateBackground();
+		}
+	}
+
+	private async Task UpdateBackground()
+	{
+		await JS.InvokeVoidAsync("updateGradient", _brightness);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await UpdateBackground();
+		}
+	}
+}
