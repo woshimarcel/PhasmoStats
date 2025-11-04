@@ -1,4 +1,28 @@
-﻿/*#if (SampleContent)*/
+﻿@font-face {
+    font-family: 'October Crow';
+    src: url('/fonts/OctoberCrow.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rock Salt';
+    src: url('/fonts/RockSalt.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Codystar';
+    src: url('/fonts/Codystar-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*#if (SampleContent)*/
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

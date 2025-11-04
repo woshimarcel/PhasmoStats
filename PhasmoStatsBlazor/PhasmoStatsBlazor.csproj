@@ -29,7 +29,7 @@
 
         <!-- Versions -->
         <ApplicationDisplayVersion>3.0.0</ApplicationDisplayVersion>
-        <ApplicationVersion>3.0.0</ApplicationVersion>
+        <ApplicationVersion>3</ApplicationVersion>
 		<AssemblyVersion>3.0.0</AssemblyVersion>
 		<FileVersion>3.0.0</FileVersion>
 
@@ -63,6 +63,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="wwwroot\fonts\Codystar-Regular.ttf" />
+      <Content Remove="wwwroot\fonts\OctoberCrow.ttf" />
+      <Content Remove="wwwroot\fonts\OpenSans-Regular.ttf" />
+      <Content Remove="wwwroot\fonts\RockSalt.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
@@ -76,9 +83,19 @@
       <Folder Include="wwwroot\Images\Items\Tier3\" />
       <Folder Include="wwwroot\Images\Items\Tier2\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <MauiFont Include="wwwroot\fonts\Codystar-Regular.ttf" />
+      <MauiFont Include="wwwroot\fonts\OctoberCrow.ttf" />
+      <MauiFont Include="wwwroot\fonts\OpenSans-Regular.ttf" />
+      <MauiFont Include="wwwroot\fonts\RockSalt.ttf" />
+    </ItemGroup>
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst;net9.0-windows10.0.19041.0</TargetFrameworks>
 		<PackageVersion>2.1</PackageVersion>
 	</PropertyGroup>
-
+ 
+	<ItemGroup>
+		<Content Include="wwwroot\fonts\*.*" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
 </Project>

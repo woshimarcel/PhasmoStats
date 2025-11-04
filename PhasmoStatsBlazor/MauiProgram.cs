@@ -1,4 +1,6 @@
-﻿namespace PhasmoStatsBlazor
+﻿using Microsoft.Extensions.Logging;
+
+namespace PhasmoStatsBlazor
 {
 	public static class MauiProgram
 	{
