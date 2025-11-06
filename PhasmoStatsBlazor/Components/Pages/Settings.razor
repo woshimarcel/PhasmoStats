@@ -1,0 +1,115 @@
+﻿@page "/settings"
+@using PhasmoStatsBlazor.Services
+
+@inject IJSRuntime JS
+
+<h1 class="header-text center-flex">
+	Settings
+</h1>
+<hr />
+
+<div class="text-section">
+	<div>
+		<div class="section-header" style="margin-left: 10%">Brightness</div>
+		<div class="slidecontainer">
+			<div style="display: flex; margin-left: 5%; margin-right: 5%; align-items: center">
+				Dark
+				<input type="range" min="-1" max="101" class="slider" @bind="Brightness" @bind:event="oninput">
+				Light
+			</div>
+			<div style="text-align: center">
+				@(Brightness == -1 ? "Blackout" : Brightness == 101 ? "Flashbang" : $"{Brightness}%")
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div>
+		<div class="section-header" style="margin-left: 10%">Item Tiers</div>
+		<div class="grid-split" style="grid-template-columns: 1fr 1fr 1fr 1fr">
+			<div class="items-settings">
+				<img src="@ItemTierService.EmfPath" />
+				<br />
+				<button class="button-item-tiers-text button-emf-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-emf-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-emf-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.VideoPath" />
+				<br />
+				<button class="button-item-tiers-text button-orb-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-orb-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-orb-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.BoxPath" />
+				<br />
+				<button class="button-item-tiers-text button-box-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-box-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-box-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.ThermoPath" />
+				<br />
+				<button class="button-item-tiers-text button-freezing-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-freezing-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-freezing-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.UvPath" />
+				<br />
+				<button class="button-item-tiers-text button-uv-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-uv-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-uv-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.BookPath" />
+				<br />
+				<button class="button-item-tiers-text button-book-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-book-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-book-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.DotsPath" />
+				<br />
+				<button class="button-item-tiers-text button-dots-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers-text button-dots-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers-text button-dots-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@code
+{
+	private static int _brightness = 20;
+
+	public int Brightness
+	{
+		get => _brightness;
+		set
+		{
+			if (_brightness == value)
+				return;
+			_brightness = value;
+			_ = UpdateBackground();
+		}
+	}
+
+	private async Task UpdateBackground()
+	{
+		await JS.InvokeVoidAsync("updateGradient", _brightness);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await UpdateBackground();
+		}
+	}
+
+	private void ChangeItemTier(ItemTierService.Items item, ItemTierService.Tiers tier)
+	{
+		ItemTierService.ChangeItemTier(item, tier);
+	}
+}

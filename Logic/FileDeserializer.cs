@@ -14,9 +14,9 @@ public static class FileDeserializer
 		Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PhasmoStats");
 	private const string OUTPUT_FILENAME_RAW = "raw.json";
 	private const string OUTPUT_FILENAME_CLEANED = "cleaned.json";
+	private readonly static JsonSerializerOptions _caseInsensitiveOption = new JsonSerializerOptions() { PropertyNameCaseInsensitive = true };
+	private readonly static JsonSerializerOptions _indentOption = new JsonSerializerOptions() { WriteIndented = true };
 	public static Dictionary<string, object> Data { get; private set; } = LoadAndDecryptFile();
-	private readonly static JsonSerializerOptions _caseInsensitiveOption = new() { PropertyNameCaseInsensitive = true };
-	private readonly static JsonSerializerOptions _indentOption = new() { WriteIndented = true };
 
 	public static string GetSaveFilePath() => _saveFilePath;
 

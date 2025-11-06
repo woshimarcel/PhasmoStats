@@ -1,4 +1,5 @@
 ﻿@page "/wiki/banshee"
+@using PhasmoStatsBlazor.Services
 
 <div class="wiki-container">
 	<img src="/Images/GhostIcons/banshee.webp" />
@@ -7,7 +8,7 @@
 			Banshee
 		</h1>
 		<hr />
-		<div class="text-section hunting-threshold-split">
+		<div class="text-section grid-split">
 			<span class="section-header">Hunting Threshold:</span>
 			<div class="sanity-container">
 				<img src="/Images/SanityIcons/MediumSanity.png" />
@@ -18,17 +19,17 @@
 		<hr />
 		<div class="text-section">
 			<span class="section-header">Evidences</span>
-			<div class="hunting-threshold-split">
+			<div class="grid-split">
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/video-t1.webp" />
+					<img src="@ItemTierService.VideoPath" />
 					<div class="evidence-text orb-text">Ghost Orb</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/uv-t1.webp" />
+					<img src="@ItemTierService.UvPath" />
 					<div class="evidence-text uv-text">UV</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/dots-t1.webp" />
+					<img src="@ItemTierService.DotsPath" />
 					<div class="evidence-text dots-text">D.O.T.S.</div>
 				</div>
 			</div>

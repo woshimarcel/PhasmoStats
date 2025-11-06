@@ -1,4 +1,5 @@
 ﻿@page "/wiki/mare"
+@using PhasmoStatsBlazor.Services
 
 <div class="wiki-container">
 	<img src="/Images/GhostIcons/mare.webp" />
@@ -8,7 +9,7 @@
 		</h1>
 		<hr />
 		<div class="text-section">
-			<div class="hunting-threshold-split">
+			<div class="grid-split">
 				<span class="section-header">Hunting Threshold:</span>
 				<div class="sanity-container">
 					<img src="/Images/SanityIcons/LowSanity.png" />
@@ -17,7 +18,7 @@
 				<div class="wiki-info">When lights are on in the room</div>
 			</div>
 			<br />
-			<div class="hunting-threshold-split">
+			<div class="grid-split">
 				<span></span>
 				<div class="sanity-container">
 					<img src="/Images/SanityIcons/HighSanity.png" />
@@ -29,17 +30,17 @@
 		<hr />
 		<div class="text-section">
 			<span class="section-header">Evidences</span>
-			<div class="hunting-threshold-split">
+			<div class="grid-split">
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/video-t1.webp" />
+					<img src="@ItemTierService.VideoPath" />
 					<div class="evidence-text orb-text">Ghost Orb</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<img src="@ItemTierService.BoxPath" />
 					<div class="evidence-text box-text">Spirit Box</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<img src="@ItemTierService.BookPath" />
 					<div class="evidence-text book-text">Writing</div>
 				</div>
 			</div>

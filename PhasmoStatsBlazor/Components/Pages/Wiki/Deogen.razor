@@ -1,4 +1,5 @@
 ﻿@page "/wiki/deogen"
+@using PhasmoStatsBlazor.Services
 
 <div class="wiki-container">
 	<img src="/Images/GhostIcons/deogen.webp" />
@@ -7,7 +8,7 @@
 			Deogen
 		</h1>
 		<hr />
-		<div class="text-section hunting-threshold-split">
+		<div class="text-section grid-split">
 			<span class="section-header">Hunting Threshold:</span>
 			<div class="sanity-container">
 				<img src="/Images/SanityIcons/LowSanity.png" />
@@ -17,17 +18,17 @@
 		<hr />
 		<div class="text-section">
 			<span class="section-header">Evidences</span>
-			<div class="hunting-threshold-split">
+			<div class="grid-split">
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/box-t1.webp" />
+					<img src="@ItemTierService.BoxPath" />
 					<div class="evidence-text box-text">Spirit Box<br />(FORCED)</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/book-t1.webp" />
+					<img src="@ItemTierService.BookPath" />
 					<div class="evidence-text book-text">Writing</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/dots-t1.webp" />
+					<img src="@ItemTierService.DotsPath" />
 					<div class="evidence-text dots-text">D.O.T.S.</div>
 				</div>
 			</div>
