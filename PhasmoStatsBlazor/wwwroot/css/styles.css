@@ -301,9 +301,112 @@ hr {
 		padding-bottom: 0.5em;
 	}
 
-.button-item-tiers {
-	border-radius: 5px;
+.button-item-tiers-text {
+	font-size: 1.8em;
+	font-weight: bold;
+	text-align: center;
+	width: 1.4em;
+	height: 1.4em;
+	padding: 0;
 }
+
+.button-box-tiers {
+	background: linear-gradient(90deg, #D6846B 29%, #000 30%, #D6846B 31%, #D6846B 79%, #000 80%, #D6846B 81%);
+	background-size: 200% 100%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: scan 26s linear infinite;
+}
+
+.button-emf-tiers {
+	background: linear-gradient(#00CB00 15%, #FFD800 50%, #AC0000 85%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.button-orb-tiers {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: #fff4b2;
+	text-shadow: 0 0 10px #ffea80;
+}
+
+.button-freezing-tiers {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: #a8e0ff;
+	text-shadow: 0 0 6px #d0faff;
+}
+
+.button-uv-tiers {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: #9900ff;
+	text-shadow: 0 0 6px #9900ff;
+}
+
+.button-book-tiers {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-family: 'Rock Salt';
+	font-size: 1.15em;
+	width: 2.2em;
+	height: 2.2em;
+}
+
+.button-dots-tiers {
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-family: 'Codystar';
+	color: #00FF00;
+	text-shadow: 0 0 6px #00FF00;
+}
+
+.button-item-tiers {
+	display: inline-block;
+	padding: 0.45rem 0.8rem;
+	margin: 0.25rem 0.35rem;
+	border-radius: 8px;
+	background: linear-gradient(180deg, rgba(153,0,255,0.12), rgba(0,0,0,0.20));
+	border: 1px solid rgba(153,0,255,0.45);
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 1rem;
+	line-height: 1;
+	cursor: pointer;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	box-shadow: 0 2px 0 rgba(0,0,0,0.45);
+	transition: transform 120ms ease, box-shadow 140ms ease, background 140ms ease, border-color 140ms ease;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+	.button-item-tiers:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+		background: linear-gradient(180deg, #9900ff, #6b00b3);
+		border-color: rgba(255,255,255,0.08);
+	}
+
+	.button-item-tiers:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px rgba(0,0,0,0.45);
+		background: linear-gradient(180deg, #7b00d9, #4c008f);
+	}
+
+	.button-item-tiers:focus {
+		outline: none;
+		box-shadow: 0 0 0 4px rgba(153,0,255,0.12), 0 2px 6px rgba(0,0,0,0.45);
+	}
+
+	.button-item-tiers[disabled],
+	.button-item-tiers:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+		transform: none;
+		box-shadow: none;
+	}
 
 .items-divider {
 	width: 70%;
