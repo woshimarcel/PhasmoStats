@@ -12,8 +12,11 @@
 			<div class="slidecontainer">
 				<div style="display: flex; margin-left: 5%; margin-right: 5%; align-items: center">
 					Dark
-					<input type="range" min="0" max="101" class="slider" @bind="Brightness" @bind:event="oninput">
+					<input type="range" min="-1" max="101" class="slider" @bind="Brightness" @bind:event="oninput">
 					Light
+				</div>
+				<div>
+					@(Brightness == -1 ? "Blackout" : Brightness == 101 ? "Flashbang" : $"{Brightness}%")
 				</div>
 			</div>
 		</div>

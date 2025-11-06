@@ -7,9 +7,12 @@
     }
 
     if (Number(value) === 101) {
-        ensureFlashOverlay();
+        ensureFlashOverlay("#ffffff");
         showFlashOverlay(3000);
-        return;
+    }
+    else if (Number(value) === -1) {
+        ensureFlashOverlay("#000000");
+        showFlashOverlay(3000);
     }
 
     const v = Math.max(0, Math.min(100, Number(value)));
@@ -35,29 +38,38 @@
     el.style.setProperty('background-color', '#0F0F0F', 'important');
 };
 
-function ensureFlashOverlay() {
-    if (document.getElementById('flash-overlay')) return;
+function ensureFlashOverlay(hex) {
+    let overlay = document.getElementById('flash-overlay');
 
-    const overlay = document.createElement('div');
-    overlay.id = 'flash-overlay';
-    overlay.style.position = 'fixed';
-    overlay.style.inset = '0';
-    overlay.style.background = '#ffffff';
-    overlay.style.zIndex = '1000';
-    overlay.style.pointerEvents = 'none';
-    overlay.style.opacity = '0';
-    overlay.style.transition = 'opacity 150ms linear';
-    document.body.appendChild(overlay);
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'flash-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.inset = '0';
+        overlay.style.background = hex || '#ffffff';
+        overlay.style.zIndex = '1000';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.opacity = '0';
+        overlay.style.transition = 'opacity 150ms linear';
+        document.body.appendChild(overlay);
+        return;
+    }
+
+    if (hex) {
+        overlay.style.background = hex;
+    }
 }
 
 let _flashTimeout = null;
 function showFlashOverlay(durationMs = 600) {
     const overlay = document.getElementById('flash-overlay');
-    if (!overlay) return;
+    if (!overlay)
+        return;
 
     const protectedEls = document.querySelectorAll('.flash-protected');
     protectedEls.forEach(e => {
-        if (getComputedStyle(e).position === 'static') e.style.position = 'relative';
+        if (getComputedStyle(e).position === 'static')
+            e.style.position = 'relative';
         e.style.zIndex = '1001';
     });
 
