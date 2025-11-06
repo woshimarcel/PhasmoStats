@@ -1,4 +1,5 @@
 ﻿@page "/wiki/revenant"
+@using PhasmoStatsBlazor.Services
 
 <div class="wiki-container">
 	<div style="position: relative; display: inline-block;">
@@ -24,15 +25,15 @@
 			<span class="section-header">Evidences</span>
 			<div class="grid-split">
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/video.webp" />
+					<img src="@ItemTierService.VideoPath" />
 					<div class="evidence-text orb-text">Ghost Orb</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/thermometer.webp" />
+					<img src="@ItemTierService.ThermoPath" />
 					<div class="evidence-text freezing-text">Freezing</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/book.webp" />
+					<img src="@ItemTierService.BookPath" />
 					<div class="evidence-text book-text">Writing</div>
 				</div>
 			</div>

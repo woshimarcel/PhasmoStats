@@ -1,4 +1,5 @@
 ﻿@page "/wiki/poltergeist"
+@using PhasmoStatsBlazor.Services
 
 <div class="wiki-container">
 	<img src="/Images/GhostIcons/poltergeist.webp" />
@@ -19,15 +20,15 @@
 			<span class="section-header">Evidences</span>
 			<div class="grid-split">
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/box.webp" />
+					<img src="@ItemTierService.BoxPath" />
 					<div class="evidence-text box-text">Spirit Box</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/uv.webp" />
+					<img src="@ItemTierService.UvPath" />
 					<div class="evidence-text uv-text">UV</div>
 				</div>
 				<div class="sanity-container">
-					<img src="/Images/Items/Tier1/book.webp" />
+					<img src="@ItemTierService.BookPath" />
 					<div class="evidence-text book-text">Writing</div>
 				</div>
 			</div>

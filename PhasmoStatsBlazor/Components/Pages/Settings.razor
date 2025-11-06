@@ -1,4 +1,7 @@
 ﻿@page "/settings"
+@using PhasmoStatsBlazor.Services
+
+@inject IJSRuntime JS
 
 <h1 class="header-text center-flex">
 	Settings
@@ -24,86 +27,60 @@
 		<div class="section-header" style="margin-left: 10%">Item Tiers</div>
 		<div class="grid-split" style="grid-template-columns: 1fr 1fr 1fr 1fr">
 			<div class="items-settings">
-				<img src="@_emfPath"/>
+				<img src="@ItemTierService.EmfPath" />
 				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.EMF, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.EMF, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.EMF, Tiers.Tier3))">T3</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.EMF, ItemTierService.Tiers.Tier3))">T3</button>
 			</div>
 			<div class="items-settings">
-				<img src="@_videoPath" />
+				<img src="@ItemTierService.VideoPath" />
 				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Video, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Video, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Video, Tiers.Tier3))">T3</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Video, ItemTierService.Tiers.Tier3))">T3</button>
 			</div>
 			<div class="items-settings">
-				<img src="@_boxPath" />
+				<img src="@ItemTierService.BoxPath" />
 				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Box, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Box, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Box, Tiers.Tier3))">T3</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Box, ItemTierService.Tiers.Tier3))">T3</button>
 			</div>
 			<div class="items-settings">
-				<img src="@_thermoPath" />
+				<img src="@ItemTierService.ThermoPath" />
 				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Thermometer, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Thermometer, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Thermometer, Tiers.Tier3))">T3</button>
-			</div>
-				<div class="items-settings">
-				<img src="@_uvPath"/>
-				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.UV, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.UV, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.UV, Tiers.Tier3))">T3</button>
-			</div>
-				<div class="items-settings">
-				<img src="@_bookPath"/>
-				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Book, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Book, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.Book, Tiers.Tier3))">T3</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Thermometer, ItemTierService.Tiers.Tier3))">T3</button>
 			</div>
 			<div class="items-settings">
-				<img src="@_dotsPath" />
+				<img src="@ItemTierService.UvPath" />
 				<br />
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.DOTS, Tiers.Tier1))">T1</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.DOTS, Tiers.Tier2))">T2</button>
-				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(Items.DOTS, Tiers.Tier3))">T3</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.UV, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.BookPath" />
+				<br />
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.Book, ItemTierService.Tiers.Tier3))">T3</button>
+			</div>
+			<div class="items-settings">
+				<img src="@ItemTierService.DotsPath" />
+				<br />
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier1))">T1</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier2))">T2</button>
+				<button class="button-item-tiers" @onclick="@(() => ChangeItemTier(ItemTierService.Items.DOTS, ItemTierService.Tiers.Tier3))">T3</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-@inject IJSRuntime JS
 @code
 {
-	private enum Items
-	{
-		EMF,
-		Video,
-		Box,
-		Thermometer,
-		UV,
-		Book,
-		DOTS,
-	}
-
-	private enum Tiers
-	{
-		Tier1,
-		Tier2,
-		Tier3,
-	}
-
-	private string _emfPath = "Images/Items/Tier1/emf.webp";
-	private string _videoPath = "Images/Items/Tier1/video.webp";
-	private string _boxPath = "Images/Items/Tier1/box.webp";
-	private string _thermoPath = "Images/Items/Tier1/thermometer.webp";
-	private string _uvPath = "Images/Items/Tier1/uv.webp";
-	private string _bookPath = "Images/Items/Tier1/book.webp";
-	private string _dotsPath = "Images/Items/Tier1/dots.webp";
 	private static int _brightness = 20;
 
 	public int Brightness
@@ -111,7 +88,7 @@
 		get => _brightness;
 		set
 		{
-			if (_brightness == value) 
+			if (_brightness == value)
 				return;
 			_brightness = value;
 			_ = UpdateBackground();
@@ -131,25 +108,8 @@
 		}
 	}
 
-	private void ChangeItemTier(Items item, Tiers tier)
+	private void ChangeItemTier(ItemTierService.Items item, ItemTierService.Tiers tier)
 	{
-		string path = "Images/Items/";
-		path += tier switch
-		{
-			Tiers.Tier1 => "Tier1/",
-			Tiers.Tier2 => "Tier2/",
-			Tiers.Tier3 => "Tier3/",
-		};
-
-		switch (item)
-		{
-			case Items.Book: path += "book.webp"; _bookPath = path; break;
-			case Items.Box: path += "box.webp"; _boxPath = path; break;
-			case Items.DOTS: path += "dots.webp"; _dotsPath = path; break;
-			case Items.EMF: path += "emf.webp"; _emfPath = path; break;
-			case Items.Thermometer: path += "thermometer.webp"; _thermoPath = path; break;
-			case Items.UV: path += "uv.webp"; _uvPath = path; break;
-			case Items.Video: path += "video.webp"; _videoPath = path; break;
-		}
+		ItemTierService.ChangeItemTier(item, tier);
 	}
 }
