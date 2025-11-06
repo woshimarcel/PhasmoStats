@@ -159,9 +159,9 @@ hr {
 	padding-bottom: 0.5em;
 }
 
-.hunting-threshold-split {
+.grid-split {
 	display: grid;
-	grid-template-columns: 1fr auto 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
 	gap: 1em;
 	text-align: center;
@@ -285,4 +285,26 @@ hr {
 .flash-protected {
 	position: relative;
 	z-index: 1001 !important;
+}
+
+.items-settings {
+	position: relative;
+	display: inline-block;
+	margin-left: 2em;
+	padding-bottom: 3em;
+}
+
+	.items-settings img{
+		width: 250px;
+		height: auto;
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
+	}
+
+.button-item-tiers {
+	border-radius: 5px;
+}
+
+.items-divider {
+	width: 70%;
 }

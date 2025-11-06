@@ -81,8 +81,6 @@
     <ItemGroup>
       <Folder Include="Resources\Images\" />
       <Folder Include="Resources\Splash\" />
-      <Folder Include="wwwroot\Images\Items\Tier3\" />
-      <Folder Include="wwwroot\Images\Items\Tier2\" />
     </ItemGroup>
 
     <ItemGroup>
