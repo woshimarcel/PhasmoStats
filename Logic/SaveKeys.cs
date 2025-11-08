@@ -43,4 +43,15 @@ public class SaveKeys
 	public const string INTERACTIONS = "amountOfGhostInteractions";
 	public const string GHOST_DISTANCE_TRAVELLED = "ghostDistanceTravelled";
 	public const string ROOM_CHANGED = "roomChanged";
+	public const string PHRASES_RECOGNIZED = "phrasesRecognized";
+	public const string EXPERIENCE = "Experience";
+	public const string LEVEL = "NewLevel";
+	public const string MONEY = "PlayersMoney";
+	/// <summary>
+	/// Might be an incorrect number. Further testing required. <br />
+	/// At level 94, you should have a minimum of 254,375 total XP, i had 171,923. <br />
+	/// It cannot be my XP pre-progression because I was level 3663; way above 171,923 total XP
+	/// </summary>
+	public const string TOTAL_EXPERIENCE = "myTotalExp";
+	public const string PRESTIGE = "Prestige";
 }
