@@ -1,10 +1,13 @@
 ﻿using Serilog;
+using System.Text;
 using System.Text.Json;
 
 namespace Logic;
 
 public static class DataGetter
 {
+	private const string NUMBER_FORMAT = "#,#0.##";
+
 	public static Dictionary<string, int> GetData(Dictionary<string, object> data, string key)
 	{
 		if (!data.TryGetValue(key, out object? value))
@@ -116,12 +119,15 @@ public static class DataGetter
 
 	public static Dictionary<string, (int collected, double percentage)> GetBones(Dictionary<string, object> data)
 	{
-		Log.Debug("Printing Bones");
+		Log.Debug("Getting Bones");
 		Dictionary<string, string> boneNames = Dictionaries.GetBoneNames();
 		Dictionary<string, int> bonesAmount = [];
+		int bonesCollected = GetInt(data, SaveKeys.BONES_COLLECTED);
 
 		foreach (var kv in boneNames)
 			bonesAmount[kv.Value] = GetInt(data, SaveKeys.BONE + kv.Key);
+		int oldBonesCollected = bonesCollected - bonesAmount.Values.Sum();
+		bonesAmount["Old Bone"] = oldBonesCollected;
 
 		return GetAmountPercentage(bonesAmount);
 	}
@@ -142,40 +148,84 @@ public static class DataGetter
 		return dictionary;
 	}
 
-	public static Dictionary<string, string> GetCaseData(Dictionary<string, object> data)
+	public static Dictionary<string, (string, string)> GetCasePlayerData(Dictionary<string, object> data)
 	{
+		Log.Debug("Getting Case: Player");
+
 		int identified = GetInt(data, SaveKeys.IDENTIFIED);
 		int misidentified = GetInt(data, SaveKeys.MISIDENTIFIED);
 		int totalCases = identified + misidentified;
-		double time = GetDouble(data, SaveKeys.TIME_INVESTIGATED);
-		TimeSpan timeInvestigated = TimeSpan.FromSeconds(time);
-		TimeSpan timePerCase = TimeSpan.FromSeconds(time / totalCases);
 		int photosTaken = GetInt(data, SaveKeys.PHOTOS_TAKEN);
 		int videosTaken = GetInt(data, SaveKeys.VIDEOS_TAKEN);
 		int soundsTaken = GetInt(data, SaveKeys.SOUNDS_TAKEN);
+		int deaths = GetInt(data, SaveKeys.DEATHS);
+		int revives = GetInt(data, SaveKeys.REVIVES);
+		int objectives = GetInt(data, SaveKeys.OBJECTIVES_COMPLETED);
+		int cursedHunts = GetInt(data, SaveKeys.CURSED_HUNTS_TRIGGERED);
+		double timeInvestigated = GetDouble(data, SaveKeys.TIME_INVESTIGATED);
+		double timeTruck = GetDouble(data, SaveKeys.TIME_IN_TRUCK);
+		double timeChased = GetDouble(data, SaveKeys.TIME_CHASED);
+		double timeGhostRoom = GetDouble(data, SaveKeys.TIME_IN_GHOST_ROOM);
+		double timeDark = GetDouble(data, SaveKeys.TIME_IN_DARK);
+		double timeLight = GetDouble(data, SaveKeys.TIME_IN_LIGHT);
+		int hunts = GetInt(data, SaveKeys.HUNTS);
+		double sanityLost = GetDouble(data, SaveKeys.SANITY_LOST);
+		double sanityGained = GetDouble(data, SaveKeys.SANITY_GAINED);
+		double distancedTravelled = GetDouble(data, SaveKeys.PLAYER_DISTANCE_TRAVELLED);
 
-		var dic = new Dictionary<string, string>
+		return new Dictionary<string, (string, string)>
 		{
-			{ "Total Cases", totalCases.ToString() },
-			{ "Identified", identified.ToString() },
-			{ "Misidentified", misidentified.ToString() },
-			{ "Time Investigated", GetTime(timeInvestigated) },
-			{ "Time per Case", GetTime(timePerCase) },
-			{ "Photos taken", $"{photosTaken} ({GetPerCase(totalCases, photosTaken):F2} per case)" },
-			{ "Videos taken", $"{videosTaken} ({GetPerCase(totalCases, videosTaken):F2} per case)" },
-			{ "Sounds taken", $"{soundsTaken} ({GetPerCase(totalCases, soundsTaken):F2} per case)" }
+			{ "Total Cases", (totalCases.ToString(NUMBER_FORMAT), "") },
+			{ "Ghosts Identified", (identified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, identified):P2} of time") },
+			{ "Ghosts Misidentified", (misidentified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, misidentified):P2} of time") },
+			{ "Photos taken", (photosTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, photosTaken):F2} per case") },
+			{ "Videos taken", (videosTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, videosTaken):F2} per case") },
+			{ "Sounds taken", (soundsTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, soundsTaken):F2} per case") },
+			{ "Deaths", (deaths.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, deaths):P2} of cases played") },
+			{ "Revives", (revives.ToString(NUMBER_FORMAT), $"{GetRatio(deaths, revives):P2} of deaths") },
+			{ "Sanity lost", ($"{sanityLost.ToString(NUMBER_FORMAT)} %", $"{GetRatio(totalCases, sanityLost):F2} per case") },
+			{ "Sanity gained", ($"{sanityGained.ToString(NUMBER_FORMAT)} %", $"{GetRatio(totalCases, sanityGained):F2} % per case") },
+			{ "Objectives completed", ($"{objectives.ToString(NUMBER_FORMAT)}", $"{GetRatio(totalCases, objectives):F2} % per case") },
+			{ "Cursed Hunts triggered", ($"{cursedHunts.ToString(NUMBER_FORMAT)}", $"1 every {GetRatio(cursedHunts, totalCases):F2} cases") },
+			{ "Distance travelled", ($"{distancedTravelled.ToString(NUMBER_FORMAT)} meters", $"{GetRatio(totalCases, distancedTravelled):F2} meters per case") },
+			{ "Time Investigated", (GetReadableTime(timeInvestigated), GetTimePer(timeInvestigated, totalCases) + " average duration") },
+			{ "Truck Princess", (GetReadableTime(timeTruck), GetTimePer(timeTruck, totalCases) + " per case") },
+			{ "Time in Ghost Room", (GetReadableTime(timeGhostRoom), GetTimePer(timeGhostRoom, totalCases) + " per case") },
+			{ "Time in Dark", (GetReadableTime(timeDark), GetTimePer(timeDark, totalCases) + " per case") },
+			{ "Time in Light", (GetReadableTime(timeLight), GetTimePer(timeLight, totalCases) + " per case") },
+			{ "Time Chased", (GetReadableTime(timeChased), GetTimePer(timeChased, hunts) + " per hunt") },
 		};
-		return dic;
 	}
 
-	private static string GetTime(TimeSpan time)
+	private static string GetTimePer(double time, int amount)
 	{
-		return $"{time.Hours + time.Days * 24}h {time.Minutes}m {time.Seconds}s";
+		if (amount == 0)
+			return "";
+		return GetReadableTime(time / amount);
 	}
 
-	private static double GetPerCase(int totalCases, int amount)
+	public static Dictionary<string, (string, string)> GetCaseGhostData(Dictionary<string, object> data)
 	{
-		return totalCases > 0 && amount > 0 ? (double)amount / totalCases : 0;
+
+	}
+
+	private static string GetReadableTime(double timeSeconds)
+	{
+		TimeSpan time = TimeSpan.FromSeconds(timeSeconds);
+		StringBuilder sb = new();
+		if (time.Hours > 0 || time.Days > 0)
+			sb.Append($"{time.Hours + time.Days * 24}h ");
+		if (time.Minutes > 0)
+			sb.Append($"{time.Minutes}m ");
+		if (time.Seconds > 0)
+			sb.Append($"{time.Seconds}s");
+
+		return sb.ToString();
+	}
+
+	private static double GetRatio(double total, double amount)
+	{
+		return total > 0 && amount > 0 ? amount / total : 0;
 	}
 
 	public static int GetTotalCases()

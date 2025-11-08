@@ -63,7 +63,7 @@ internal static class DataPrinter
 		int totalDeaths = stats.Values.Sum(g => g.died);
 		Console.ForegroundColor = ConsoleColor.White;
 		Console.WriteLine($"  Total: {"",-11} {totalSeen} sightings     {totalDeaths} deaths ({(double)totalDeaths / totalSeen:P2})");
-		int timesRevived = DataGetter.GetInt(data, SaveKeys.TIMES_REVIVIED);
+		int timesRevived = DataGetter.GetInt(data, SaveKeys.REVIVES);
 		Console.WriteLine($"{"",-38} {timesRevived} Revives ({(double)timesRevived / totalDeaths:P2})");
 	}
 
