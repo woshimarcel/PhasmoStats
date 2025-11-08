@@ -197,16 +197,45 @@ public static class DataGetter
 		};
 	}
 
-	private static string GetTimePer(double time, int amount)
+	private static string GetTimePer(double time, double amount)
 	{
-		if (amount == 0)
+		if (amount == 0 || time == 0)
 			return "";
 		return GetReadableTime(time / amount);
 	}
 
 	public static Dictionary<string, (string, string)> GetCaseGhostData(Dictionary<string, object> data)
 	{
+		Log.Debug("Getting Case: Ghost");
+		int totalCases = GetInt(data, SaveKeys.IDENTIFIED) + GetInt(data, SaveKeys.MISIDENTIFIED);
+		int roomChanged = GetInt(data, SaveKeys.ROOM_CHANGED);
+		int abilitiesUsed = GetInt(data, SaveKeys.ABILITIES_USED);
+		int ghostEvents = GetInt(data, SaveKeys.GHOST_EVENTS);
+		int fuseBoxToggles = GetInt(data, SaveKeys.FUSE_BOX_TOGGLES);
+		int lightsSwitched = GetInt(data, SaveKeys.LIGHT_SWITCHES);
+		int doorsMoved = GetInt(data, SaveKeys.DOORS_MOVED);
+		int objectsUsed = GetInt(data, SaveKeys.OBJECTS_USED);
+		int interactions = GetInt(data, SaveKeys.INTERACTIONS);
+		double distanceTravelled = GetDouble(data, SaveKeys.GHOST_DISTANCE_TRAVELLED);
+		double timeInvestigated = GetDouble(data, SaveKeys.TIME_INVESTIGATED);
+		double timeHunted = GetDouble(data, SaveKeys.TIME_HUNTED);
+		double timeFavoriteRoom = GetDouble(data, SaveKeys.TIME_FAVORITE_ROOM);
 
+		return new Dictionary<string, (string, string)>
+		{
+			{ "Total Cases", (totalCases.ToString(NUMBER_FORMAT), "") },
+			{ "Interactions",  (interactions.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, interactions):F2} per case")},
+			{ "Ghost Events",  (ghostEvents.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, ghostEvents):F2} per case")},
+			{ "Fuse Box toggles",  (fuseBoxToggles.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, fuseBoxToggles):F2} per case")},
+			{ "Lights switched",  (lightsSwitched.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, lightsSwitched):F2} per case")},
+			{ "Doors moved",  (doorsMoved.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, doorsMoved):F2} per case")},
+			{ "Objects used",  (objectsUsed.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, objectsUsed):F2} per case")},
+			{ "Abilities used",  (abilitiesUsed.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, abilitiesUsed):F2} per case")},
+			{ "Times Room changed",  (roomChanged.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, roomChanged):F2} per case")},
+			{ "Distance travelled",  (distanceTravelled.ToString(NUMBER_FORMAT) + " meters", $"{GetRatio(totalCases, distanceTravelled):F2} meters per case")},
+			{ "Time hunted",  (GetReadableTime(timeHunted), $"{GetTimePer(timeHunted, totalCases)} per case")},
+			{ "Time inside Favorite Room",  (GetReadableTime(timeFavoriteRoom), $"{GetTimePer(timeFavoriteRoom, totalCases)} per case")},
+		};
 	}
 
 	private static string GetReadableTime(double timeSeconds)

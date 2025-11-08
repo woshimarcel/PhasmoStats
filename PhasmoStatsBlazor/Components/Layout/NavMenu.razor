@@ -28,7 +28,16 @@
                     <NavLink class="nav-link" href="stats/maps"><span class="bi" style="background-image: url(/Images/NavigationIcons/house.png);"></span>Maps</NavLink>
                     <NavLink class="nav-link" href="stats/bones"><span class="bi" style="background-image: url(/Images/NavigationIcons/bone.png);"></span>Bones</NavLink>
                     <NavLink class="nav-link" href="stats/cursed-objects"><span class="bi" style="background-image: url(/Images/NavigationIcons/ouija-board.png);"></span>Cursed Objects</NavLink>
-                    <NavLink class="nav-link" href="stats/case"><span class="bi" style="background-image: url(/Images/NavigationIcons/case.png);"></span>Case</NavLink>
+                    <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleStatsCase">
+                        <span class="bi" style="background-image: url(/Images/NavigationIcons/case.png);" aria-hidden="true"></span> Case
+                    </NavLink>
+                    @if (_showStatsCase)
+                    {
+                        <div class="ms-4 mt-1">
+                            <NavLink class="nav-link" href="stats/case/player"><span class="bi" style="background-image: url(/Images/NavigationIcons/player.png);"></span>Player</NavLink>
+                            <NavLink class="nav-link" href="stats/case/ghost"><span class="bi" style="background-image: url(/Images/NavigationIcons/case.png);"></span>Ghost</NavLink>
+                        </div>
+                    }
                 </div>
             }
         </div>
@@ -74,7 +83,9 @@
 {
     private bool _showStats = false;
     private bool _showWiki = false;
+    private bool _showStatsCase = false;
 
     private void ToggleStats() => _showStats = !_showStats;
     private void ToggleWiki() => _showWiki = !_showWiki;
+    private void ToggleStatsCase() => _showStatsCase = !_showStatsCase;
 }

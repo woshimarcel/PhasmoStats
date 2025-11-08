@@ -39,7 +39,8 @@ public class SaveKeys
 	public const string FUSE_BOX_TOGGLES = "fuseboxToggles";
 	public const string LIGHT_SWITCHES = "lightsSwitched";
 	public const string DOORS_MOVED = "doorsMoved";
-	public const string OBJECTS_THROWN = "objectsUsed";
+	public const string OBJECTS_USED = "objectsUsed";
 	public const string INTERACTIONS = "amountOfGhostInteractions";
 	public const string GHOST_DISTANCE_TRAVELLED = "ghostDistanceTravelled";
+	public const string ROOM_CHANGED = "roomChanged";
 }
