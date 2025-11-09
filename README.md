@@ -1,5 +1,6 @@
 <div align="center">
-  <img width="4323" height="550" alt="image" src="https://github.com/user-attachments/assets/72ba783f-6a70-40cc-aa59-7de34fe4079f" />
+  <img width="2795" height="1085" alt="image" src="https://github.com/user-attachments/assets/628c8cbd-9f47-496c-bce4-0e44f58a3d83" />
+
 </div>
 
 <h2><br>What is PhasmoStats?</h2>
