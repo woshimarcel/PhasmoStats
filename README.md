@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Welcome to PhasmoStats!</h1>
+  <img width="4323" height="550" alt="image" src="https://github.com/user-attachments/assets/72ba783f-6a70-40cc-aa59-7de34fe4079f" />
 </div>
 
 <h2><br>What is PhasmoStats?</h2>
@@ -21,6 +21,7 @@ Some statistics in the app are also inside Phasmophobia.
 <h2><br>Wiki? What?</h2>
 Exactly. It's pretty much just the <a href="https://phasmophobia.fandom.com/wiki/Main_Page">Unoffical Phasmophobia Fandom<a/> <b>but better</b> (I hope, I like it tho). 
 <br>I wanted to add something not just interesting, but also useful for everyone. The wiki should have all abilities, inabilities and behaviours of each ghost type. If not, sorry!
+<br>Each wiki page for ghost types also have their evidence included - for extra detail, they each have their own text style (the evidences)!
 <br>You can see some images in <a href=#wiki-page>Wiki</a>.
 
 <h2><br>Credits</h2>
