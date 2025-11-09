@@ -180,13 +180,13 @@ public static class DataGetter
 
 		return new Dictionary<string, (string, string)>
 		{
+			{ "Total Cases", (totalCases.ToString(NUMBER_FORMAT), "") },
 			{ "Prestige", (prestige.ToString(), "") },
 			{ "Level", (level.ToString(NUMBER_FORMAT), GetLevelText(level, prestige)) },
 			{ "Experience", (experience.ToString(NUMBER_FORMAT), "") },
 			{ "Money", (money.ToString(NUMBER_FORMAT) + " $", money >= 200_000 ? "Wish I'd have that in RL" : "") },
-			{ "Total Cases", (totalCases.ToString(NUMBER_FORMAT), "") },
-			{ "Ghosts Identified", (identified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, identified):P2} of time") },
-			{ "Ghosts Misidentified", (misidentified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, misidentified):P2} of time") },
+			{ "Ghosts identified", (identified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, identified):P2} of time") },
+			{ "Ghosts misidentified", (misidentified.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, misidentified):P2} of time") },
 			{ "Photos taken", (photosTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, photosTaken):F2} per case") },
 			{ "Videos taken", (videosTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, videosTaken):F2} per case") },
 			{ "Sounds taken", (soundsTaken.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, soundsTaken):F2} per case") },
@@ -198,12 +198,12 @@ public static class DataGetter
 			{ "Objectives completed", ($"{objectives.ToString(NUMBER_FORMAT)}", $"{GetRatio(totalCases, objectives):F2} per case") },
 			{ "Cursed Hunts triggered", ($"{cursedHunts.ToString(NUMBER_FORMAT)}", $"1 every {GetRatio(cursedHunts, totalCases):F2} cases") },
 			{ "Distance travelled", ($"{distancedTravelled.ToString(NUMBER_FORMAT)} meters", $"{GetRatio(totalCases, distancedTravelled):F2} meters per case") },
-			{ "Time Investigated", (GetReadableTime(timeInvestigated), GetTimePer(timeInvestigated, totalCases) + " average duration") },
+			{ "Time investigated", (GetReadableTime(timeInvestigated), GetTimePer(timeInvestigated, totalCases) + " average duration") },
 			{ "Truck Princess", (GetReadableTime(timeTruck), GetTimePer(timeTruck, totalCases) + " per case") },
 			{ "Time in Ghost Room", (GetReadableTime(timeGhostRoom), GetTimePer(timeGhostRoom, totalCases) + " per case") },
 			{ "Time in Dark", (GetReadableTime(timeDark), GetTimePer(timeDark, totalCases) + " per case") },
 			{ "Time in Light", (GetReadableTime(timeLight), GetTimePer(timeLight, totalCases) + " per case") },
-			{ "Time Chased", (GetReadableTime(timeChased), GetTimePer(timeChased, hunts) + " per hunt") },
+			{ "Time being Chased", (GetReadableTime(timeChased), GetTimePer(timeChased, hunts) + " per hunt") },
 		};
 	}
 
@@ -257,7 +257,7 @@ public static class DataGetter
 			{ "Doors moved",  (doorsMoved.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, doorsMoved):F2} per case")},
 			{ "Objects used",  (objectsUsed.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, objectsUsed):F2} per case")},
 			{ "Abilities used",  (abilitiesUsed.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, abilitiesUsed):F2} per case")},
-			{ "Times Room changed",  (roomChanged.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, roomChanged):F2} per case")},
+			{ "Room changes",  (roomChanged.ToString(NUMBER_FORMAT), $"{GetRatio(totalCases, roomChanged):F2} per case")},
 			{ "Distance travelled",  (distanceTravelled.ToString(NUMBER_FORMAT) + " meters", $"{GetRatio(totalCases, distanceTravelled):F2} meters per case")},
 			{ "Time hunted",  (GetReadableTime(timeHunted), $"{GetTimePer(timeHunted, totalCases)} per case")},
 			{ "Time inside Favorite Room",  (GetReadableTime(timeFavoriteRoom), $"{GetTimePer(timeFavoriteRoom, totalCases)} per case")},
