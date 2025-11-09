@@ -1,13 +1,14 @@
-﻿@page "/stats/case"
+﻿@page "/stats/case/ghost"
 @using Logic
 
-<h1 class="header-text stats-header">Case</h1>
+<h1 class="header-text stats-header">Ghost</h1>
 
 <table class="table">
     <thead>
         <tr>
             <th>Name</th>
             <th>Value</th>
+            <th>Extra</th>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +16,8 @@
         {
             <tr>
                 <td>@kv.Key</td>
-                <td>@kv.Value</td>
+                <td>@kv.Value.Value</td>
+                <td>@kv.Value.Extra</td>
             </tr>
         }
     </tbody>
@@ -23,7 +25,7 @@
 
 @code 
 {
-    private Dictionary<string, string>? _data;
+    private Dictionary<string, (string Value, string Extra)>? _data;
 
     protected override void OnInitialized()
     {
@@ -32,7 +34,7 @@
 
     private void Refresh()
     {
-        _data = DataGetter.GetCaseData(FileDeserializer.Data);
+        _data = DataGetter.GetCaseGhostData(FileDeserializer.Data);
     }
 
     public void Dispose()
@@ -42,6 +44,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _data = DataGetter.GetCaseData(FileDeserializer.Data);
+        _data = DataGetter.GetCaseGhostData(FileDeserializer.Data);
     }
 }
