@@ -42,9 +42,13 @@ public static class GitHubUpdater
 
 			if (!IsNewerVersion(latestVersion, currentVersion))
 			{
-				RemoveOldVersions();
+				//RemoveOldVersions();
 				return;
 			}
+
+			Process.Start("Updater.exe", $"--update --from {currentVersion} --to {latestVersion}");
+			Environment.Exit(0);
+			return;
 
 			string downloadUrl = release.Assets.FirstOrDefault()?.BrowserDownloadUrl ?? "";
 			if (string.IsNullOrEmpty(downloadUrl))
