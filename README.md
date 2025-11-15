@@ -28,6 +28,15 @@ Exactly. It's pretty much just the <a href="https://phasmophobia.fandom.com/wiki
 <h2><br>Credits</h2>
 This project was inspired by <a href="https://gist.github.com/Levtastic/9d9c86b09c8a7d9296252773e040328b">phasmo_stats.py</a> by Levtastic.
 
+<h2><br>Fonts</h2>
+All Fonts inside in the app are free to use.
+<br>Sources:
+<ul>
+  <li>Codystar - https://www.1001fonts.com/october-crow-font.html</li>
+  <li>October Crow - https://www.1001fonts.com/codystar-font.html</li>
+  <li>Rock Salt - https://www.1001fonts.com/rock-salt-font.html</li>
+</ul>
+
 <h2>Images</h2>
 <h3>Stats Page</h3>
 <img width="1498" height="907" alt="image" src="https://github.com/user-attachments/assets/f2481d75-9edd-4187-8343-e9258754430d" />
