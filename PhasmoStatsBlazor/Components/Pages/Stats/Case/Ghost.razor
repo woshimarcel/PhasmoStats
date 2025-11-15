@@ -34,7 +34,11 @@
 
     private void Refresh()
     {
-        _data = DataGetter.GetCaseGhostData(FileDeserializer.Data);
+        _ = InvokeAsync(() =>
+        {
+            _data = DataGetter.GetCasePlayerData(FileDeserializer.Data);
+            StateHasChanged();
+        });
     }
 
     public void Dispose()

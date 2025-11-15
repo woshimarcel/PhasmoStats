@@ -6,9 +6,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th @onclick='() => SortBy("name")'>Bone</th>
-            <th @onclick='() => SortBy("collected")'>Collected</th>
-            <th @onclick='() => SortBy("percentage")'>Percentage</th>
+            <th @onclick='() => SortBy(HEADER_NAME)'>@SortIndicator.GetHeaderName(HEADER_NAME, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_COLLECTED)'>@SortIndicator.GetHeaderName(HEADER_COLLECTED, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>
@@ -39,8 +39,12 @@
 
 @code 
 {
+    private const string HEADER_NAME = "Bone";
+    private const string HEADER_COLLECTED = "Collected";
+    private const string HEADER_PERCENTAGE = "Percentage";
+
     private Dictionary<string, (int collected, double percentage)> _bones = [];
-    private string _sortColumn = "collected";
+    private string _sortColumn = HEADER_COLLECTED;
     private bool _ascending = false;
 
     protected override void OnInitialized()
@@ -50,7 +54,12 @@
 
     private void Refresh()
     {
-        _bones = DataGetter.GetBones(FileDeserializer.Data);
+        _ = InvokeAsync(() =>
+        {
+            _bones = DataGetter.GetBones(FileDeserializer.Data);
+            Sort();
+            StateHasChanged();
+        });
     }
 
     public void Dispose()
@@ -83,7 +92,7 @@
     {
         _bones = _sortColumn switch
         {
-            "name" => _ascending
+            HEADER_NAME => _ascending
                 ? _bones.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
                 : _bones.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
             _ => _ascending
