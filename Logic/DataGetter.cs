@@ -213,11 +213,13 @@ public static class DataGetter
 		const int MAX_PRESTIGE = 20;
 
 		if (level >= 1000)
-			return "1. Holy, congrats! 2. Get a life, damn";
+			return "1. Holy, congrats! 2. Get a life, nerd";
+		else if (level >= 200 && prestige != MAX_PRESTIGE)
+			return "Ay, it's already the required level times 2 to prestige!";
 		else if (level >= PRESTIGE_LEVEL && prestige == MAX_PRESTIGE)
 			return "Why don't you surpass Phasmo's limits and prestige to reach an unknown realm?";
 		else if (level >= PRESTIGE_LEVEL && prestige < MAX_PRESTIGE)
-			return "Time to prestige, ain't it?";
+			return "Time to prestige, innit?";
 		return "";
 	}
 
