@@ -37,7 +37,7 @@ All Fonts inside in the app are free to use.
   <li>Rock Salt - https://www.1001fonts.com/rock-salt-font.html</li>
 </ul>
 
-<h2>Images</h2>
+<h2><br>Images</h2>
 <h3>Stats Page</h3>
 <img width="1498" height="907" alt="image" src="https://github.com/user-attachments/assets/f2481d75-9edd-4187-8343-e9258754430d" />
 <img width="1483" height="1000" alt="image" src="https://github.com/user-attachments/assets/2f280538-3992-4f63-a9f9-4cb1d1df8925" />
