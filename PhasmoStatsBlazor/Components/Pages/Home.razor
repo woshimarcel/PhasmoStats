@@ -1,4 +1,15 @@
 ﻿@page "/"
+@using Logic
+@using System.Diagnostics
+
+@if (!_skipUpdate && _updateInfo.Updatable)
+{
+	<div class="grid-split home-text" style="background: red; grid-template-columns: 65% 10% 10%; color: black !important; margin-bottom: 2em">
+		<div style="font-size: 2.3em;">Update available: v@_updateInfo.LatestVersion</div>
+		<div style="background: darkgreen; cursor: pointer" @onclick="Update">Update</div>
+		<div style="background: darkred; cursor: pointer" @onclick="SkipUpdate">Skip</div>
+	</div>
+}
 
 <h1 class="header-text center-flex">
 	Welcome to PhasmoStats
@@ -14,3 +25,26 @@
 		<br /><br />Don't be shy and join my <a href="https://discord.gg/CUSAMPn6mk">Discord Server</a>! (Work in Progress tho)
 	</p>
 </div>
+
+@code
+{
+	private static (bool Updatable, string CurrentVersion, string LatestVersion) _updateInfo;
+	private static bool _skipUpdate = false;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_updateInfo = await GitHubUpdater.UpdateAvailable();
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private void SkipUpdate() => _skipUpdate = true;
+
+	private void Update()
+	{
+		if (!_updateInfo.Updatable)
+			return;
+
+		Process.Start("Updater.exe", $"--update --from {_updateInfo.CurrentVersion} --to {_updateInfo.LatestVersion}");
+		Environment.Exit(0);
+	}
+}

@@ -1,5 +1,4 @@
 ﻿using Serilog;
-using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Text.Json.Serialization;
@@ -27,28 +26,28 @@ public static class GitHubUpdater
 		}
 	}
 
-	public static async Task CheckForUpdateAsync()
+	public static async Task<(bool Updatable, string CurrentVersion, string LatestVersion)> UpdateAvailable()
 	{
+		string currentVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0";
+
 		try
 		{
 			_http.DefaultRequestHeaders.UserAgent.ParseAdd("PhasmoStatsUpdater");
 			var url = $"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest";
 			var release = await _http.GetFromJsonAsync<GitHubRelease>(url);
-			if (release == null) return;
+			if (release == null)
+				return (false, currentVersion, "");
 
-			string currentVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0";
 			string latestVersion = release.TagName.TrimStart('v');
 
-			if (!IsNewerVersion(latestVersion, currentVersion))
-				return;
-
-			Process.Start("Updater.exe", $"--update --from {currentVersion} --to {latestVersion}");
-			Environment.Exit(0);
+			return (IsNewerVersion(latestVersion, currentVersion), currentVersion, latestVersion);
 		}
 		catch (Exception ex)
 		{
 			Log.Error($"Update check failed: {ex.Message}");
 		}
+
+		return (false, currentVersion, "");
 	}
 
 	private static bool IsNewerVersion(string latest, string current)

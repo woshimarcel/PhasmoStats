@@ -12,7 +12,6 @@ namespace PhasmoStatsBlazor
 		protected override Window CreateWindow(IActivationState? activationState)
 		{
 			Logger.SetupLogger();
-			Task.Run(async () => await GitHubUpdater.CheckForUpdateAsync());
 			Window window = new Window(new MainPage()) { Title = "PhasmoStats" };
 			return window;
 		}
