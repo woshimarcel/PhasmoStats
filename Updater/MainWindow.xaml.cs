@@ -1,10 +1,11 @@
-﻿using IWshRuntimeLibrary;
+﻿using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
 using System.Windows;
+using File = System.IO.File;
 
 namespace Updater;
 
@@ -47,7 +48,6 @@ public partial class MainWindow : Window
 	{
 		InstallBtn.IsEnabled = false;
 		CancelBtn.IsEnabled = false;
-		StatusText.Text = "Downloading...";
 		await DownloadAndInstall();
 	}
 
@@ -55,13 +55,17 @@ public partial class MainWindow : Window
 	{
 		try
 		{
+			StatusText.Text = "Downloading new Version...";
+			Progress.Value = 5;
 			using var client = new HttpClient();
 			client.DefaultRequestHeaders.UserAgent.ParseAdd("PhasmoStatsUpdater");
 
 			var url = $"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/releases/latest";
 			var release = await client.GetFromJsonAsync<GitHubRelease>(url);
-			if (release == null) return;
+			if (release == null)
+				return;
 
+			Progress.Value = 25;
 			string downloadUrl = release.Assets
 				.FirstOrDefault(a => a.Name.EndsWith(".zip"))?
 				.BrowserDownloadUrl ?? "";
@@ -69,18 +73,38 @@ public partial class MainWindow : Window
 			if (string.IsNullOrWhiteSpace(downloadUrl))
 				throw new Exception("No downloadable asset found.");
 
+			Progress.Value = 44;
 			var data = await client.GetByteArrayAsync(downloadUrl);
-			await System.IO.File.WriteAllBytesAsync(zipPath, data);
+			await File.WriteAllBytesAsync(zipPath, data);
 
 			if (Directory.Exists(installDir))
+			{
+				StatusText.Text = "Removing old Version...";
 				RemoveOldFiles();
+			}
+			Progress.Value = 58;
 
+			StatusText.Text = "Extracting new Version...";
 			Directory.CreateDirectory(installDir);
-			ZipFile.ExtractToDirectory(zipPath, installDir, true);
+			string extractDir = Path.Combine(Path.GetTempPath(), "PhasmoStatsExtract");
+			ZipFile.ExtractToDirectory(zipPath, extractDir, overwriteFiles: true);
+			string newExe = Directory.GetFiles(extractDir, "*.exe", SearchOption.AllDirectories).FirstOrDefault();
+			string currentExe = Environment.ProcessPath!;
+			Progress.Value = 80;
+
+			StatusText.Text = "Starting installer...";
+			Process.Start(new ProcessStartInfo
+			{
+				FileName = "powershell",
+				Arguments =
+					$"Start-Process '{newExe}'\"",
+				CreateNoWindow = true,
+				UseShellExecute = false,
+				WindowStyle = ProcessWindowStyle.Hidden
+			});
 
 			StatusText.Text = "Installation complete.";
 			Progress.Value = 100;
-			CreateShortcut();
 			Close();
 		}
 		catch (Exception ex)
@@ -101,17 +125,7 @@ public partial class MainWindow : Window
 		{
 			if (file.Contains("Updater"))
 				continue;
-			System.IO.File.Delete(file);
+			File.Delete(file);
 		}
-	}
-
-	private void CreateShortcut()
-	{
-		string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-		string shortcutPath = Path.Combine(desktop, "PhasmoStats.lnk");
-		var shell = new WshShell();
-		var link = (IWshShortcut)shell.CreateShortcut(shortcutPath);
-		link.TargetPath = Path.Combine(installDir, "PhasmoStatsBlazor.exe");
-		link.Save();
 	}
 }
