@@ -38,6 +38,7 @@ public partial class MainWindow : Window
 	{
 		InitializeComponent();
 
+		mode = "update";
 		if (mode == "update")
 			StatusText.Text = $"Do you want to update from {currentVersion} to {targetVersion}?";
 	}
@@ -87,6 +88,8 @@ public partial class MainWindow : Window
 			StatusText.Text = "Extracting new Version...";
 			Directory.CreateDirectory(installDir);
 			string extractDir = Path.Combine(Path.GetTempPath(), "PhasmoStatsExtract");
+			if (Directory.Exists(extractDir))
+				Directory.Delete(extractDir, recursive: true);
 			ZipFile.ExtractToDirectory(zipPath, extractDir, overwriteFiles: true);
 			string newExe = Directory.GetFiles(extractDir, "*.exe", SearchOption.AllDirectories).FirstOrDefault();
 			string currentExe = Environment.ProcessPath!;
@@ -119,13 +122,24 @@ public partial class MainWindow : Window
 		string[] directories = Directory.GetDirectories(installDir);
 
 		foreach (string directory in directories)
-			Directory.Delete(directory, recursive: true);
+		{
+			try
+			{
+				Directory.Delete(directory, recursive: true);
+			}
+			catch { }
+		}
 
 		foreach (string file in files)
 		{
 			if (file.Contains("Updater"))
 				continue;
-			File.Delete(file);
+
+			try
+			{
+				File.Delete(file);
+			}
+			catch { }
 		}
 	}
 }

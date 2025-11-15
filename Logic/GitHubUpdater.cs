@@ -39,13 +39,8 @@ public static class GitHubUpdater
 			string currentVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "0.0.0";
 			string latestVersion = release.TagName.TrimStart('v');
 
-			latestVersion = "10.0.0";
-
 			if (!IsNewerVersion(latestVersion, currentVersion))
-			{
-				//RemoveOldVersions();
 				return;
-			}
 
 			Process.Start("Updater.exe", $"--update --from {currentVersion} --to {latestVersion}");
 			Environment.Exit(0);
