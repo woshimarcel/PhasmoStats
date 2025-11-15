@@ -100,7 +100,8 @@ public static class Dictionaries
 			{ "11","6 Tanglewood Drive" },
 			{ "12","13 Willow Street" },
 			{ "13", "???" },
-			{ "14" , "Point Hope" }
+			{ "14" , "Point Hope" },
+			{ "42" , "Nell's Diner" },
 		};
 	}
 }

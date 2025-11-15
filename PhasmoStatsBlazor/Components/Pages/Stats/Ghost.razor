@@ -6,11 +6,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th @onclick='() => SortBy("ghost")'>Ghost</th>
-            <th @onclick='() => SortBy("seen")'>Sightings</th>
-            <th @onclick='() => SortBy("percentage")'>Percentage</th>
-            <th @onclick='() => SortBy("died")'>Deaths</th>
-            <th @onclick='() => SortBy("ratio")'>S/D Ratio</th>
+            <th @onclick='() => SortBy(HEADER_GHOST)'>@SortIndicator.GetHeaderName(HEADER_GHOST, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_SIGHTINGS)'>@SortIndicator.GetHeaderName(HEADER_SIGHTINGS, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_DEATHS)'>@SortIndicator.GetHeaderName(HEADER_DEATHS, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_RATIO)'>@SortIndicator.GetHeaderName(HEADER_RATIO, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>
@@ -42,8 +42,14 @@
 
 @code 
 {
+    private const string HEADER_GHOST = "Ghost";
+    private const string HEADER_SIGHTINGS = "Sightings";
+    private const string HEADER_PERCENTAGE = "Percentage";
+    private const string HEADER_DEATHS = "Deaths";
+    private const string HEADER_RATIO = "S/D Ratio";
+
     private Dictionary<string, (int seen, int died, double ratio, double percentage)> _ghosts = [];
-    private string _sortColumn = "ratio";
+    private string _sortColumn = HEADER_RATIO;
     private bool _ascending = false;
 
     protected override void OnInitialized()
@@ -53,7 +59,12 @@
 
     private void Refresh()
     {
-        _ghosts = DataGetter.GetGhosts(FileDeserializer.Data);
+        _ = InvokeAsync(() =>
+        {
+            _ghosts = DataGetter.GetGhosts(FileDeserializer.Data);
+            SortGhosts();
+            StateHasChanged();
+        });
     }
 
     public void Dispose()
@@ -65,6 +76,7 @@
     {
         _ghosts = DataGetter.GetGhosts(FileDeserializer.Data);
         SortGhosts();
+        await InvokeAsync(StateHasChanged);
     }
 
     private void SortBy(string column)
@@ -86,13 +98,13 @@
     {
         _ghosts = _sortColumn switch
         {
-            "ghost" => _ascending
+            HEADER_GHOST => _ascending
                 ? _ghosts.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
                 : _ghosts.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
-            "seen" or "percentage" => _ascending
+            HEADER_SIGHTINGS or HEADER_PERCENTAGE => _ascending
                 ? _ghosts.OrderBy(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value)
                 : _ghosts.OrderByDescending(x => x.Value.seen).ToDictionary(k => k.Key, v => v.Value),
-            "died" => _ascending
+            HEADER_DEATHS => _ascending
                 ? _ghosts.OrderBy(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value)
                 : _ghosts.OrderByDescending(x => x.Value.died).ToDictionary(k => k.Key, v => v.Value),
             _ => _ascending

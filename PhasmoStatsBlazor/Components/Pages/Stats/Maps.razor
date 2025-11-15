@@ -1,14 +1,15 @@
 ﻿@page "/stats/maps"
 @using Logic
+@using PhasmoStatsBlazor.Services
 
 <h1 class="header-text stats-header">Maps</h1>
 
 <table class="table">
     <thead>
         <tr>
-            <th @onclick='() => SortBy("name")'>Map</th>
-            <th @onclick='() => SortBy("visits")'>Visits</th>
-            <th @onclick='() => SortBy("percentage")'>Percentage</th>
+            <th @onclick='() => SortBy(HEADER_NAME)'>@SortIndicator.GetHeaderName(HEADER_NAME, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_VISITS)'>@SortIndicator.GetHeaderName(HEADER_VISITS, _sortColumn, _ascending)</th>
+            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>
@@ -30,8 +31,12 @@
 
 @code 
 {
-    private Dictionary<string, (int visits, double percentage)> _maps = [];
-    private string _sortColumn = "visits";
+    private const string HEADER_NAME = "Map";
+    private const string HEADER_VISITS = "Visits";
+    private const string HEADER_PERCENTAGE = "Percentage";
+
+    private Dictionary<string, (int visits, double percentage)> _maps = new();
+    private string _sortColumn = HEADER_PERCENTAGE;
     private bool _ascending = false;
 
     protected override void OnInitialized()
@@ -41,7 +46,12 @@
 
     private void Refresh()
     {
-        _maps = DataGetter.GetMaps(FileDeserializer.Data);
+        _ = InvokeAsync(() =>
+        {
+            _maps = DataGetter.GetMaps(FileDeserializer.Data);
+            Sort();
+            StateHasChanged();
+        });
     }
 
     public void Dispose()
@@ -53,14 +63,13 @@
     {
         _maps = DataGetter.GetMaps(FileDeserializer.Data);
         Sort();
+        await InvokeAsync(StateHasChanged);
     }
 
     private void SortBy(string column)
     {
         if (_sortColumn == column)
-        {
             _ascending = !_ascending;
-        }
         else
         {
             _sortColumn = column;
@@ -68,13 +77,14 @@
         }
 
         Sort();
+        _ = InvokeAsync(StateHasChanged);
     }
 
     private void Sort()
     {
         _maps = _sortColumn switch
         {
-            "name" => _ascending
+            HEADER_NAME => _ascending
                 ? _maps.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
                 : _maps.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
             _ => _ascending

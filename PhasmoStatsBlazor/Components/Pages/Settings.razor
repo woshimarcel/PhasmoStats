@@ -12,14 +12,24 @@
 	<div>
 		<div class="section-header" style="margin-left: 10%">Brightness</div>
 		<div class="slidecontainer">
-			<div style="display: flex; margin-left: 5%; margin-right: 5%; align-items: center">
-				Dark
+			<div class="grid-split" style=" margin-left: 5%; margin-right: 5%; align-items: center; grid-template-columns: 10% auto 10%;">
+				<div style="text-align: right">Dark</div>
 				<input type="range" min="-1" max="101" class="slider" @bind="Brightness" @bind:event="oninput">
-				Light
+				<div style="text-align: left">Bright</div>
 			</div>
-			<div style="text-align: center">
-				@(Brightness == -1 ? "Blackout" : Brightness == 101 ? "Flashbang" : $"{Brightness}%")
+			<div style="text-align: center">@GetBrightnessText()</div>
+		</div>
+	</div>
+	<br />
+	<div>
+		<div class="section-header" style="margin-left: 10%">Background Transparency (Text)</div>
+		<div class="slidecontainer">
+			<div class="grid-split" style=" margin-left: 5%; margin-right: 5%; align-items: center; grid-template-columns: 10% auto 10%;">
+				<div style="text-align: right">Transparent</div>
+				<input type="range" min="0" max="100" class="slider" @bind="Alpha" @bind:event="oninput">
+				<div style="text-align: left">Solid</div>
 			</div>
+			<div style="text-align: center">@($"{Alpha}%" + (Alpha == 20 ? " (Default)" : ""))</div>
 		</div>
 	</div>
 	<hr />
@@ -81,8 +91,20 @@
 
 @code
 {
-	private static int _brightness = 20;
+	private static int _alpha = 20;
+	public int Alpha
+	{
+		get => _alpha;
+		set
+		{
+			if (_alpha == value)
+				return;
+			_alpha = value;
+			_ = UpdateAlpha();
+		}
+	}
 
+	private static int _brightness = 20;
 	public int Brightness
 	{
 		get => _brightness;
@@ -91,25 +113,40 @@
 			if (_brightness == value)
 				return;
 			_brightness = value;
-			_ = UpdateBackground();
+			_ = UpdateGradient();
 		}
 	}
 
-	private async Task UpdateBackground()
+	private async Task UpdateGradient()
 	{
 		await JS.InvokeVoidAsync("updateGradient", _brightness);
+	}
+
+	private async Task UpdateAlpha()
+	{
+		await JS.InvokeVoidAsync("updateAlpha", _alpha);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			await UpdateBackground();
+			await UpdateGradient();
+			await UpdateAlpha();
 		}
 	}
 
 	private void ChangeItemTier(ItemTierService.Items item, ItemTierService.Tiers tier)
 	{
 		ItemTierService.ChangeItemTier(item, tier);
+	}
+
+	private string GetBrightnessText()
+	{
+		if (Brightness == -1)
+			return "Blackout";
+		else if (Brightness == 101)
+			return "Flashbang";
+		return $"{Brightness}%" + (Brightness == 20 ? " (Default)" : "");
 	}
 }

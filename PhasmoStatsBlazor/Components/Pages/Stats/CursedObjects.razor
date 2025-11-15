@@ -5,9 +5,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th @onclick='() => SortByCursedObjects("name")'>Cursed Object</th>
-            <th @onclick='() => SortByCursedObjects("uses")'>Uses</th>
-            <th @onclick='() => SortByCursedObjects("percentage")'>Percentage</th>
+            <th @onclick='() => SortByCursedObjects(HEADER_CURSED_OBJECT)'>@SortIndicator.GetHeaderName(HEADER_CURSED_OBJECT, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
+            <th @onclick='() => SortByCursedObjects(HEADER_USES)'>@SortIndicator.GetHeaderName(HEADER_USES, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
+            <th @onclick='() => SortByCursedObjects(HEADER_USES_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_USES_PERCENTAGE, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
         </tr>
     </thead>
     <tbody>
@@ -31,9 +31,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th @onclick='() => SortByTarots("name")'>Card</th>
-            <th @onclick='() => SortByTarots("draws")'>Draws</th>
-            <th @onclick='() => SortByTarots("percentage")'>Percentage</th>
+            <th @onclick='() => SortByTarots(HEADER_CARD)'>@SortIndicator.GetHeaderName(HEADER_CARD, _sortColumnTarots, _ascendingTarots)</th>
+            <th @onclick='() => SortByTarots(HEADER_DRAWS)'>@SortIndicator.GetHeaderName(HEADER_DRAWS, _sortColumnTarots, _ascendingTarots)</th>
+            <th @onclick='() => SortByTarots(HEADER_DRAWS_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_DRAWS_PERCENTAGE, _sortColumnTarots, _ascendingTarots)</th>
         </tr>
     </thead>
     <tbody>
@@ -55,11 +55,22 @@
 
 @code 
 {
+    // Cursed Objects
+    private const string HEADER_CURSED_OBJECT = "Cursed Object";
+    private const string HEADER_USES = "Uses";
+    private const string HEADER_USES_PERCENTAGE = "Percentage";
+
+    // Tarot Cards
+    private const string HEADER_CARD = "Card";
+    private const string HEADER_DRAWS = "Draws";
+    private const string HEADER_DRAWS_PERCENTAGE = "Percentage";
+
+
     private Dictionary<string, (int uses, double percentage)> _cursedObjects = [];
     private Dictionary<string, (int draws, double percentage)> _tarots = [];
-    private string _sortColumnCursedObjects = "uses";
+    private string _sortColumnCursedObjects = HEADER_USES_PERCENTAGE;
     private bool _ascendingCursedObjects = false;
-    private string _sortColumnTarots = "draws";
+    private string _sortColumnTarots = HEADER_DRAWS_PERCENTAGE;
     private bool _ascendingTarots = false;
 
     protected override void OnInitialized()
@@ -69,8 +80,14 @@
 
     private void Refresh()
     {
-        _cursedObjects = DataGetter.GetCursedObjects(FileDeserializer.Data);
-        _tarots = DataGetter.GetTarots(FileDeserializer.Data);
+        _ = InvokeAsync(() =>
+        {
+            _cursedObjects = DataGetter.GetCursedObjects(FileDeserializer.Data);
+            Sort(_sortColumnCursedObjects, _ascendingCursedObjects, ref _cursedObjects);
+            _tarots = DataGetter.GetTarots(FileDeserializer.Data);
+            Sort(_sortColumnTarots, _ascendingTarots, ref _tarots);
+            StateHasChanged();
+        });
     }
 
     public void Dispose()
@@ -82,8 +99,8 @@
     {
         _cursedObjects = DataGetter.GetCursedObjects(FileDeserializer.Data);
         _tarots = DataGetter.GetTarots(FileDeserializer.Data);
-        Sort(_sortColumnCursedObjects, ref _ascendingCursedObjects, ref _cursedObjects);
-        Sort(_sortColumnTarots, ref _ascendingTarots, ref _tarots);
+        Sort(_sortColumnCursedObjects, _ascendingCursedObjects, ref _cursedObjects);
+        Sort(_sortColumnTarots, _ascendingTarots, ref _tarots);
     }
 
     private void SortByCursedObjects(string column)
@@ -98,7 +115,7 @@
             _ascendingCursedObjects = true;
         }
 
-        Sort(_sortColumnCursedObjects, ref _ascendingCursedObjects, ref _cursedObjects);
+        Sort(_sortColumnCursedObjects, _ascendingCursedObjects, ref _cursedObjects);
     }
 
     private void SortByTarots(string column)
@@ -113,14 +130,14 @@
             _ascendingTarots = true;
         }
 
-        Sort(_sortColumnTarots, ref _ascendingTarots, ref _tarots);
+        Sort(_sortColumnTarots, _ascendingTarots, ref _tarots);
     }
 
-    private void Sort(string column, ref bool ascending, ref Dictionary<string, (int, double)> data)
+    private void Sort(string column, bool ascending, ref Dictionary<string, (int, double)> data)
     {
         data = column switch
         {
-            "name" => ascending
+            HEADER_CURSED_OBJECT or HEADER_CARD => ascending
                 ? data.OrderBy(x => x.Key).ToDictionary(k => k.Key, v => v.Value)
                 : data.OrderByDescending(x => x.Key).ToDictionary(k => k.Key, v => v.Value),
             _ => ascending
