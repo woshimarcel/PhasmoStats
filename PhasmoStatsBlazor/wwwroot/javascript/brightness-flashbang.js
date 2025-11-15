@@ -1,8 +1,6 @@
 ﻿window.updateGradient = (value) => {
-    console.log("updateGradient:", value);
     const el = document.querySelector(".page");
     if (!el) {
-        console.warn("updateGradient: .page element not found");
         return;
     }
 
