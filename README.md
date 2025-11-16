@@ -11,7 +11,6 @@ PhasmoStats is an application for Phasmophobia nerds, professionals, casuals, ne
 <h2><br>Clarification</h2>
 The original save file is read, decrypted, and saved into a <b>new</b> file to prevent issues and avoid decrypting every time.
 This program does <b>NOT</b> modify the original save file (doing so is a bannable offense).
-<br>You will <b>NOT</b> be banned while using this program, as it only reads the file.
 
 <h2><br>What Stats can I look at?</h2>
 Some statistics in the app are also inside Phasmophobia.
