@@ -35,42 +35,10 @@ a:active {
 	color: #cf00cc;
 }
 
-th {
-	font-size: 1.3em;
-	color: black;
-	background: linear-gradient(#BDA873 92%, #000 92%);
-	user-select: none;
-	position: sticky;
-	top: 0;
-}
-
-tr {
-	border-bottom: 1px solid;
-	background-color: #C9C19B;
-}
-
-table tr:hover td {
-	background-color: rgba(240, 240, 240, 0.7);
-}
-
-tr:nth-child(even) {
-	background: #AFA889;
-}
-
 .center-flex {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-table {
-	text-align: center;
-	vertical-align: middle;
-	table-layout: fixed;
-	width: 94% !important;
-	margin: 0 auto;
-	margin-bottom: 7em !important;
-	border-collapse: collapse;
 }
 
 .wiki-container {
@@ -170,7 +138,14 @@ hr {
 .wiki-table {
 	font-size: 0.85em;
 	margin-bottom: 0 !important;
+	text-align: center;
+	vertical-align: middle;
 }
+
+	.wiki-table td, .wiki-table th {
+		padding-left: 1.5rem !important;
+		padding-right: 1.5rem !important;
+	}
 
 .evidence-text {
 	font-size: 1.8em;
@@ -409,3 +384,42 @@ hr {
 .items-divider {
 	width: 70%;
 }
+
+.stats-table {
+	color: #DDDDDD;
+	text-align: center;
+	vertical-align: middle;
+	table-layout: fixed;
+	width: 94% !important;
+	margin: 0 auto;
+	margin-bottom: 7em !important;
+	border-collapse: collapse;
+}
+
+	.stats-table th {
+		font-size: 1.6rem;
+		background: linear-gradient(#141414 92%, #333333 92%);
+		user-select: none;
+		position: sticky;
+		top: -1px;
+	}
+
+	.stats-table tr {
+		height: 6vh;
+		font-size: 1.35rem;
+		background: #222222;
+	}
+
+		.stats-table tr:nth-child(even) {
+			background: #2A2A2A;
+		}
+
+		.stats-table tr:nth-child(n+2) {
+			border-top: 3px solid #333333;
+		}
+
+		.stats-table tr:hover td {
+			background: #4B4B4B;
+			color: #dd00ff;
+		}
+

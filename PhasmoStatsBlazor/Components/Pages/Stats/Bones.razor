@@ -3,12 +3,12 @@
 
 <h1 class="header-text stats-header">Bones</h1>
 
-<table class="table">
+<table class="stats-table">
     <thead>
         <tr>
             <th @onclick='() => SortBy(HEADER_NAME)'>@SortIndicator.GetHeaderName(HEADER_NAME, _sortColumn, _ascending)</th>
             <th @onclick='() => SortBy(HEADER_COLLECTED)'>@SortIndicator.GetHeaderName(HEADER_COLLECTED, _sortColumn, _ascending)</th>
-            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
+            <th title="Collects as a percentage of your total collects" @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>
@@ -44,7 +44,7 @@
     private const string HEADER_PERCENTAGE = "Percentage";
 
     private Dictionary<string, (int collected, double percentage)> _bones = [];
-    private string _sortColumn = HEADER_COLLECTED;
+    private string _sortColumn = HEADER_PERCENTAGE;
     private bool _ascending = false;
 
     protected override void OnInitialized()
