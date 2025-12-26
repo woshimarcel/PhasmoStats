@@ -138,7 +138,14 @@ hr {
 .wiki-table {
 	font-size: 0.85em;
 	margin-bottom: 0 !important;
+	text-align: center;
+	vertical-align: middle;
 }
+
+	.wiki-table td, .wiki-table th {
+		padding-left: 1.5rem !important;
+		padding-right: 1.5rem !important;
+	}
 
 .evidence-text {
 	font-size: 1.8em;
