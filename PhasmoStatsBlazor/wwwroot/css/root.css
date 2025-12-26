@@ -1,0 +1,16 @@
+﻿:root {
+    --dark-background-text-color: #DDDDDD;
+}
+
+body {
+    font-size: 1.3em;
+}
+
+.page-margin {
+    margin: 6rem 2rem 60rem 2rem;
+}
+
+.page-height {
+    height: auto;
+    min-height: 100vh
+}

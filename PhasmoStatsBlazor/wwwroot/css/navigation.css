@@ -16,20 +16,20 @@
     gap: 0.8rem;
     overflow: hidden;
     max-width: 64px;
-    transition: max-width .8s ease;
+    transition: max-width 1.6s ease;
     background: transparent;
     padding: 0.5rem 1rem;
     border-radius: 10px;
 }
 
     .navigation-item:hover {
-        max-width: 200px;
+        max-width: 500px;
     }
 
 .navigation-hidden {
     white-space: nowrap;
     opacity: 0;
-    transition: opacity .3s ease;
+    transition: opacity 0.3s ease;
     color: var(--dark-background-text-color);
 }
 
@@ -47,4 +47,40 @@
     align-items: center;
     height: auto;
     padding: 2.25rem 0;
+}
+
+.navigation-subitem {
+    position: absolute;
+    top: 55px;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: auto;
+    background: #222;
+    border-radius: 15px;
+    min-width: 200px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+}
+
+    .navigation-subitem * {
+        text-decoration: none;
+        display: inline;
+        color: var(--dark-background-text-color);
+    }
+
+        .navigation-subitem * img {
+            margin-left: 0.5rem;
+        }
+
+        .navigation-subitem *:hover {
+            background: #4B4B4B;
+        }
+
+        .navigation-subitem *:hover * {
+            color: #dd00ff;
+        }
+
+.navigation-item:hover .navigation-subitem {
+    display: flex;
 }
