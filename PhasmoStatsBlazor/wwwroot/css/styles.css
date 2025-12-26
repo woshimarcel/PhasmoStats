@@ -125,10 +125,10 @@ hr {
 
 .text-section {
 	background-color: rgba(255, 255, 255, var(--text-section-alpha, 0.20));
-	margin-right: 4%;
 	border-radius: 20px;
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
+	margin: 0 auto 0 auto;
 }
 
 .grid-split {
