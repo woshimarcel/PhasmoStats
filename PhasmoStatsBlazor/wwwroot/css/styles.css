@@ -1,4 +1,8 @@
-﻿body {
+﻿:root {
+	--dark-background-text-color: #DDDDDD;
+}
+
+body {
 	font-size: 1.3em;
 }
 
@@ -386,7 +390,7 @@ hr {
 }
 
 .stats-table {
-	color: #DDDDDD;
+	color: var(--dark-background-text-color);
 	text-align: center;
 	vertical-align: middle;
 	table-layout: fixed;
@@ -422,4 +426,3 @@ hr {
 			background: #4B4B4B;
 			color: #dd00ff;
 		}
-

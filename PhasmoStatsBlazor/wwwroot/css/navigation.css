@@ -1,0 +1,49 @@
+﻿.navigation {
+    display: flex;
+    gap: 1rem;
+    user-select: none;
+    margin-left: 3.5rem;
+}
+
+.navigation-title {
+    margin: 0 3rem 0 auto;
+}
+
+.navigation-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    overflow: hidden;
+    max-width: 64px;
+    transition: max-width .8s ease;
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
+    .navigation-item:hover {
+        max-width: 200px;
+    }
+
+.navigation-hidden {
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity .3s ease;
+    color: var(--dark-background-text-color);
+}
+
+.navigation-item:hover .navigation-hidden {
+    opacity: 1;
+}
+
+.navigation-icon {
+    width: 32px;
+    height: auto;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 2.25rem 0;
+}
