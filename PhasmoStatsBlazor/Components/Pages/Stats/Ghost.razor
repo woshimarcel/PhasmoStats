@@ -8,9 +8,9 @@
         <tr>
             <th @onclick='() => SortBy(HEADER_GHOST)'>@SortIndicator.GetHeaderName(HEADER_GHOST, _sortColumn, _ascending)</th>
             <th @onclick='() => SortBy(HEADER_SIGHTINGS)'>@SortIndicator.GetHeaderName(HEADER_SIGHTINGS, _sortColumn, _ascending)</th>
-            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
+            <th title="Sightings as a percentage of your total sightings" @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
             <th @onclick='() => SortBy(HEADER_DEATHS)'>@SortIndicator.GetHeaderName(HEADER_DEATHS, _sortColumn, _ascending)</th>
-            <th @onclick='() => SortBy(HEADER_RATIO)'>@SortIndicator.GetHeaderName(HEADER_RATIO, _sortColumn, _ascending)</th>
+            <th title="'Sightings/Death Ratio' - your chance to die when meeting this ghost" @onclick='() => SortBy(HEADER_RATIO)'>@SortIndicator.GetHeaderName(HEADER_RATIO, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>

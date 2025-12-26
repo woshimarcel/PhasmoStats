@@ -9,7 +9,7 @@
         <tr>
             <th @onclick='() => SortBy(HEADER_NAME)'>@SortIndicator.GetHeaderName(HEADER_NAME, _sortColumn, _ascending)</th>
             <th @onclick='() => SortBy(HEADER_VISITS)'>@SortIndicator.GetHeaderName(HEADER_VISITS, _sortColumn, _ascending)</th>
-            <th @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
+            <th title="Visits as a percentage of your total visits" @onclick='() => SortBy(HEADER_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_PERCENTAGE, _sortColumn, _ascending)</th>
         </tr>
     </thead>
     <tbody>

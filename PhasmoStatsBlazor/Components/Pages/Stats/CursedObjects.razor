@@ -6,8 +6,8 @@
     <thead>
         <tr>
             <th @onclick='() => SortByCursedObjects(HEADER_CURSED_OBJECT)'>@SortIndicator.GetHeaderName(HEADER_CURSED_OBJECT, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
-            <th @onclick='() => SortByCursedObjects(HEADER_USES)'>@SortIndicator.GetHeaderName(HEADER_USES, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
-            <th @onclick='() => SortByCursedObjects(HEADER_USES_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_USES_PERCENTAGE, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
+            <th title="How often you've used a cursed object" @onclick='() => SortByCursedObjects(HEADER_USES)'>@SortIndicator.GetHeaderName(HEADER_USES, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
+            <th title="Uses as a percentage of your total uses" @onclick='() => SortByCursedObjects(HEADER_USES_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_USES_PERCENTAGE, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
         </tr>
     </thead>
     <tbody>
@@ -32,8 +32,8 @@
     <thead>
         <tr>
             <th @onclick='() => SortByTarots(HEADER_CARD)'>@SortIndicator.GetHeaderName(HEADER_CARD, _sortColumnTarots, _ascendingTarots)</th>
-            <th @onclick='() => SortByTarots(HEADER_DRAWS)'>@SortIndicator.GetHeaderName(HEADER_DRAWS, _sortColumnTarots, _ascendingTarots)</th>
-            <th @onclick='() => SortByTarots(HEADER_DRAWS_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_DRAWS_PERCENTAGE, _sortColumnTarots, _ascendingTarots)</th>
+            <th title="How often you've drawn a card" @onclick='() => SortByTarots(HEADER_DRAWS)'>@SortIndicator.GetHeaderName(HEADER_DRAWS, _sortColumnTarots, _ascendingTarots)</th>
+            <th title="Draws as a percentage of your total draws" @onclick='() => SortByTarots(HEADER_DRAWS_PERCENTAGE)'>@SortIndicator.GetHeaderName(HEADER_DRAWS_PERCENTAGE, _sortColumnTarots, _ascendingTarots)</th>
         </tr>
     </thead>
     <tbody>
