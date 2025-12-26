@@ -2,7 +2,7 @@
 @using Logic
 
 <h1 class="header-text stats-header">Cursed Objects</h1>
-<table class="table">
+<table class="stats-table">
     <thead>
         <tr>
             <th @onclick='() => SortByCursedObjects(HEADER_CURSED_OBJECT)'>@SortIndicator.GetHeaderName(HEADER_CURSED_OBJECT, _sortColumnCursedObjects, _ascendingCursedObjects)</th>
@@ -28,7 +28,7 @@
 </table>
 
 <h1 class="header-text stats-header" style="margin-top: -0.6em">Tarot Cards</h1>
-<table class="table">
+<table class="stats-table">
     <thead>
         <tr>
             <th @onclick='() => SortByTarots(HEADER_CARD)'>@SortIndicator.GetHeaderName(HEADER_CARD, _sortColumnTarots, _ascendingTarots)</th>
