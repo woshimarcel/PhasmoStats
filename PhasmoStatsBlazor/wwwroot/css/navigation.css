@@ -29,7 +29,7 @@
     gap: 0.8rem;
     overflow: hidden;
     max-width: 64px;
-    transition: max-width 1.6s ease;
+    transition: max-width 0.8s ease;
     background: transparent;
     padding: 0.5rem 1rem;
     border-radius: 10px;
@@ -42,7 +42,7 @@
 .navigation-hidden {
     white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.2s ease;
     color: var(--dark-background-text-color);
 }
 
@@ -65,7 +65,10 @@
 .navigation-subitem {
     position: absolute;
     top: 55px;
-    display: none;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
     flex-direction: column;
     gap: 0.5rem;
     width: auto;
@@ -74,6 +77,7 @@
     min-width: 200px;
     z-index: 1000;
     padding: 0.5rem 0;
+    transition: opacity 200ms ease, transform 200ms ease;
 }
 
     .navigation-subitem * {
@@ -95,5 +99,7 @@
         }
 
 .navigation-item:hover .navigation-subitem {
-    display: flex;
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
 }
