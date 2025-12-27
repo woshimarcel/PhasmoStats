@@ -5,8 +5,21 @@
     margin-left: 3.5rem;
 }
 
+.navigation-container {
+    z-index: 999;
+    position: sticky;
+    top: -1px;
+    display: flex;
+    padding: 1rem 0;
+    background: linear-gradient(90deg, #111 0%, #222 50%, #111 100%);
+    max-height: var(--navigation-height);
+}
+
 .navigation-title {
     margin: 0 3rem 0 auto;
+    text-shadow: 1px 1px 3.5px var(--highlight-text-color);
+    max-height: var(--navigation-height);
+    font-size: 2rem;
 }
 
 .navigation-item {
@@ -74,11 +87,11 @@
         }
 
         .navigation-subitem *:hover {
-            background: #4B4B4B;
+            background: var(--highlight-background-color);
         }
 
         .navigation-subitem *:hover * {
-            color: #dd00ff;
+            color: var(--highlight-text-color);
         }
 
 .navigation-item:hover .navigation-subitem {

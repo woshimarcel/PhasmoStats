@@ -397,7 +397,7 @@ hr {
 		background: linear-gradient(#141414 92%, #333333 92%);
 		user-select: none;
 		position: sticky;
-		top: -1px;
+		top: calc(var(--navigation-height) - 1px);
 	}
 
 	.stats-table tr {
@@ -415,6 +415,6 @@ hr {
 		}
 
 		.stats-table tr:hover td {
-			background: #4B4B4B;
-			color: #dd00ff;
+			background: var(--highlight-background-color);
+			color: var(--highlight-text-color);
 		}
