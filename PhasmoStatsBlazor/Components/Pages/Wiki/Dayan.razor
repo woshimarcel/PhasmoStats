@@ -1,0 +1,78 @@
+﻿@page "/wiki/dayan"
+@using PhasmoStatsBlazor.Services
+
+<div class="wiki-container">
+	<img src="/Images/GhostIcons/spirit.webp" />
+	<div class="wiki-text">
+		<h1 class="header-text wiki-header">
+			Dayan
+		</h1>
+		<hr />
+		<div class="text-section">
+			<div class="grid-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/MediumSanity.png" />
+					<div class="threshold-text">50%</div>
+				</div>
+				<div class="wiki-info">Default</div>
+			</div>
+			<br />
+			<div class="grid-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/LowSanity.png" />
+					<div class="threshold-text">45%</div>
+				</div>
+				<div class="wiki-info">Standing still near the ghost</div>
+			</div>
+			<br />
+			<div class="grid-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">65%</div>
+				</div>
+				<div class="wiki-info">Moving near the ghost</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="grid-split">
+				<div class="sanity-container">
+					<img src="@ItemTierService.EmfPath" />
+					<div class="evidence-text emf-text">EMF 5</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.VideoPath" />
+					<div class="evidence-text orb-text">Ghost Orb</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.BoxPath" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Hunt<br /></div>
+			<div class="wiki-info">
+				When a player is within 10 metres of the Dayan, whether on the same floor or not, 
+				the ghost will move at a fixed speed of 2.25 m/s if the player moves, 
+				or at a fixed speed of 1.2 m/s if the player is still. 
+				<br />
+				If there is no player within 10 metres, the Dayan will follow standard ghost speed with one particularity: 
+				if the Dayan has line-of-sight with a player within 10 metres, 
+				the speed increase from continuous line-of-sight adds in the background, 
+				and will only be applied once it is no longer near any player.
+			</div>
+			<br />
+			<div class="section-header">Miscellaneous<br /></div>
+			<div class="wiki-info">
+				The Dayan can only be female.
+			</div>
+			<br />
+		</div>
+	</div>
+</div>

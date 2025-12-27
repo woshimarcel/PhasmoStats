@@ -1,0 +1,131 @@
+﻿@page "/wiki/gallu"
+@using PhasmoStatsBlazor.Services
+
+<div class="wiki-container">
+	<img src="/Images/GhostIcons/spirit.webp" />
+	<div class="wiki-text">
+		<h1 class="header-text wiki-header">
+			Gallu
+		</h1>
+		<hr />
+		<div class="text-section">
+			<div class="grid-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/MediumSanity.png" />
+					<div class="threshold-text">50%</div>
+				</div>
+				<div class="wiki-info">Normal state</div>
+			</div>
+			<br />
+			<div class="grid-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/LowSanity.png" />
+					<div class="threshold-text">40%</div>
+				</div>
+				<div class="wiki-info">Weakened state</div>
+			</div>
+			<br />
+			<div class="grid-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">60%</div>
+				</div>
+				<div class="wiki-info">Enraged state</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="grid-split">
+				<div class="sanity-container">
+					<img src="@ItemTierService.EmfPath" />
+					<div class="evidence-text emf-text">EMF 5</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.BoxPath" />
+					<div class="evidence-text box-text">Spirit Box</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.UvPath" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Behaviour<br /></div>
+			<div class="wiki-info">
+				The Gallu cannot disturb salt piles while in its enraged state.
+			</div>
+			<br />
+			<div class="section-header">Abilities<br /></div>
+			<div class="wiki-info">
+				The Gallu has three states it can switch to: "normal", "enraged", and "weakened". 
+				By default, it starts in the normal state, where it behaves like a standard ghost. 
+
+				<br /><br />
+				It will change from the normal state to the enraged state or from the weakened state to the normal state:
+				<ul>
+					<li>instantly after burning a crucifix</li>
+					<li>instantly after the end of the incense's blinding effect during a hunt</li>
+					<li>
+						after a certain amount of time equal to the duration of the last blinding effect of an incense after being affected by incense outside of a hunt
+						instantly if no incense were used during any previous hunts
+						<ul>
+							<li>4 seconds if the Gallu was last blinded while in an enraged state</li>
+							<li>5 seconds if the Gallu was last blinded while in a normal state</li>
+							<li>6 seconds if the Gallu was last blinded while in a weakened state</li>
+						</ul>
+					</li>
+					<li>2 seconds after stepping in salt if its current state is "normal"</li>
+					<li>3 seconds after stepping in salt if its current state is "weakened"</li>
+				</ul>
+				
+				<br />
+				The state changes cannot be queued. For example, a weakened Gallu stepping in a second salt pile 1 second after stepping into the first one will not make it change into the enraged state 1 second after changing into the normal state.
+			</div>
+			<br />
+			<div class="section-header">Hunt<br /></div>
+			<div class="wiki-info">
+				If a hunt ends while the Gallu is in its enraged state, it will instantly switch to the weakened state.
+
+				<br /><br />
+				The following table lists the Gallu's behavior depending on its current state:
+				<table class="wiki-table">
+					<thead>
+						<tr>
+							<th>Behaviour</th>
+							<th>Normal state</th>
+							<th>Enraged State</th>
+							<th>Weakened State</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Crucifix range</th>
+							<td>Standard</td>
+							<td>-2 meters</td>
+							<td>+1 meter</td>
+						</tr>
+						<tr>
+							<th>Hunt base speed</th>
+							<td>1.7m/s</td>
+							<td>1.96m/s</td>
+							<td>1.36m/s</td>
+						</tr>
+						<tr>
+							<th>Incence's blinding effect</th>
+							<td>5 seconds</td>
+							<td>4 seconds</td>
+							<td>6 seconds</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
