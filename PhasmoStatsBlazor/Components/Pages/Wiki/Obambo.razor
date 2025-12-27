@@ -1,0 +1,66 @@
+﻿@page "/wiki/obambo"
+@using PhasmoStatsBlazor.Services
+
+<div class="wiki-container">
+	<img src="/Images/GhostIcons/spirit.webp" />
+	<div class="wiki-text">
+		<h1 class="header-text wiki-header">
+			Obambo
+		</h1>
+		<hr />
+		<div class="text-section">
+			<div class="grid-split">
+				<span class="section-header">Hunting Threshold:</span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/LowSanity.png" />
+					<div class="threshold-text">10%</div>
+				</div>
+				<div class="wiki-info">Calm state</div>
+			</div>
+			<br />
+			<div class="grid-split">
+				<span></span>
+				<div class="sanity-container">
+					<img src="/Images/SanityIcons/HighSanity.png" />
+					<div class="threshold-text">65%</div>
+				</div>
+				<div class="wiki-info">Aggressive state</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<span class="section-header">Evidences</span>
+			<div class="grid-split">
+				<div class="sanity-container">
+					<img src="@ItemTierService.UvPath" />
+					<div class="evidence-text uv-text">UV</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.BookPath" />
+					<div class="evidence-text book-text">Writing</div>
+				</div>
+				<div class="sanity-container">
+					<img src="@ItemTierService.DotsPath" />
+					<div class="evidence-text dots-text">D.O.T.S.</div>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div class="text-section">
+			<div class="section-header">Behaviour<br /></div>
+			<div class="wiki-info">
+				The Obambo has two states: "calm" and "aggressive". It always starts in the calm state at the beginning of a contract before switching to the other state 1 minute after an exit door is opened for the first time, then every 2 minutes. The state switch can happen during a hunt.
+				<br />
+				Depending on its state, the Obambo will either have very high activity (aggressive) or low activity (calm).
+			</div>
+			<br />
+			<div class="section-header">Hunt<br /></div>
+			<div class="wiki-info">
+				The Obambo will travel at a base speed of 1.45 m/s in its calm state and at a base speed of 1.96 m/s in its aggressive state.
+				<br /><br />
+				The hunt duration will be 20% shorter if the Obambo starts the hunt in the aggressive state. This will apply even if the ghost switches to the calm state mid-hunt.
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
