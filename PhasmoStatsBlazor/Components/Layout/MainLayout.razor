@@ -1,15 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
+<link rel="stylesheet" href="css/root.css">
+
 <div class="page">
-    <div class="sidebar">
+    <main class="page-height">
         <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-        </div>
-
-        <article class="content px-4">
+        <article class="page-margin">
             @Body
         </article>
     </main>

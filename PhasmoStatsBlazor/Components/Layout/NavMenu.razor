@@ -1,91 +1,57 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">PhasmoStats</a>
+﻿<link rel="stylesheet" href="css/navigation.css">
+
+<div class="navigation-container">
+    <div class="navigation">
+        <NavLink class="navigation-item" href="" Match="NavLinkMatch.All">
+            <img class="navigation-icon" src="/Images/NavigationIcons/home.png" />
+            <div class="navigation-hidden">Home</div>
+        </NavLink>
+        <NavLink class="navigation-item" href="settings" Match="NavLinkMatch.All">
+            <img class="navigation-icon" src="/Images/NavigationIcons/settings.png" />
+            <div class="navigation-hidden">Settings</div>
+        </NavLink>
+        <div class="navigation-item">
+            <img class="navigation-icon" src="/Images/NavigationIcons/stats.png" />
+            <div class="navigation-hidden">Stats</div>
+            <div class="navigation-subitem">
+                <NavLink href="stats/ghosts"><img class="bi" src="/Images/NavigationIcons/ghost.png"/><div>Ghosts</div></NavLink>
+                <NavLink href="stats/maps"><img class="bi" src="/Images/NavigationIcons/house.png"/><div>Maps</div></NavLink>
+                <NavLink href="stats/bones"><img class="bi" src="/Images/NavigationIcons/bone.png"/><div>Bones</div></NavLink>
+                <NavLink href="stats/cursed-objects"><img class="bi" src="/Images/NavigationIcons/ouija-board.png"/><div>Cursed Objects</div></NavLink>
+                <NavLink href="stats/case/player"><img class="bi" src="/Images/NavigationIcons/player.png"/><div>Case - Player</div></NavLink>
+                <NavLink href="stats/case/ghost"><img class="bi" src="/Images/NavigationIcons/ghost.png"/><div>Case - Ghost</div></NavLink>
+            </div>
+        </div>
+        <div class="navigation-item">
+            <img class="navigation-icon" src="/Images/NavigationIcons/wiki.png" />
+            <div class="navigation-hidden">Wiki</div>
+            <div class="navigation-subitem">
+                <NavLink href="wiki/spirit"><img class="bi" src="/Images/GhostIcons/spirit.webp"/><div>Spirit</div></NavLink>
+                <NavLink href="wiki/wraith"><img class="bi" src="/Images/GhostIcons/wraith.webp"/><div>Wraith</div></NavLink>
+                <NavLink href="wiki/phantom"><img class="bi" src="/Images/GhostIcons/phantom.webp"/><div>Phantom</div></NavLink>
+                <NavLink href="wiki/poltergeist"><img class="bi" src="/Images/GhostIcons/poltergeist.webp"/><div>Poltergeist</div></NavLink>
+                <NavLink href="wiki/banshee"><img class="bi" src="/Images/GhostIcons/banshee.webp"/><div>Banshee</div></NavLink>
+                <NavLink href="wiki/jinn"><img class="bi" src="/Images/GhostIcons/jinn.webp"/><div>Jinn</div></NavLink>
+                <NavLink href="wiki/mare"><img class="bi" src="/Images/GhostIcons/mare.webp"/><div>Mare</div></NavLink>
+                <NavLink href="wiki/revenant"><img class="bi" src="/Images/GhostIcons/revenant.webp"/><div>Revenant</div></NavLink>
+                <NavLink href="wiki/shade"><img class="bi" src="/Images/GhostIcons/shade.webp"/><div>Shade</div></NavLink>
+                <NavLink href="wiki/demon"><img class="bi" src="/Images/GhostIcons/demon.webp"/><div>Demon</div></NavLink>
+                <NavLink href="wiki/yurei"><img class="bi" src="/Images/GhostIcons/yurei.webp"/><div>Yurei</div></NavLink>
+                <NavLink href="wiki/oni"><img class="bi" src="/Images/GhostIcons/oni.webp"/><div>Oni</div></NavLink>
+                <NavLink href="wiki/yokai"><img class="bi" src="/Images/GhostIcons/yokai.webp"/><div>Yokai</div></NavLink>
+                <NavLink href="wiki/hantu"><img class="bi" src="/Images/GhostIcons/hantu.webp"/><div>Hantu</div></NavLink>
+                <NavLink href="wiki/goryo"><img class="bi" src="/Images/GhostIcons/goryo.webp"/><div>Goryo</div></NavLink>
+                <NavLink href="wiki/myling"><img class="bi" src="/Images/GhostIcons/myling.webp"/><div>Myling</div></NavLink>
+                <NavLink href="wiki/onryo"><img class="bi" src="/Images/GhostIcons/onryo.webp"/><div>Onryo</div></NavLink>
+                <NavLink href="wiki/twins"><img class="bi" src="/Images/GhostIcons/twins.webp"/><div>The Twins</div></NavLink>
+                <NavLink href="wiki/raiju"><img class="bi" src="/Images/GhostIcons/raiju.webp"/><div>Raiju</div></NavLink>
+                <NavLink href="wiki/obake"><img class="bi" src="/Images/GhostIcons/obake.webp"/><div>Obake</div></NavLink>
+                <NavLink href="wiki/mimic"><img class="bi" src="/Images/GhostIcons/mimic.webp"/><div>The Mimic</div></NavLink>
+                <NavLink href="wiki/moroi"><img class="bi" src="/Images/GhostIcons/moroi.webp"/><div>Moroi</div></NavLink>
+                <NavLink href="wiki/deogen"><img class="bi" src="/Images/GhostIcons/deogen.webp"/><div>Deogen</div></NavLink>
+                <NavLink href="wiki/thaye"><img class="bi" src="/Images/GhostIcons/thaye.webp"/><div>Thaye</div></NavLink>
+            </div>
+        </div>
     </div>
+    <div class="navigation-title header-text">PhasmoStats</div>
 </div>
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi" style="background-image: url(/Images/NavigationIcons/home.png);" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="settings" Match="NavLinkMatch.All">
-                <span class="bi" style="background-image: url(/Images/NavigationIcons/settings.png);" aria-hidden="true"></span> Settings
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleStats">
-                <span class="bi" style="background-image: url(/Images/NavigationIcons/stats.png);" aria-hidden="true"></span> Stats
-            </NavLink>
-
-            @if (_showStats)
-            {
-                <div class="ms-4 mt-1">
-                    <NavLink class="nav-link" href="stats/ghosts"><span class="bi" style="background-image: url(/Images/NavigationIcons/ghost.png);"></span>Ghosts</NavLink>
-                    <NavLink class="nav-link" href="stats/maps"><span class="bi" style="background-image: url(/Images/NavigationIcons/house.png);"></span>Maps</NavLink>
-                    <NavLink class="nav-link" href="stats/bones"><span class="bi" style="background-image: url(/Images/NavigationIcons/bone.png);"></span>Bones</NavLink>
-                    <NavLink class="nav-link" href="stats/cursed-objects"><span class="bi" style="background-image: url(/Images/NavigationIcons/ouija-board.png);"></span>Cursed Objects</NavLink>
-                    <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleStatsCase">
-                        <span class="bi" style="background-image: url(/Images/NavigationIcons/case.png);" aria-hidden="true"></span> Case
-                    </NavLink>
-                    @if (_showStatsCase)
-                    {
-                        <div class="ms-4 mt-1">
-                            <NavLink class="nav-link" href="stats/case/player"><span class="bi" style="background-image: url(/Images/NavigationIcons/player.png);"></span>Player</NavLink>
-                            <NavLink class="nav-link" href="stats/case/ghost"><span class="bi" style="background-image: url(/Images/NavigationIcons/ghost.png);"></span>Ghost</NavLink>
-                        </div>
-                    }
-                </div>
-            }
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link btn btn-link text-start w-100" @onclick="ToggleWiki">
-                <span class="bi" style="background-image: url(/Images/NavigationIcons/wiki.png);" aria-hidden="true"></span> Wiki
-            </NavLink>
-
-            @if (_showWiki)
-            {
-                <div class="ms-4 mt-1">
-                    <NavLink class="nav-link" href="wiki/spirit"><span class="bi" style="background-image: url(/Images/GhostIcons/spirit.webp);"></span>Spirit</NavLink>
-                    <NavLink class="nav-link" href="wiki/wraith"><span class="bi" style="background-image: url(/Images/GhostIcons/wraith.webp);"></span>Wraith</NavLink>
-                    <NavLink class="nav-link" href="wiki/phantom"><span class="bi" style="background-image: url(/Images/GhostIcons/phantom.webp);"></span>Phantom</NavLink>
-                    <NavLink class="nav-link" href="wiki/poltergeist"><span class="bi" style="background-image: url(/Images/GhostIcons/poltergeist.webp);"></span>Poltergeist</NavLink>
-                    <NavLink class="nav-link" href="wiki/banshee"><span class="bi" style="background-image: url(/Images/GhostIcons/banshee.webp);"></span>Banshee</NavLink>
-                    <NavLink class="nav-link" href="wiki/jinn"><span class="bi" style="background-image: url(/Images/GhostIcons/jinn.webp);"></span>Jinn</NavLink>
-                    <NavLink class="nav-link" href="wiki/mare"><span class="bi" style="background-image: url(/Images/GhostIcons/mare.webp);"></span>Mare</NavLink>
-                    <NavLink class="nav-link" href="wiki/revenant"><span class="bi" style="background-image: url(/Images/GhostIcons/revenant.webp);"></span>Revenant</NavLink>
-                    <NavLink class="nav-link" href="wiki/shade"><span class="bi" style="background-image: url(/Images/GhostIcons/shade.webp);"></span>Shade</NavLink>
-                    <NavLink class="nav-link" href="wiki/demon"><span class="bi" style="background-image: url(/Images/GhostIcons/demon.webp);"></span>Demon</NavLink>
-                    <NavLink class="nav-link" href="wiki/yurei"><span class="bi" style="background-image: url(/Images/GhostIcons/yurei.webp);"></span>Yurei</NavLink>
-                    <NavLink class="nav-link" href="wiki/oni"><span class="bi" style="background-image: url(/Images/GhostIcons/oni.webp);"></span>Oni</NavLink>
-                    <NavLink class="nav-link" href="wiki/yokai"><span class="bi" style="background-image: url(/Images/GhostIcons/yokai.webp);"></span>Yokai</NavLink>
-                    <NavLink class="nav-link" href="wiki/hantu"><span class="bi" style="background-image: url(/Images/GhostIcons/hantu.webp);"></span>Hantu</NavLink>
-                    <NavLink class="nav-link" href="wiki/goryo"><span class="bi" style="background-image: url(/Images/GhostIcons/goryo.webp);"></span>Goryo</NavLink>
-                    <NavLink class="nav-link" href="wiki/myling"><span class="bi" style="background-image: url(/Images/GhostIcons/myling.webp);"></span>Myling</NavLink>
-                    <NavLink class="nav-link" href="wiki/onryo"><span class="bi" style="background-image: url(/Images/GhostIcons/onryo.webp);"></span>Onryo</NavLink>
-                    <NavLink class="nav-link" href="wiki/twins"><span class="bi" style="background-image: url(/Images/GhostIcons/twins.webp);"></span>The Twins</NavLink>
-                    <NavLink class="nav-link" href="wiki/raiju"><span class="bi" style="background-image: url(/Images/GhostIcons/raiju.webp);"></span>Raiju</NavLink>
-                    <NavLink class="nav-link" href="wiki/obake"><span class="bi" style="background-image: url(/Images/GhostIcons/obake.webp);"></span>Obake</NavLink>
-                    <NavLink class="nav-link" href="wiki/mimic"><span class="bi" style="background-image: url(/Images/GhostIcons/mimic.webp);"></span>The Mimic</NavLink>
-                    <NavLink class="nav-link" href="wiki/moroi"><span class="bi" style="background-image: url(/Images/GhostIcons/moroi.webp);"></span>Moroi</NavLink>
-                    <NavLink class="nav-link" href="wiki/deogen"><span class="bi" style="background-image: url(/Images/GhostIcons/deogen.webp);"></span>Deogen</NavLink>
-                    <NavLink class="nav-link" href="wiki/thaye"><span class="bi" style="background-image: url(/Images/GhostIcons/thaye.webp);"></span>Thaye</NavLink>
-                </div>
-            }
-        </div>
-    </nav>
-</div>
-
-@code 
-{
-    private bool _showStats = false;
-    private bool _showWiki = false;
-    private bool _showStatsCase = false;
-
-    private void ToggleStats() => _showStats = !_showStats;
-    private void ToggleWiki() => _showWiki = !_showWiki;
-    private void ToggleStatsCase() => _showStatsCase = !_showStatsCase;
-}

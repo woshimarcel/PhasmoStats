@@ -1,0 +1,19 @@
+﻿:root {
+    --dark-background-text-color: #DDDDDD;
+    --highlight-text-color: #DD00FF;
+    --highlight-background-color: #4B4B4B;
+    --navigation-height: 80px;
+}
+
+body {
+    font-size: 1.3em;
+}
+
+.page-margin {
+    margin: 6rem 2rem 50rem 2rem;
+}
+
+.page-height {
+    height: auto;
+    min-height: 100vh
+}

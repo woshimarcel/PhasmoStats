@@ -1,0 +1,105 @@
+﻿.navigation {
+    display: flex;
+    gap: 1rem;
+    user-select: none;
+    margin-left: 3.5rem;
+}
+
+.navigation-container {
+    z-index: 999;
+    position: sticky;
+    top: -1px;
+    display: flex;
+    padding: 1rem 0;
+    background: linear-gradient(90deg, #111 0%, #222 50%, #111 100%);
+    max-height: var(--navigation-height);
+}
+
+.navigation-title {
+    margin: 0 3rem 0 auto;
+    text-shadow: 1px 1px 3.5px var(--highlight-text-color);
+    max-height: var(--navigation-height);
+    font-size: 2rem;
+}
+
+.navigation-item {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    overflow: hidden;
+    max-width: 64px;
+    transition: max-width 0.8s ease;
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+}
+
+    .navigation-item:hover {
+        max-width: 500px;
+    }
+
+.navigation-hidden {
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: var(--dark-background-text-color);
+}
+
+.navigation-item:hover .navigation-hidden {
+    opacity: 1;
+}
+
+.navigation-icon {
+    width: 32px;
+    height: auto;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    height: auto;
+    padding: 2.25rem 0;
+}
+
+.navigation-subitem {
+    position: absolute;
+    top: 55px;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    flex-direction: column;
+    gap: 0.5rem;
+    width: auto;
+    background: #222;
+    border-radius: 15px;
+    min-width: 200px;
+    z-index: 1000;
+    padding: 0.5rem 0;
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+    .navigation-subitem * {
+        text-decoration: none;
+        display: inline;
+        color: var(--dark-background-text-color);
+    }
+
+        .navigation-subitem * img {
+            margin-left: 0.5rem;
+        }
+
+        .navigation-subitem *:hover {
+            background: var(--highlight-background-color);
+        }
+
+        .navigation-subitem *:hover * {
+            color: var(--highlight-text-color);
+        }
+
+.navigation-item:hover .navigation-subitem {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
