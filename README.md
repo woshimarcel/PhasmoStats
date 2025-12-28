@@ -38,9 +38,9 @@ All Fonts inside in the app are free to use.
 
 <h2><br>Images</h2>
 <h3>Stats Page</h3>
-<img width="1498" height="907" alt="image" src="https://github.com/user-attachments/assets/f2481d75-9edd-4187-8343-e9258754430d" />
-<img width="1483" height="1000" alt="image" src="https://github.com/user-attachments/assets/2f280538-3992-4f63-a9f9-4cb1d1df8925" />
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/61a266d5-9ba8-4c58-9d25-8f35117f1452" />
+<img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/88606c73-c009-4dc4-bb4b-41da46e7db9e" />
 <h3 id="wiki-page-images">Wiki Page</h3>
 <img width="1581" height="2220" alt="image" src="https://github.com/user-attachments/assets/ac10bd09-0be5-47e3-8deb-cf2583316020" />
 
-<h1><br><a href="https://github.com/woshimarcel/PhasmoStats/releases/tag/v3.2.0">Download the latest version here!</a></h1>
+<h1><br><a href="https://github.com/woshimarcel/PhasmoStats/releases/tag/v3.3.0">Download the latest version here!</a></h1>
